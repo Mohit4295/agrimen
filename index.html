@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriQuest - Farming for the Future</title>
+    <meta name="description" content="A revolutionary gamified platform that empowers farmers to embrace sustainable practices through engaging challenges, meaningful rewards, and a thriving community.">
+    <meta name="author" content="AgriQuest">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="AgriQuest - Farming for the Future">
+    <meta property="og:description" content="A revolutionary gamified platform that empowers farmers to embrace sustainable practices through engaging challenges, meaningful rewards, and a thriving community.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@lovable_dev">
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png">
+
+    <!-- Google Translate API -->
+    <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,hi,ml',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <!-- Leaflet CSS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styl.css">
+    <script src="script.js"></script>
+    
+    <style>
+    /* Google Translate in Navigation */
+    .nav-translate {
+        display: inline-block;
+        margin-left: 15px;
+        vertical-align: middle;
+    }
+
+    .nav-translate .goog-te-combo {
+        border: 1px solid var(--border);
+        border-radius: 9999px;
+        padding: 0.35rem 0.75rem;
+        font-size: 0.875rem;
+        background: transparent;
+        cursor: pointer;
+        color: var(--muted-foreground);
+    }
+
+    .nav-translate .goog-te-gadget {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        color: transparent;
+    }
+
+    .nav-translate .goog-te-gadget .goog-te-combo {
+        margin: 0;
+        color: var(--muted-foreground);
+    }
+
+    .nav-translate .goog-te-gadget span {
+        display: none;
+    }
+
+    .nav-translate .goog-te-gadget img {
+        display: none;
+    }
+
+    /* Make translate element responsive */
+    @media (max-width: 768px) {
+        .nav-translate {
+            display: block;
+            margin: 10px 0;
+        }
+    }
+
+    
+    </style>
+    <script type="text/javascript">
+    // Language Change Function
+    function changeLanguage(lang) {
+        var translateElement = document.querySelector('.goog-te-combo');
+        if (translateElement) {
+            translateElement.value = lang;
+            translateElement.dispatchEvent(new Event('change'));
+        }
+    }
+
+    // Google Translate Element Initialization
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,hi,ml',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+        }, 'google_translate_element');
+
+        // Set default to English on initialization
+        setTimeout(() => {
+            var translateSelect = document.querySelector('.goog-te-combo');
+            if (translateSelect) {
+                translateSelect.value = 'en';
+            }
+        }, 1000);
+    }
+
+    // Ensure language selector works
+    document.addEventListener('DOMContentLoaded', function() {
+        var languageSelector = document.getElementById('language-selector');
+        if (languageSelector) {
+            languageSelector.addEventListener('change', function() {
+                changeLanguage(this.value);
+            });
+        }
+    });
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</head>
+<body>
+ <!-- Header -->
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+            <!-- Logo -->
+            <div class="logo">
+                <div class="logo-icon">🌱</div>
+                <span class="logo-text">AgriQuest</span>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="nav">
+                <a href="#" class="nav-link">Blog</a>
+                <a href="#" class="nav-link">Mandi Prices</a>
+                <a href="#" class="nav-link">Schemes</a>
+                <a href="#" class="nav-link">Features</a>
+                <a href="#" class="nav-link">Leaderboard</a>
+                <a href="#" class="nav-link">Community</a>
+            </nav>
+
+            <!-- Language and Join Button -->
+            <!-- <div class="header-actions">
+                <div class="custom-language-dropdown">
+                    <select id="language-selector">
+                        <option value="en">English</option>
+                        <option value="hi">हिंदी</option>
+                        <option value="ml">മലയാളം</option>
+                    </select>
+                </div> -->
+
+                <div class="custom-language-dropdown">
+    <select id="language-selector" onchange="changeLanguage(this.value)">
+        <option value="en" class="notranslate">English</option>
+        <option value="hi" class="notranslate">हिंदी</option>
+        <option value="ml" class="notranslate">മലയാളം</option>
+    </select>
+</div>
+
+                <button class="join-btn">Join Now</button>
+            </div>
+        </div>
+    </div>
+    <!-- Hidden Google Translate Element -->
+    <div id="google_translate_element" style="display:none"></div>
+</header>
+
+
+    <!-- Hidden Google Translate Element -->
+    <div id="google_translate_element" style="display:none"></div>
+</header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Farming for the Future</h1>
+                <p class="hero-subtitle">
+                    A revolutionary gamified platform that empowers farmers to embrace 
+                    sustainable practices through engaging challenges, meaningful 
+                    rewards, and a thriving community.
+                </p>
+
+                <!-- Feature Icons -->
+                <div class="hero-features">
+                    <div class="feature-item">
+                        <div class="feature-icon yellow">🏆</div>
+                        <p>Win Challenges</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon green">🌱</div>
+                        <p>Sustainable Farming</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon purple">👥</div>
+                        <p>Join Community</p>
+                    </div>
+                </div>
+
+                <button class="cta-btn">Start Your Quest!</button>
+            </div>
+        </div>
+    </section>
+
+<section class="weather-section" id="weather-section">
+  <div class="container">
+    <h2 class="section-title">Kerala Weather Forecast</h2>
+
+
+    <!-- Current Weather -->
+    <div id="current-weather" class="weather-card" style="margin-bottom:1rem;">
+      Loading Kerala weather...
+    </div>
+
+    <!-- 5 Day Forecast -->
+    <div class="weather-grid" id="weatherGrid"></div>
+  </div>
+</section>
+
+    <!-- Mandi Prices -->
+    <section class="mandi-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Today's Mandi Prices</h2>
+                <p class="section-subtitle">
+                    Live rates from Kerala local market (per quintal). Updated regularly.
+                </p>
+                <div class="live-indicator">
+                    <div class="live-dot"></div>
+                    <span>Live</span>
+                </div>
+            </div>
+
+            <div class="mandi-table">
+                <div class="table-header">
+                    <div>Crop</div>
+                    <div>Variety</div>
+                    <div>Min Price (₹)</div>
+                    <div>Max Price (₹)</div>
+                    <div>Trend</div>
+                </div>
+                <div class="table-body" id="mandiPrices">
+                    <!-- Mandi prices will be generated by JavaScript -->
+                </div>
+            </div>
+
+            <p class="disclaimer">Prices may vary. Please check with local dealers.</p>
+        </div>
+    </section>
+
+
+    <!-- 🎮 Game/Quiz Section -->
+<section class="game-section">
+  <div class="container">
+    <h2 class="section-title">🎮 Farmer's Quiz</h2>
+    <p class="section-subtitle">Test your knowledge in <strong>English | हिंदी | മലയാളം</strong></p>
+
+    <!-- 🔽 Language Switcher -->
+    <label for="language" class="quiz-label">Choose Language: </label>
+    <select id="language" class="quiz-select">
+      <option value="en">English</option>
+      <option value="hi">हिंदी</option>
+      <option value="ml">മലയാളം</option>
+    </select>
+
+    <!-- 🪙 Scoreboard -->
+     <div class="quiz-scoreboard">
+      <span>🏅 Points: <span id="quiz-score">0</span></span>
+      <span>🪙 Coins: <span id="quiz-coins">0</span></span>
+    </div>
+
+    <div class="quiz-card">
+      <h3 id="quiz-question">Loading...</h3>
+      <div id="quiz-options" class="quiz-options"></div>
+      <div id="quiz-result" class="quiz-result"></div>
+      <button id="next-btn" class="quiz-btn">Next Question</button>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Impact Section -->
+    <section class="impact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title white">Our Impact</h2>
+                <p class="section-subtitle white">
+                    See how our platform is transforming agriculture and empowering farmers
+                </p>
+            </div>
+
+            <div class="stats-grid" id="statsGrid"></div>
+
+            <div class="impact-cta">
+                <p>Join thousands of farmers making a difference</p>
+                <button class="impact-btn">Get Started Today</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Farming Features -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Smart Farming Features</h2>
+         <div class="features-grid" id="featuresGrid"></div>
+        </div>
+    </section>
+
+    
+
+    <!-- Quest Section -->
+    <section class="quest-section">
+        <div class="container">
+            <h2 class="section-title">Quest of the Week</h2>
+            <div class="quest-card">
+                <div class="quest-header">
+                    <div class="quest-icon">🌿</div>
+                    <div class="quest-info">
+                        <h3>Implement Drip Irrigation</h3>
+                        <p>Save water and increase crop yield with efficient irrigation</p>
+                    </div>
+                    <div class="quest-reward">
+                        <span class="reward-points">+500 Points</span>
+                        <span class="reward-badge">🏆 Water Saver</span>
+                    </div>
+                </div>
+                <div class="quest-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                    <span class="progress-text">1,875/2,500 farmers completed</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rewards Section -->
+    <section class="rewards-section">
+        <div class="container">
+            <h2 class="section-title">Earn Real Rewards</h2>
+            <div class="rewards-grid" id="rewardsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title">What Farmers Say</h2>
+            <div class="testimonials-grid" id="testimonialsGrid"></div>
+        </div>
+    </section>
+
+<section class="schemes-section">
+  <div class="container">
+    <h2 class="section-title">Helpful Government Schemes</h2>
+    <p class="section-subtitle">
+      Explore government initiatives that can support your farming journey.
+    </p>
+
+    <div class="schemes-grid">
+      <!-- Scheme Card -->
+      <div class="scheme-card">
+        <div class="scheme-icon blue">
+          📄
+        </div>
+        <h3 class="scheme-title">PM-KISAN Scheme</h3>
+        <p class="scheme-desc">
+          Financial support of ₹6,000 per year for small and marginal farmers.
+        </p>
+     <a href="https://pmkisan.gov.in/" target="_blank" class="scheme-link">Official Website</a>
+</div>
+
+      <div class="scheme-card">
+        <div class="scheme-icon yellow">
+          🛡️
+        </div>
+        <h3 class="scheme-title">PM Fasal Bima Yojana</h3>
+        <p class="scheme-desc">
+          Crop insurance against yield losses due to natural calamities.
+        </p>
+        <a href="https://pmfby.gov.in/" target="_blank" class="scheme-link">Official Website</a>
+</div>
+      <div class="scheme-card">
+        <div class="scheme-icon red">
+          🧾
+        </div>
+        <h3 class="scheme-title">Soil Health Card</h3>
+        <p class="scheme-desc">
+          Provides farmers with information on soil nutrient status
+          and recommendations.
+        </p>
+        <a href="http://soilhealth.dac.gov.in/home" class="scheme-link">Official Website</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Knowledge Hub -->
+    <section class="knowledge-section">
+        <div class="container">
+            <h2 class="section-title">Knowledge Hub</h2>
+            <div class="knowledge-grid" id="knowledgeGrid"></div>
+        </div>
+    </section>
+
+    <!-- ✅ Kerala Community Map -->
+    <section class="community-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Kerala Farmers Community Map</h2>
+                <p class="section-subtitle">
+                    See where farmers across Kerala are making an impact.
+                </p>
+            </div>
+            <div class="map-container">
+                <div id="map" class="map"></div>
+                <div class="map-controls">
+                    <button id="locateBtn" class="locate-btn">📍 Find My Location</button>
+                    <div id="locationStatus" class="location-status"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get Started Steps -->
+    <section class="steps-section">
+        <div class="container">
+            <h2 class="section-title">Get Started in 4 Easy Steps</h2>
+            <div class="steps-grid" id="stepsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-icon">🌱</div>
+                        <span class="logo-text">AgriQuest</span>
+                    </div>
+                    <p>Empowering farmers through gamified sustainable agriculture.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <a href="#">Features</a>
+                    <a href="#">Pricing</a>
+                    <a href="#">Mobile App</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="#">Knowledge Hub</a>
+                    <a href="#">Weather</a>
+                    <a href="#">Mandi Prices</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="#">Help Center</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Community</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 AgriQuest. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Custom JS -->
+    <script src="main.js"></script>
+
+    <script>
+    // Ensure English is selected by default
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set default language to English
+        document.getElementById('language-selector').value = 'en';
+        
+        // Optional: Trigger Google Translate to English on page load
+        if (typeof google !== 'undefined' && google.translate) {
+            var select = document.querySelector('.goog-te-combo');
+            if (select) {
+                select.value = 'en';
+                select.dispatchEvent(new Event('change'));
+            }
+        }
+    });
+
+    // Function to change language
+    function changeLanguage(lang) {
+        var select = document.querySelector('.goog-te-combo');
+        if (select) {
+            select.value = lang;
+            select.dispatchEvent(new Event('change'));
+        }
+    }
+</script>
+
+
+</body>
+</html>

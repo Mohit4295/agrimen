@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kerala Crop Recommender</title>
+    
+    <!-- Load Google Translate script directly -->
+    <script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,hi,ml',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #d1fae5 100%);
+            min-height: 100vh;
+            padding: 20px;
+            top: 0 !important;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 40px; }
+        .header-title { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px; }
+        .header-title h1 { font-size: 2.5rem; color: #166534; }
+        .header p { font-size: 1.1rem; color: #4b5563; }
+        .card {
+            background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 40px; margin-bottom: 30px; position: relative;
+        }
+        
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom Language Dropdown */
+        .header-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15px;
+        }
+        
+        .custom-language-dropdown {
+            position: relative;
+            margin: 0 10px;
+        }
+        
+        .custom-language-dropdown select {
+            appearance: none;
+            background-color: white;
+            border: 1px solid #d1d5db;
+            border-radius: 9999px;
+            padding: 0.5rem 2rem 0.5rem 1rem;
+            font-size: 0.95rem;
+            color: #4b5563;
+            cursor: pointer;
+            font-family: inherit;
+            width: auto;
+            min-width: 120px;
+        }
+        
+        .custom-language-dropdown::after {
+            content: "▼";
+            font-size: 0.7rem;
+            color: #4b5563;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        
+        .custom-language-dropdown select:focus {
+            outline: none;
+            border-color: #16a34a;
+            box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.2);
+        }
+        
+        /* ========== GOOGLE TRANSLATE LOGO KILLER - FIXED ========== */
+        /* Hide Google Translate element completely */
+        #google_translate_element {
+            position: fixed !important;
+            bottom: -1000px !important;
+            left: -1000px !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            z-index: -9999 !important;
+        }
+        
+        /* Hide ALL Google branding */
+        .goog-te-banner-frame,
+        .goog-te-banner-frame.skiptranslate,
+        iframe.goog-te-banner-frame {
+            display: none !important;
+            visibility: hidden !important;
+            height: 0 !important;
+        }
+        
+        .skiptranslate:not(#google_translate_element) {
+            display: none !important;
+        }
+        
+        .goog-logo-link,
+        .goog-te-gadget-icon,
+        .goog-te-gadget img,
+        .goog-te-gadget-simple img {
+            display: none !important;
+            visibility: hidden !important;
+        }
+        
+        .goog-te-gadget {
+            color: transparent !important;
+            font-size: 0 !important;
+        }
+        
+        .goog-te-gadget-simple {
+            background-color: transparent !important;
+            border: none !important;
+        }
+        
+        .goog-te-gadget-simple .goog-te-menu-value span {
+            display: none !important;
+        }
+        
+        /* Hide Google spinner during loading */
+        .goog-te-spinner-pos {
+            display: none !important;
+        }
+        
+        div.skiptranslate iframe {
+            visibility: hidden !important;
+        }
+        
+        /* Kill any Google element that appears */
+        [class*="goog-"]:not(.notranslate) img {
+            display: none !important;
+        }
+        
+        /* Override any inline styles Google might add */
+        .goog-te-banner-frame.skiptranslate,
+        .goog-te-gadget-icon {
+            display: none !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
+            overflow: hidden !important;
+        }
+
+        /* ========== ADVANCED LOADING STYLES ========== */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        .loading-overlay.show {
+            display: flex;
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .loading-container {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            animation: slideUp 0.4s ease-out;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .loading-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+        
+        .loading-spinner {
+            width: 100%;
+            height: 100%;
+            border: 4px solid #e5e7eb;
+            border-top: 4px solid #16a34a;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: #16a34a;
+            border-radius: 50%;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(0.8); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.5; }
+        }
+        
+        .loading-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #166534;
+            margin-bottom: 10px;
+        }
+        
+        .loading-message {
+            font-size: 1rem;
+            color: #6b7280;
+            margin-bottom: 25px;
+            min-height: 24px;
+        }
+        
+        .progress-bar-container {
+            background: #e5e7eb;
+            border-radius: 12px;
+            height: 24px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #16a34a 0%, #22c55e 100%);
+            border-radius: 12px;
+            width: 0%;
+            transition: width 0.3s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .progress-percentage {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .loading-substatus {
+            font-size: 0.85rem;
+            color: #9ca3af;
+            font-style: italic;
+            animation: fadeInOut 2s ease-in-out infinite;
+        }
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        /* Individual Field Error Styling */
+        .field-error {
+            display: none;
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-left: 3px solid #dc2626;
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #991b1b;
+            animation: slideDown 0.3s ease-out;
+        }
+        .field-error.show {
+            display: block;
+        }
+        .field-error::before {
+            content: "⚠ ";
+            font-weight: bold;
+            color: #dc2626;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .auto-detect-banner {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-radius: 15px; padding: 20px; margin-bottom: 30px;
+            display: flex; align-items: center; justify-content: space-between; gap: 20px;
+        }
+        .auto-detect-info { flex: 1; }
+        .auto-detect-info h3 { color: #1e40af; font-size: 1.2rem; margin-bottom: 8px; }
+        .auto-detect-info p { color: #1e3a8a; font-size: 0.9rem; }
+        .btn-auto-detect {
+            background: #2563eb; color: white; border: none; padding: 12px 24px;
+            border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s;
+        }
+        .btn-auto-detect:hover { background: #1d4ed8; transform: translateY(-2px); }
+        .auto-filled-badge {
+            background: #86efac; color: #166534; padding: 4px 12px; border-radius: 20px;
+            font-size: 0.75rem; font-weight: 600; margin-left: 10px; display: none;
+        }
+        .auto-filled-badge.show { display: inline-block; }
+        .form-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px; margin-bottom: 30px;
+        }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group label { font-size: 0.9rem; font-weight: 600; color: #374151; margin-bottom: 8px; }
+        .form-group select, .form-group input {
+            padding: 12px 16px; border: 2px solid #d1d5db; border-radius: 10px; font-size: 1rem; transition: all 0.3s;
+        }
+        .form-group select:focus, .form-group input:focus {
+            outline: none; border-color: #16a34a; box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+        }
+        .form-group select.error, .form-group input.error {
+            border-color: #dc2626;
+            background-color: #fef2f2;
+        }
+        .btn-submit {
+            width: 100%; padding: 16px; background: #16a34a; color: white; border: none;
+            border-radius: 10px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s;
+        }
+        .btn-submit:hover {
+            background: #15803d; transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(22, 163, 74, 0.3);
+        }
+        .results { display: none; }
+        .results.show { display: block; }
+        .section-title { font-size: 1.8rem; font-weight: 700; color: #166534; margin-bottom: 25px; }
+        .crop-card {
+            border: 2px solid #bbf7d0; border-radius: 15px; padding: 25px; margin-bottom: 20px; transition: all 0.3s;
+        }
+        .crop-card:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.1); transform: translateY(-3px); }
+        .crop-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px; flex-wrap: wrap; }
+        .crop-name { font-size: 1.5rem; font-weight: 700; color: #1f2937; }
+        .suitability-badge { background: #dcfce7; color: #166534; padding: 8px 16px; border-radius: 20px; font-weight: 700; }
+        .crop-reason { color: #6b7280; margin-bottom: 20px; font-size: 1rem; }
+        .crop-details { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; font-size: 0.9rem; }
+        .detail-item { display: flex; flex-direction: column; }
+        .detail-label { font-weight: 600; color: #374151; margin-bottom: 5px; }
+        .detail-value { color: #6b7280; }
+        .tips-card {
+            background: linear-gradient(135deg, #fffbeb 0%, #fed7aa 100%);
+            border-radius: 20px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .tips-title { font-size: 1.8rem; font-weight: 700; color: #92400e; margin-bottom: 20px; }
+        .tips-list { list-style: none; }
+        .tips-list li { display: flex; align-items: start; gap: 15px; margin-bottom: 15px; color: #374151; }
+        .tip-bullet { width: 8px; height: 8px; background: #f97316; border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
+        .note-card { background: #eff6ff; border: 2px solid #bfdbfe; border-radius: 15px; padding: 20px; margin-top: 30px; }
+        .note-card p { color: #1e40af; font-size: 0.9rem; line-height: 1.6; }
+        @media (max-width: 768px) {
+            .header-title h1 { font-size: 1.8rem; }
+            .form-grid { grid-template-columns: 1fr; }
+            .card { padding: 20px; }
+            .auto-detect-banner { flex-direction: column; text-align: center; }
+            .loading-container { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hidden Google Translate Element -->
+    <div id="google_translate_element"></div>
+    
+    <!-- ADVANCED LOADING OVERLAY -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-container">
+            <div class="loading-icon">
+                <div class="loading-spinner"></div>
+                <div class="loading-pulse"></div>
+            </div>
+            <h2 class="loading-title" id="loadingTitle">Processing...</h2>
+            <p class="loading-message" id="loadingMessage">Initializing...</p>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="progress-percentage" id="progressPercentage">0%</div>
+            <p class="loading-substatus" id="loadingSubstatus">Please wait...</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="header-title">
+                <h1>🌱 Kerala Crop Recommender</h1>
+            </div>
+            <p>AI-powered crop recommendations for Kerala farmers</p>
+            <div class="header-actions">
+                <div class="custom-language-dropdown">
+                    <select id="language-selector" onchange="changeLanguage(this.value)">
+                        <option value="en" class="notranslate">English</option>
+                        <option value="hi" class="notranslate">हिंदी</option>
+                        <option value="ml" class="notranslate">മലയാളം</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="auto-detect-banner">
+            <div class="auto-detect-info">
+                <h3>🌍 Auto-Detect Live Data</h3>
+                <p>Automatically fill weather, rainfall, and month based on your location</p>
+            </div>
+            <button class="btn-auto-detect" id="autoDetectBtn">📡 Auto-Detect Location & Weather</button>
+        </div>
+
+        <div class="card">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>📍 District</label>
+                    <select id="district">
+                        <option value="">Select District</option>
+                        <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                        <option value="Kollam">Kollam</option>
+                        <option value="Pathanamthitta">Pathanamthitta</option>
+                        <option value="Alappuzha">Alappuzha</option>
+                        <option value="Kottayam">Kottayam</option>
+                        <option value="Idukki">Idukki</option>
+                        <option value="Ernakulam">Ernakulam</option>
+                        <option value="Thrissur">Thrissur</option>
+                        <option value="Palakkad">Palakkad</option>
+                        <option value="Malappuram">Malappuram</option>
+                        <option value="Kozhikode">Kozhikode</option>
+                        <option value="Wayanad">Wayanad</option>
+                        <option value="Kannur">Kannur</option>
+                        <option value="Kasaragod">Kasaragod</option>
+                    </select>
+                    <div class="field-error" id="districtError">Please select a district</div>
+                </div>
+
+                <div class="form-group">
+                    <label>🌱 Soil Type</label>
+                    <select id="soilType">
+                        <option value="">Select Soil Type</option>
+                        <option value="Laterite Soil">Laterite Soil</option>
+                        <option value="Alluvial Soil">Alluvial Soil</option>
+                        <option value="Black Cotton Soil">Black Cotton Soil</option>
+                        <option value="Red Soil">Red Soil</option>
+                        <option value="Coastal Sandy Soil">Coastal Sandy Soil</option>
+                        <option value="Forest Soil">Forest Soil</option>
+                    </select>
+                    <div class="field-error" id="soilTypeError">Please select soil type</div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        📅 Month
+                        <span class="auto-filled-badge" id="monthBadge">Auto-filled</span>
+                    </label>
+                    <select id="month">
+                        <option value="">Select Month</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                    <div class="field-error" id="monthError">Please select month</div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        💧 Average Rainfall (mm/month)
+                        <span class="auto-filled-badge" id="rainfallBadge">Auto-filled</span>
+                    </label>
+                    <input type="number" id="rainfall" placeholder="e.g., 250">
+                    <div class="field-error" id="rainfallError">Please enter average rainfall</div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        🌡 Average Temperature (°C)
+                        <span class="auto-filled-badge" id="temperatureBadge">Auto-filled</span>
+                    </label>
+                    <input type="number" id="temperature" placeholder="e.g., 28">
+                    <div class="field-error" id="temperatureError">Please enter average temperature</div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        🌡 Forecast Avg Temperature (next 16 days °C)
+                        <span class="auto-filled-badge" id="temperatureNextBadge">Auto-filled</span>
+                    </label>
+                    <input type="number" id="temperatureNext" placeholder="e.g., 29">
+                    <div class="field-error" id="temperatureNextError">Please enter forecast temperature</div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        💧 Forecast Rainfall (next 16 days mm)
+                        <span class="auto-filled-badge" id="rainfallNextBadge">Auto-filled</span>
+                    </label>
+                    <input type="number" id="rainfallNext" placeholder="e.g., 300">
+                    <div class="field-error" id="rainfallNextError">Please enter forecast rainfall</div>
+                </div>
+
+                <div class="form-group">
+                    <label>⚗ Soil pH</label>
+                    <input type="number" step="0.1" id="soilPH" placeholder="e.g., 6.5">
+                    <div class="field-error" id="soilPHError">Please enter soil pH</div>
+                </div>
+
+                <div class="form-group">
+                    <label>💦 Water Availability</label>
+                    <select id="waterAvailability">
+                        <option value="">Select Availability</option>
+                        <option value="High">High (Irrigation/Canal)</option>
+                        <option value="Medium">Medium (Well/Borewell)</option>
+                        <option value="Low">Low (Rain-fed only)</option>
+                    </select>
+                    <div class="field-error" id="waterAvailabilityError">Please select water availability</div>
+                </div>
+            </div>
+
+            <button class="btn-submit" id="submitBtn">📈 Get Crop Recommendations</button>
+        </div>
+
+        <div class="results" id="results">
+            <div class="card">
+                <h2 class="section-title">Recommended Crops</h2>
+                <div id="cropsContainer"></div>
+            </div>
+
+            <div class="tips-card">
+                <h2 class="tips-title">Farming Tips for Your Region</h2>
+                <ul class="tips-list" id="tipsList"></ul>
+            </div>
+
+            <div class="note-card">
+                <p>
+                    <strong>Note:</strong> These recommendations are based on general agricultural patterns in Kerala.
+                    For specific advice, please consult with Kerala Agricultural University (KAU) or your local Krishi Bhavan.
+                    Contact: Kerala Agricultural University - Ph: 0487-2438011 | Website: www.kau.in
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // ========== FORM AUTO-SAVE & RESTORE - METHOD 2 ==========
+        
+        (function() {
+            // Save form data to sessionStorage
+            function autoSaveForm() {
+                try {
+                    const data = {
+                        district: document.getElementById('district')?.value || '',
+                        soilType: document.getElementById('soilType')?.value || '',
+                        month: document.getElementById('month')?.value || '',
+                        rainfall: document.getElementById('rainfall')?.value || '',
+                        temperature: document.getElementById('temperature')?.value || '',
+                        temperatureNext: document.getElementById('temperatureNext')?.value || '',
+                        rainfallNext: document.getElementById('rainfallNext')?.value || '',
+                        soilPH: document.getElementById('soilPH')?.value || '',
+                        waterAvailability: document.getElementById('waterAvailability')?.value || '',
+                        timestamp: Date.now()
+                    };
+                    sessionStorage.setItem('__cropFormBackup__', JSON.stringify(data));
+                    console.log('💾 Auto-saved:', data);
+                } catch(e) {
+                    console.warn('Save failed:', e);
+                }
+            }
+            
+            // Restore form data from sessionStorage
+            function autoRestoreForm() {
+                try {
+                    const saved = sessionStorage.getItem('__cropFormBackup__');
+                    if (!saved) return;
+                    
+                    const data = JSON.parse(saved);
+                    
+                    // Check if data is recent (within 10 minutes)
+                    if (Date.now() - data.timestamp > 600000) {
+                        sessionStorage.removeItem('__cropFormBackup__');
+                        return;
+                    }
+                    
+                    console.log('📂 Restoring form data...');
+                    
+                    // Restore with delay to ensure DOM is ready
+                    setTimeout(() => {
+                        if (data.district) document.getElementById('district').value = data.district;
+                        if (data.soilType) document.getElementById('soilType').value = data.soilType;
+                        if (data.month) document.getElementById('month').value = data.month;
+                        if (data.rainfall) document.getElementById('rainfall').value = data.rainfall;
+                        if (data.temperature) document.getElementById('temperature').value = data.temperature;
+                        if (data.temperatureNext) document.getElementById('temperatureNext').value = data.temperatureNext;
+                        if (data.rainfallNext) document.getElementById('rainfallNext').value = data.rainfallNext;
+                        if (data.soilPH) document.getElementById('soilPH').value = data.soilPH;
+                        if (data.waterAvailability) document.getElementById('waterAvailability').value = data.waterAvailability;
+                        
+                        console.log('✅ Form restored!');
+                    }, 200);
+                    
+                } catch(e) {
+                    console.warn('Restore failed:', e);
+                }
+            }
+            
+            // Setup auto-save listeners
+            function setupAutoSave() {
+                const fieldIds = [
+                    'district', 'soilType', 'month', 'rainfall',
+                    'temperature', 'temperatureNext', 'rainfallNext',
+                    'soilPH', 'waterAvailability'
+                ];
+                
+                fieldIds.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.addEventListener('change', autoSaveForm);
+                        el.addEventListener('input', autoSaveForm);
+                    }
+                });
+                
+                console.log('🔄 Auto-save enabled');
+            }
+            
+            // Run on page load
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function() {
+                    autoRestoreForm();
+                    setTimeout(setupAutoSave, 500);
+                });
+            } else {
+                autoRestoreForm();
+                setTimeout(setupAutoSave, 500);
+            }
+            
+            // Save before page unload
+            window.addEventListener('beforeunload', autoSaveForm);
+            
+            // Save before language change (intercept)
+            window.addEventListener('hashchange', autoSaveForm);
+            
+        })();
+
+        // ========== GOOGLE LOGO KILLER - AGGRESSIVE ==========
+        // Kill Google logos immediately on page load
+        function killGoogleLogos() {
+            const selectors = [
+                '.goog-logo-link',
+                '.goog-te-gadget-icon', 
+                '.goog-te-gadget img',
+                '.goog-te-banner-frame',
+                '.skiptranslate:not(#google_translate_element)',
+                'iframe.goog-te-banner-frame',
+                '.goog-te-spinner-pos',
+                'div.skiptranslate iframe'
+            ];
+            
+            selectors.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(el => {
+                    el.style.display = 'none';
+                    el.style.visibility = 'hidden';
+                    el.style.opacity = '0';
+                    el.style.width = '0';
+                    el.style.height = '0';
+                    el.style.overflow = 'hidden';
+                    el.style.position = 'absolute';
+                    el.style.left = '-9999px';
+                });
+            });
+        }
+
+        // Run immediately
+        killGoogleLogos();
+
+        // Run continuously to catch any new elements
+        setInterval(killGoogleLogos, 50);
+
+        // Also run on various events
+        document.addEventListener('DOMContentLoaded', killGoogleLogos);
+        window.addEventListener('load', killGoogleLogos);
+        
+        // Watch for any new elements being added
+        const observer = new MutationObserver(killGoogleLogos);
+        observer.observe(document.body, { childList: true, subtree: true });
+
+        // Simple direct language change function that works reliably
+        function changeLanguage(langCode) {
+            console.log("Changing language to:", langCode);
+            
+            // Store in localStorage
+            localStorage.setItem('selectedLanguage', langCode);
+            
+            // Use this direct method for more reliable language switching
+            if (langCode === 'en') {
+                // For English, use the default language
+                location.href = window.location.pathname + '#googtrans(en|en)';
+            } else {
+                // For other languages
+                location.href = window.location.pathname + '#googtrans(en|' + langCode + ')';
+            }
+            
+            // Reload the page to ensure the translation takes effect
+            location.reload();
+        }
+        
+        // ========== PERFECT CONTINUOUS LOADING WITH RELEVANT MESSAGES ==========
+        class LoadingController {
+            constructor() {
+                this.overlay = document.getElementById('loadingOverlay');
+                this.title = document.getElementById('loadingTitle');
+                this.message = document.getElementById('loadingMessage');
+                this.progressBar = document.getElementById('progressBar');
+                this.percentage = document.getElementById('progressPercentage');
+                this.substatus = document.getElementById('loadingSubstatus');
+                this.currentProgress = 0;
+                this.progressInterval = null;
+                this.apiCompleted = false;
+                this.messages = {};
+            }
+
+            show(type = 'ai') {
+                this.overlay.classList.add('show');
+                this.currentProgress = 0;
+                this.apiCompleted = false;
+                this.updateProgress(0);
+                
+                // Define RELEVANT agricultural messages only
+                this.messages = {
+                    'ai': [
+                        { at: 3, msg: 'Initializing AI system...', sub: 'Starting agricultural analysis' },
+                        { at: 6, msg: 'Validating input parameters...', sub: 'Checking form data' },
+                        { at: 10, msg: 'Connecting to AI model...', sub: 'GPT-4 Agriculture Expert' },
+                        { at: 14, msg: 'Sending farm parameters...', sub: `District: ${document.getElementById('district').value || 'Kerala'}` },
+                        { at: 18, msg: 'Analyzing soil type...', sub: `${document.getElementById('soilType').value || 'Soil'} compatibility check` },
+                        { at: 22, msg: 'Processing pH levels...', sub: `pH ${document.getElementById('soilPH').value || '6.5'} analysis` },
+                        { at: 26, msg: 'Evaluating temperature...', sub: `${document.getElementById('temperature').value || '28'}°C conditions` },
+                        { at: 30, msg: 'Analyzing rainfall data...', sub: `${document.getElementById('rainfall').value || '250'}mm monthly average` },
+                        { at: 34, msg: 'Processing forecast data...', sub: 'Next 16 days predictions' },
+                        { at: 38, msg: 'Checking water resources...', sub: `${document.getElementById('waterAvailability').value || 'Water'} availability` },
+                        { at: 42, msg: 'Accessing crop database...', sub: 'Kerala agriculture repository' },
+                        { at: 46, msg: 'Matching suitable crops...', sub: 'Finding best matches' },
+                        { at: 50, msg: 'Calculating suitability...', sub: 'Processing 20-25 crops' },
+                        { at: 54, msg: 'Analyzing growth duration...', sub: 'Crop cycle calculations' },
+                        { at: 58, msg: 'Computing expected yields...', sub: 'Tonnage per hectare' },
+                        { at: 62, msg: 'Selecting best varieties...', sub: 'High-yield cultivars' },
+                        { at: 66, msg: 'Month-wise filtering...', sub: `${document.getElementById('month').value || 'Current month'} sowing window` },
+                        { at: 70, msg: 'Optimizing crop rotation...', sub: 'Sequential planting advice' },
+                        { at: 74, msg: 'Generating farming calendar...', sub: 'Sowing to harvest timeline' },
+                        { at: 78, msg: 'Creating irrigation schedule...', sub: 'Water management plan' },
+                        { at: 82, msg: 'Preparing fertilizer advice...', sub: 'NPK recommendations' },
+                        { at: 86, msg: 'Generating best practices...', sub: 'Location-specific tips' },
+                        { at: 90, msg: 'Finalizing recommendations...', sub: 'AI processing complete' },
+                        { at: 94, msg: 'Compiling results...', sub: 'Preparing your report' },
+                        { at: 97, msg: 'Almost ready...', sub: 'Formatting output' },
+                        { at: 99, msg: 'Loading results...', sub: 'Get ready!' }
+                    ],
+                    'weather': [
+                        { at: 5, msg: 'Connecting to weather service...', sub: 'Open-Meteo API' },
+                        { at: 15, msg: 'Locating coordinates...', sub: `${document.getElementById('district').value || 'District'} GPS location` },
+                        { at: 25, msg: 'Fetching past 30 days data...', sub: 'Historical weather' },
+                        { at: 40, msg: 'Processing temperature records...', sub: 'Daily min/max values' },
+                        { at: 55, msg: 'Calculating rainfall totals...', sub: 'Monthly accumulation' },
+                        { at: 70, msg: 'Getting 16-day forecast...', sub: 'Future predictions' },
+                        { at: 85, msg: 'Computing averages...', sub: 'Statistical analysis' },
+                        { at: 95, msg: 'Finalizing weather data...', sub: 'Almost done!' }
+                    ]
+                };
+                
+                if (type === 'weather') {
+                    this.title.textContent = '🌤️ Fetching Weather Data';
+                    this.message.textContent = 'Connecting to weather satellites...';
+                    this.substatus.textContent = 'Loading real-time data';
+                } else {
+                    this.title.textContent = '🤖 AI Analysis in Progress';
+                    this.message.textContent = 'Initializing AI model...';
+                    this.substatus.textContent = 'Starting analysis';
+                }
+                
+                this.startContinuousProgress(type);
+            }
+
+            // Continuous progress that NEVER stops
+            startContinuousProgress(type) {
+                const msgList = this.messages[type];
+                let messageIndex = 0;
+                
+                if (this.progressInterval) clearInterval(this.progressInterval);
+                
+                this.progressInterval = setInterval(() => {
+                    if (!this.apiCompleted) {
+                        // Dynamic speed based on progress
+                        let increment;
+                        if (this.currentProgress < 30) {
+                            increment = 0.8; // Fast start
+                        } else if (this.currentProgress < 60) {
+                            increment = 0.5; // Medium
+                        } else if (this.currentProgress < 80) {
+                            increment = 0.3; // Slower
+                        } else if (this.currentProgress < 95) {
+                            increment = 0.15; // Very slow
+                        } else if (this.currentProgress < 99) {
+                            increment = 0.05; // Ultra slow
+                        } else {
+                            increment = 0.01; // Barely moving but still moving
+                        }
+                        
+                        // Progress NEVER stops at 99.9%
+                        this.currentProgress = Math.min(this.currentProgress + increment, 99.9);
+                        
+                        // Update messages based on progress
+                        while (messageIndex < msgList.length && this.currentProgress >= msgList[messageIndex].at) {
+                            this.message.textContent = msgList[messageIndex].msg;
+                            this.substatus.textContent = msgList[messageIndex].sub;
+                            messageIndex++;
+                        }
+                        
+                        // If we've shown all messages but still waiting
+                        if (messageIndex >= msgList.length && this.currentProgress > 98) {
+                            const waitMessages = [
+                                'AI is processing complex data...',
+                                'Analyzing agricultural patterns...',
+                                'Please wait a moment...',
+                                'Finalizing recommendations...'
+                            ];
+                            const waitIndex = Math.floor((Date.now() / 3000) % waitMessages.length);
+                            this.substatus.textContent = waitMessages[waitIndex];
+                        }
+                        
+                        this.updateProgress(this.currentProgress);
+                    }
+                }, 100); // Update every 100ms for smooth animation
+            }
+
+            updateProgress(value) {
+                this.progressBar.style.width = `${value}%`;
+                this.percentage.textContent = `${Math.floor(value)}%`;
+            }
+
+            // API complete = instant jump to 100%
+            complete() {
+                this.apiCompleted = true;
+                clearInterval(this.progressInterval);
+                
+                // Instant jump to 100
+                this.currentProgress = 100;
+                this.updateProgress(100);
+                this.message.textContent = '✅ Complete!';
+                this.substatus.textContent = 'Loading your recommendations...';
+                
+                setTimeout(() => {
+                    this.hide();
+                }, 800);
+            }
+
+            hide() {
+                this.apiCompleted = true;
+                clearInterval(this.progressInterval);
+                this.overlay.classList.remove('show');
+                this.progressBar.style.width = '0%';
+                this.percentage.textContent = '0%';
+                this.currentProgress = 0;
+            }
+        }
+
+        const loadingController = new LoadingController();
+
+        // Function to show field-specific error
+        function showFieldError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            const errorEl = document.getElementById(fieldId + 'Error');
+            if (field) field.classList.add('error');
+            if (errorEl) {
+                errorEl.textContent = message;
+                errorEl.classList.add('show');
+            }
+        }
+
+        // Function to hide field-specific error
+        function hideFieldError(fieldId) {
+            const field = document.getElementById(fieldId);
+            const errorEl = document.getElementById(fieldId + 'Error');
+            if (field) field.classList.remove('error');
+            if (errorEl) errorEl.classList.remove('show');
+        }
+
+        // Validate field and auto-remove error
+        function validateFieldOnInput(fieldId) {
+            const field = document.getElementById(fieldId);
+            const value = field.value;
+            
+            if (value && value !== "") {
+                if (field.type === 'number') {
+                    const numValue = parseFloat(value);
+                    
+                    if (fieldId === 'temperature' || fieldId === 'temperatureNext') {
+                        if (numValue >= 10 && numValue <= 45) {
+                            hideFieldError(fieldId);
+                        } else {
+                            showFieldError(fieldId, `Temperature must be between 10°C and 45°C`);
+                        }
+                    } else if (fieldId === 'rainfall') {
+                        if (numValue >= 0 && numValue <= 2000) {
+                            hideFieldError(fieldId);
+                        } else {
+                            showFieldError(fieldId, `Rainfall must be between 0mm and 2000mm`);
+                        }
+                    } else if (fieldId === 'rainfallNext') {
+                        if (numValue >= 0 && numValue <= 1000) {
+                            hideFieldError(fieldId);
+                        } else {
+                            showFieldError(fieldId, `Rainfall must be between 0mm and 1000mm`);
+                        }
+                    } else if (fieldId === 'soilPH') {
+                        if (numValue >= 3.5 && numValue <= 9.0) {
+                            hideFieldError(fieldId);
+                        } else {
+                            showFieldError(fieldId, `Soil pH must be between 3.5 and 9.0`);
+                        }
+                    }   
+                } else {
+                    hideFieldError(fieldId);
+                }
+            }
+        }
+
+        // ADD EVENT LISTENERS TO ALL FIELDS
+        document.addEventListener('DOMContentLoaded', function() {
+            // Kill Google logos aggressively
+            killGoogleLogos();
+            
+            // Apply translation from localStorage
+            setTimeout(function() {
+                const savedLanguage = localStorage.getItem('selectedLanguage');
+                if (savedLanguage && savedLanguage !== 'en') {
+                    // Set the dropdown to match the stored language
+                    document.getElementById('language-selector').value = savedLanguage;
+                    
+                    // Check if we need to apply translation (if URL doesn't already have it)
+                    const currentHash = window.location.hash;
+                    if (!currentHash.includes('googtrans')) {
+                        window.location.hash = 'googtrans(en|' + savedLanguage + ')';
+                        window.location.reload();
+                    }
+                }
+            }, 500);
+            
+            // More aggressive Google element hiding
+            const killInterval = setInterval(function() {
+                const googleElements = document.querySelectorAll('[class*="goog-"], [id*="goog-"], iframe[src*="translate.google"]');
+                googleElements.forEach(el => {
+                    if (el.id !== 'google_translate_element') {
+                        el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important; width: 0 !important; height: 0 !important;';
+                    }
+                });
+            }, 100);
+            
+            // Stop after 10 seconds to save resources
+            setTimeout(() => clearInterval(killInterval), 10000);
+            
+            document.getElementById('district').addEventListener('change', function() {
+                validateFieldOnInput('district');
+            });
+            
+            document.getElementById('soilType').addEventListener('change', function() {
+                validateFieldOnInput('soilType');
+            });
+            
+            document.getElementById('month').addEventListener('change', function() {
+                validateFieldOnInput('month');
+            });
+            
+            document.getElementById('waterAvailability').addEventListener('change', function() {
+                validateFieldOnInput('waterAvailability');
+            });
+            
+            document.getElementById('rainfall').addEventListener('input', function() {
+                validateFieldOnInput('rainfall');
+            });
+            
+            document.getElementById('temperature').addEventListener('input', function() {
+                validateFieldOnInput('temperature');
+            });
+            
+            document.getElementById('temperatureNext').addEventListener('input', function() {
+                validateFieldOnInput('temperatureNext');
+            });
+            
+            document.getElementById('rainfallNext').addEventListener('input', function() {
+                validateFieldOnInput('rainfallNext');
+            });
+            
+            document.getElementById('soilPH').addEventListener('input', function() {
+                validateFieldOnInput('soilPH');
+            });
+        });
+
+    // ========== GOOGLE LOGO KILLER - AGGRESSIVE ==========
+    // function killGoogleLogos() {
+    //     const selectors = [
+    //         '.goog-logo-link',
+    //         '.goog-te-gadget-icon', 
+    //         '.goog-te-gadget img',
+    //         '.goog-te-banner-frame',
+    //         '.skiptranslate:not(#google_translate_element)',
+    //         'iframe.goog-te-banner-frame',
+    //         '.goog-te-spinner-pos',
+    //         'div.skiptranslate iframe'
+    //     ];
+        
+    //     selectors.forEach(selector => {
+    //         const elements = document.querySelectorAll(selector);
+    //         elements.forEach(el => {
+    //             el.style.display = 'none';
+    //             el.style.visibility = 'hidden';
+    //             el.style.opacity = '0';
+    //             el.style.width = '0';
+    //             el.style.height = '0';
+    //             el.style.overflow = 'hidden';
+    //             el.style.position = 'absolute';
+    //             el.style.left = '-9999px';
+    //         });
+    //     });
+    // }
+
+    // killGoogleLogos();
+    // setInterval(killGoogleLogos, 50);
+    // document.addEventListener('DOMContentLoaded', killGoogleLogos);
+    // window.addEventListener('load', killGoogleLogos);
+    
+    // const observer = new MutationObserver(killGoogleLogos);
+    // observer.observe(document.body, { childList: true, subtree: true });
+
+    // function changeLanguage(langCode) {
+    //     console.log("Changing language to:", langCode);
+    //     localStorage.setItem('selectedLanguage', langCode);
+        
+    //     if (langCode === 'en') {
+    //         location.href = window.location.pathname + '#googtrans(en|en)';
+    //     } else {
+    //         location.href = window.location.pathname + '#googtrans(en|' + langCode + ')';
+    //     }
+    //     location.reload();
+    // }
+    
+    // // ========== LOADING CONTROLLER WITH TIMEOUT ==========
+    // class LoadingController {
+    //     constructor() {
+    //         this.overlay = document.getElementById('loadingOverlay');
+    //         this.title = document.getElementById('loadingTitle');
+    //         this.message = document.getElementById('loadingMessage');
+    //         this.progressBar = document.getElementById('progressBar');
+    //         this.percentage = document.getElementById('progressPercentage');
+    //         this.substatus = document.getElementById('loadingSubstatus');
+    //         this.currentProgress = 0;
+    //         this.progressInterval = null;
+    //         this.apiCompleted = false;
+    //         this.messages = {};
+    //         this.timeoutId = null;
+    //     }
+
+    //     show(type = 'ai') {
+    //         this.overlay.classList.add('show');
+    //         this.currentProgress = 0;
+    //         this.apiCompleted = false;
+    //         this.updateProgress(0);
+            
+    //         this.timeoutId = setTimeout(() => {
+    //             if (!this.apiCompleted) {
+    //                 this.hide();
+    //                 alert("⏱️ Request timeout!\n\nPlease check:\n1. Server is running (node server.js)\n2. API key is correct in .env file\n3. Internet connection is active\n\nTerminal mein error dekho!");
+    //             }
+    //         }, 60000);
+            
+    //         this.messages = {
+    //             'ai': [
+    //                 { at: 3, msg: 'Initializing AI system...', sub: 'Starting agricultural analysis' },
+    //                 { at: 6, msg: 'Validating input parameters...', sub: 'Checking form data' },
+    //                 { at: 10, msg: 'Connecting to AI model...', sub: 'DeepSeek Agriculture Expert' },
+    //                 { at: 14, msg: 'Sending farm parameters...', sub: `District: ${document.getElementById('district').value || 'Kerala'}` },
+    //                 { at: 18, msg: 'Analyzing soil type...', sub: `${document.getElementById('soilType').value || 'Soil'} compatibility check` },
+    //                 { at: 22, msg: 'Processing pH levels...', sub: `pH ${document.getElementById('soilPH').value || '6.5'} analysis` },
+    //                 { at: 26, msg: 'Evaluating temperature...', sub: `${document.getElementById('temperature').value || '28'}°C conditions` },
+    //                 { at: 30, msg: 'Analyzing rainfall data...', sub: `${document.getElementById('rainfall').value || '250'}mm monthly average` },
+    //                 { at: 34, msg: 'Processing forecast data...', sub: 'Next 16 days predictions' },
+    //                 { at: 38, msg: 'Checking water resources...', sub: `${document.getElementById('waterAvailability').value || 'Water'} availability` },
+    //                 { at: 42, msg: 'Accessing crop database...', sub: 'Kerala agriculture repository' },
+    //                 { at: 46, msg: 'Matching suitable crops...', sub: 'Finding best matches' },
+    //                 { at: 50, msg: 'Calculating suitability...', sub: 'Processing 20-25 crops' },
+    //                 { at: 54, msg: 'Analyzing growth duration...', sub: 'Crop cycle calculations' },
+    //                 { at: 58, msg: 'Computing expected yields...', sub: 'Tonnage per hectare' },
+    //                 { at: 62, msg: 'Selecting best varieties...', sub: 'High-yield cultivars' },
+    //                 { at: 66, msg: 'Month-wise filtering...', sub: `${document.getElementById('month').value || 'Current month'} sowing window` },
+    //                 { at: 70, msg: 'Optimizing crop rotation...', sub: 'Sequential planting advice' },
+    //                 { at: 74, msg: 'Generating farming calendar...', sub: 'Sowing to harvest timeline' },
+    //                 { at: 78, msg: 'Creating irrigation schedule...', sub: 'Water management plan' },
+    //                 { at: 82, msg: 'Preparing fertilizer advice...', sub: 'NPK recommendations' },
+    //                 { at: 86, msg: 'Generating best practices...', sub: 'Location-specific tips' },
+    //                 { at: 90, msg: 'Finalizing recommendations...', sub: 'AI processing complete' },
+    //                 { at: 94, msg: 'Compiling results...', sub: 'Preparing your report' },
+    //                 { at: 97, msg: 'Almost ready...', sub: 'Formatting output' },
+    //                 { at: 99, msg: 'Loading results...', sub: 'Get ready!' }
+    //             ],
+    //             'weather': [
+    //                 { at: 5, msg: 'Connecting to weather service...', sub: 'Open-Meteo API' },
+    //                 { at: 15, msg: 'Locating coordinates...', sub: `${document.getElementById('district').value || 'District'} GPS location` },
+    //                 { at: 25, msg: 'Fetching past 30 days data...', sub: 'Historical weather' },
+    //                 { at: 40, msg: 'Processing temperature records...', sub: 'Daily min/max values' },
+    //                 { at: 55, msg: 'Calculating rainfall totals...', sub: 'Monthly accumulation' },
+    //                 { at: 70, msg: 'Getting 16-day forecast...', sub: 'Future predictions' },
+    //                 { at: 85, msg: 'Computing averages...', sub: 'Statistical analysis' },
+    //                 { at: 95, msg: 'Finalizing weather data...', sub: 'Almost done!' }
+    //             ]
+    //         };
+            
+    //         if (type === 'weather') {
+    //             this.title.textContent = '🌤️ Fetching Weather Data';
+    //             this.message.textContent = 'Connecting to weather satellites...';
+    //             this.substatus.textContent = 'Loading real-time data';
+    //         } else {
+    //             this.title.textContent = '🤖 AI Analysis in Progress';
+    //             this.message.textContent = 'Initializing AI model...';
+    //             this.substatus.textContent = 'Starting analysis';
+    //         }
+            
+    //         this.startContinuousProgress(type);
+    //     }
+
+    //     startContinuousProgress(type) {
+    //         const msgList = this.messages[type];
+    //         let messageIndex = 0;
+            
+    //         if (this.progressInterval) clearInterval(this.progressInterval);
+            
+    //         this.progressInterval = setInterval(() => {
+    //             if (!this.apiCompleted) {
+    //                 let increment;
+    //                 if (this.currentProgress < 30) {
+    //                     increment = 0.8;
+    //                 } else if (this.currentProgress < 60) {
+    //                     increment = 0.5;
+    //                 } else if (this.currentProgress < 80) {
+    //                     increment = 0.3;
+    //                 } else if (this.currentProgress < 95) {
+    //                     increment = 0.15;
+    //                 } else if (this.currentProgress < 99) {
+    //                     increment = 0.05;
+    //                 } else {
+    //                     increment = 0.01;
+    //                 }
+                    
+    //                 this.currentProgress = Math.min(this.currentProgress + increment, 99.9);
+                    
+    //                 while (messageIndex < msgList.length && this.currentProgress >= msgList[messageIndex].at) {
+    //                     this.message.textContent = msgList[messageIndex].msg;
+    //                     this.substatus.textContent = msgList[messageIndex].sub;
+    //                     messageIndex++;
+    //                 }
+                    
+    //                 if (messageIndex >= msgList.length && this.currentProgress > 98) {
+    //                     const waitMessages = [
+    //                         'AI is processing complex data...',
+    //                         'Analyzing agricultural patterns...',
+    //                         'Please wait a moment...',
+    //                         'Finalizing recommendations...'
+    //                     ];
+    //                     const waitIndex = Math.floor((Date.now() / 3000) % waitMessages.length);
+    //                     this.substatus.textContent = waitMessages[waitIndex];
+    //                 }
+                    
+    //                 this.updateProgress(this.currentProgress);
+    //             }
+    //         }, 100);
+    //     }
+
+    //     updateProgress(value) {
+    //         this.progressBar.style.width = `${value}%`;
+    //         this.percentage.textContent = `${Math.floor(value)}%`;
+    //     }
+
+    //     complete() {
+    //         this.apiCompleted = true;
+    //         if (this.timeoutId) clearTimeout(this.timeoutId);
+    //         clearInterval(this.progressInterval);
+            
+    //         this.currentProgress = 100;
+    //         this.updateProgress(100);
+    //         this.message.textContent = '✅ Complete!';
+    //         this.substatus.textContent = 'Loading your recommendations...';
+            
+    //         setTimeout(() => {
+    //             this.hide();
+    //         }, 800);
+    //     }
+
+    //     hide() {
+    //         this.apiCompleted = true;
+    //         if (this.timeoutId) clearTimeout(this.timeoutId);
+    //         clearInterval(this.progressInterval);
+    //         this.overlay.classList.remove('show');
+    //         this.progressBar.style.width = '0%';
+    //         this.percentage.textContent = '0%';
+    //         this.currentProgress = 0;
+    //     }
+    // }
+
+    // const loadingController = new LoadingController();
+
+    // function showFieldError(fieldId, message) {
+    //     const field = document.getElementById(fieldId);
+    //     const errorEl = document.getElementById(fieldId + 'Error');
+    //     if (field) field.classList.add('error');
+    //     if (errorEl) {
+    //         errorEl.textContent = message;
+    //         errorEl.classList.add('show');
+    //     }
+    // }
+
+    // function hideFieldError(fieldId) {
+    //     const field = document.getElementById(fieldId);
+    //     const errorEl = document.getElementById(fieldId + 'Error');
+    //     if (field) field.classList.remove('error');
+    //     if (errorEl) errorEl.classList.remove('show');
+    // }
+
+    // function validateFieldOnInput(fieldId) {
+    //     const field = document.getElementById(fieldId);
+    //     const value = field.value;
+        
+    //     if (value && value !== "") {
+    //         if (field.type === 'number') {
+    //             const numValue = parseFloat(value);
+                
+    //             if (fieldId === 'temperature' || fieldId === 'temperatureNext') {
+    //                 if (numValue >= 10 && numValue <= 45) {
+    //                     hideFieldError(fieldId);
+    //                 } else {
+    //                     showFieldError(fieldId, `Temperature must be between 10°C and 45°C`);
+    //                 }
+    //             } else if (fieldId === 'rainfall') {
+    //                 if (numValue >= 0 && numValue <= 2000) {
+    //                     hideFieldError(fieldId);
+    //                 } else {
+    //                     showFieldError(fieldId, `Rainfall must be between 0mm and 2000mm`);
+    //                 }
+    //             } else if (fieldId === 'rainfallNext') {
+    //                 if (numValue >= 0 && numValue <= 1000) {
+    //                     hideFieldError(fieldId);
+    //                 } else {
+    //                     showFieldError(fieldId, `Rainfall must be between 0mm and 1000mm`);
+    //                 }
+    //             } else if (fieldId === 'soilPH') {
+    //                 if (numValue >= 3.5 && numValue <= 9.0) {
+    //                     hideFieldError(fieldId);
+    //                 } else {
+    //                     showFieldError(fieldId, `Soil pH must be between 3.5 and 9.0`);
+    //                 }
+    //             }
+    //         } else {
+    //             hideFieldError(fieldId);
+    //         }
+    //     }
+    // }
+
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     killGoogleLogos();
+        
+    //     setTimeout(function() {
+    //         const savedLanguage = localStorage.getItem('selectedLanguage');
+    //         if (savedLanguage && savedLanguage !== 'en') {
+    //             document.getElementById('language-selector').value = savedLanguage;
+    //             const currentHash = window.location.hash;
+    //             if (!currentHash.includes('googtrans')) {
+    //                 window.location.hash = 'googtrans(en|' + savedLanguage + ')';
+    //                 window.location.reload();
+    //             }
+    //         }
+    //     }, 500);
+        
+    //     const killInterval = setInterval(function() {
+    //         const googleElements = document.querySelectorAll('[class*="goog-"], [id*="goog-"], iframe[src*="translate.google"]');
+    //         googleElements.forEach(el => {
+    //             if (el.id !== 'google_translate_element') {
+    //                 el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important; width: 0 !important; height: 0 !important;';
+    //             }
+    //         });
+    //     }, 100);
+        
+    //     setTimeout(() => clearInterval(killInterval), 10000);
+        
+    //     document.getElementById('district').addEventListener('change', function() {
+    //         validateFieldOnInput('district');
+    //     });
+        
+    //     document.getElementById('soilType').addEventListener('change', function() {
+    //         validateFieldOnInput('soilType');
+    //     });
+        
+    //     document.getElementById('month').addEventListener('change', function() {
+    //         validateFieldOnInput('month');
+    //     });
+        
+    //     document.getElementById('waterAvailability').addEventListener('change', function() {
+    //         validateFieldOnInput('waterAvailability');
+    //     });
+        
+    //     document.getElementById('rainfall').addEventListener('input', function() {
+    //         validateFieldOnInput('rainfall');
+    //     });
+        
+    //     document.getElementById('temperature').addEventListener('input', function() {
+    //         validateFieldOnInput('temperature');
+    //     });
+        
+    //     document.getElementById('temperatureNext').addEventListener('input', function() {
+    //         validateFieldOnInput('temperatureNext');
+    //     });
+        
+    //     document.getElementById('rainfallNext').addEventListener('input', function() {
+    //         validateFieldOnInput('rainfallNext');
+    //     });
+        
+    //     document.getElementById('soilPH').addEventListener('input', function() {
+    //         validateFieldOnInput('soilPH');
+    //     });
+
+    //     });
+
+        // Kerala districts lat/lon
+        var keralaDistricts = {
+            'Thiruvananthapuram': { lat: 8.5241, lon: 76.9366 },
+            'Kollam': { lat: 8.8932, lon: 76.6141 },
+            'Pathanamthitta': { lat: 9.2648, lon: 76.7870 },
+            'Alappuzha': { lat: 9.4981, lon: 76.3388 },
+            'Kottayam': { lat: 9.5916, lon: 76.5222 },
+            'Idukki': { lat: 9.9188, lon: 77.1025 },
+            'Ernakulam': { lat: 9.9816, lon: 76.2999 },
+            'Thrissur': { lat: 10.5276, lon: 76.2144 },
+            'Palakkad': { lat: 10.7867, lon: 76.6548 },
+            'Malappuram': { lat: 11.0510, lon: 76.0711 },
+            'Kozhikode': { lat: 11.2588, lon: 75.7804 },
+            'Wayanad': { lat: 11.6854, lon: 76.1320 },
+            'Kannur': { lat: 11.8745, lon: 75.3704 },
+            'Kasaragod': { lat: 12.4996, lon: 74.9869 }
+        };
+
+        function getCurrentMonth() {
+            const monthNames = [
+                'January','February','March','April','May','June',
+                'July','August','September','October','November','December'
+            ];
+            return monthNames[new Date().getMonth()];
+        }
+
+        // Auto Detect Weather
+        async function autoDetectWeather() {
+            const districtEl = document.getElementById("district");
+            const districtVal = districtEl.value;
+            if (!districtVal) {
+                showFieldError('district', '❌ Please select your District first!');
+                return;
+            }
+
+            loadingController.show('weather');
+
+            try {
+                const latitude = keralaDistricts[districtVal].lat;
+                const longitude = keralaDistricts[districtVal].lon;
+
+                const today = new Date();
+                const endDate = today.toISOString().split("T")[0];
+                const startDateObj = new Date(today);
+                startDateObj.setDate(startDateObj.getDate() - 30);
+                const startDate = startDateObj.toISOString().split("T")[0];
+
+                // Past 30 Days Archive Data
+                const pastUrl = `https://archive-api.open-meteo.com/v1/archive?latitude=${latitude}&longitude=${longitude}&start_date=${startDate}&end_date=${endDate}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=Asia/Kolkata`;
+                const resPast = await fetch(pastUrl);
+                const dataPast = await resPast.json();
+
+                let rainPast = 0, tempPast = 0;
+                for (let i = 0; i < dataPast.daily.time.length; i++) {
+                    rainPast += dataPast.daily.precipitation_sum[i];
+                    tempPast += (dataPast.daily.temperature_2m_max[i] + dataPast.daily.temperature_2m_min[i]) / 2;
+                }
+                const totalRainPast = Math.round(rainPast);
+                const avgTempPast = Math.round(tempPast / dataPast.daily.time.length);
+
+                // Next 16 Days Forecast
+                const futUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days=16&timezone=Asia/Kolkata`;
+                const resFut = await fetch(futUrl);
+                const dataFut = await resFut.json();
+
+                let rainFuture = 0, tempFuture = 0;
+                for (let i = 0; i < dataFut.daily.time.length; i++) {
+                    rainFuture += dataFut.daily.precipitation_sum[i];
+                    tempFuture += (dataFut.daily.temperature_2m_max[i] + dataFut.daily.temperature_2m_min[i]) / 2;
+                }
+                const totalRainNext = Math.round(rainFuture);
+                const avgTempNext = Math.round(tempFuture / dataFut.daily.time.length);
+
+                const monthNow = getCurrentMonth();
+
+                // Fill fields
+                document.getElementById('district').value = districtVal;
+                document.getElementById('temperature').value = avgTempPast;
+                document.getElementById('rainfall').value = totalRainPast;
+                document.getElementById('temperatureNext').value = avgTempNext;
+                document.getElementById('rainfallNext').value = totalRainNext;
+                document.getElementById('month').value = monthNow;
+
+                hideFieldError('district');
+                hideFieldError('temperature');
+                hideFieldError('rainfall');
+                hideFieldError('temperatureNext');
+                hideFieldError('rainfallNext');
+                hideFieldError('month');
+
+                document.getElementById('temperatureBadge').classList.add('show');
+                document.getElementById('rainfallBadge').classList.add('show');
+                document.getElementById('temperatureNextBadge').classList.add('show');
+                document.getElementById('rainfallNextBadge').classList.add('show');
+                document.getElementById('monthBadge').classList.add('show');
+
+                // API complete
+                loadingController.complete();
+            } catch (err) {
+                console.error(err);
+                loadingController.hide();
+                alert("⚠ Could not fetch weather data, please fill manually.");
+            }
+        }
+
+        // Helper: suitability parsing + sorting
+        function parseSuitability(val) {
+            if (typeof val === "number") {
+                return Math.max(0, Math.min(100, Math.round(val)));
+            }
+            const n = parseInt(String(val).replace(/[^\d.-]/g, ""), 10);
+            return Math.max(0, Math.min(100, isNaN(n) ? 0 : n));
+        }
+
+        function sortCropsBySuitability(crops) {
+            return crops.sort((a, b) => {
+                const sa = parseSuitability(a.suitability);
+                const sb = parseSuitability(b.suitability);
+                if (sb !== sa) return sb - sa;
+                const yA = a?.yield ? parseFloat(String(a.yield).match(/[\d.]+/)?.[0]) : NaN;
+                const yB = b?.yield ? parseFloat(String(b.yield).match(/[\d.]+/)?.[0]) : NaN;
+                if (!isNaN(yA) && !isNaN(yB) && yA !== yB) return yB - yA;
+                const dA = a?.duration ? parseFloat(String(a.duration).match(/[\d.]+/)?.[0]) : NaN;
+                const dB = b?.duration ? parseFloat(String(b.duration).match(/[\d.]+/)?.[0]) : NaN;
+                if (!isNaN(dA) && !isNaN(dB) && dA !== dB) return dA - dB;
+                return 0;
+            });
+        }
+
+        // // AI-based recommendations
+        // async function getRecommendations() {
+        //     const inputs = {
+        //         district: document.getElementById('district').value,
+        //         soilType: document.getElementById('soilType').value,
+        //         month: document.getElementById('month').value,
+        //         rainfall: document.getElementById('rainfall').value,
+        //         temperature: document.getElementById('temperature').value,
+        //         temperatureNext: document.getElementById('temperatureNext').value,
+        //         rainfallNext: document.getElementById('rainfallNext').value,
+        //         soilPH: document.getElementById('soilPH').value,
+        //         waterAvailability: document.getElementById('waterAvailability').value
+        //     };
+// AI-based recommendations - DEEPSEEK OPTIMIZED WITH ALL CONDITIONS
+async function getRecommendations() {
+    const inputs = {
+        district: document.getElementById('district').value,
+        soilType: document.getElementById('soilType').value,
+        month: document.getElementById('month').value,
+        rainfall: document.getElementById('rainfall').value,
+        temperature: document.getElementById('temperature').value,
+        temperatureNext: document.getElementById('temperatureNext').value,
+        rainfallNext: document.getElementById('rainfallNext').value,
+        soilPH: document.getElementById('soilPH').value,
+        waterAvailability: document.getElementById('waterAvailability').value
+    };
+
+            // Validation
+            let hasError = false;
+            
+            if (!inputs.district) {
+                showFieldError('district', 'Please select district');
+                hasError = true;
+            } else {
+                hideFieldError('district');
+            }
+            
+            if (!inputs.soilType) {
+                showFieldError('soilType', 'Please select soil type');
+                hasError = true;
+            } else {
+                hideFieldError('soilType');
+            }
+            
+            if (!inputs.month) {
+                showFieldError('month', 'Please select month');
+                hasError = true;
+            } else {
+                hideFieldError('month');
+            }
+            
+            if (!inputs.rainfall) {
+                showFieldError('rainfall', 'Please enter average rainfall');
+                hasError = true;
+            } else {
+                hideFieldError('rainfall');
+            }
+            
+            if (!inputs.temperature) {
+                showFieldError('temperature', 'Please enter average temperature');
+                hasError = true;
+            } else {
+                hideFieldError('temperature');
+            }
+            
+            if (!inputs.temperatureNext) {
+                showFieldError('temperatureNext', 'Please enter forecast temperature');
+                hasError = true;
+            } else {
+                hideFieldError('temperatureNext');
+            }
+            
+            if (!inputs.rainfallNext) {
+                showFieldError('rainfallNext', 'Please enter forecast rainfall');
+                hasError = true;
+            } else {
+                hideFieldError('rainfallNext');
+            }
+            
+            if (!inputs.soilPH) {
+                showFieldError('soilPH', 'Please enter soil pH');
+                hasError = true;
+            } else {
+                hideFieldError('soilPH');
+            }
+            
+            if (!inputs.waterAvailability) {
+                showFieldError('waterAvailability', 'Please select water availability');
+                hasError = true;
+            } else {
+                hideFieldError('waterAvailability');
+            }
+
+            if (hasError) {
+                return;
+            }
+            
+            // Value validation
+            let validationError = false;
+            
+            const temp = parseFloat(inputs.temperature);
+            if (temp && (temp < 10 || temp > 45)) {
+                showFieldError('temperature', `Temperature must be between 10°C and 45°C (you entered: ${temp}°C)`);
+                validationError = true;
+            }
+            
+            const tempNext = parseFloat(inputs.temperatureNext);
+            if (tempNext && (tempNext < 10 || tempNext > 45)) {
+                showFieldError('temperatureNext', `Temperature must be between 10°C and 45°C (you entered: ${tempNext}°C)`);
+                validationError = true;
+            }
+            
+            const rain = parseFloat(inputs.rainfall);
+            if (rain && (rain < 0 || rain > 2000)) {
+                showFieldError('rainfall', `Rainfall must be between 0mm and 2000mm (you entered: ${rain}mm)`);
+                validationError = true;
+            }
+            
+            const rainNext = parseFloat(inputs.rainfallNext);
+            if (rainNext && (rainNext < 0 || rainNext > 1000)) {
+                showFieldError('rainfallNext', `Rainfall must be between 0mm and 1000mm (you entered: ${rainNext}mm)`);
+                validationError = true;
+            }
+            
+            const ph = parseFloat(inputs.soilPH);
+            if (ph && (ph < 3.5 || ph > 9.0)) {
+                showFieldError('soilPH', `Soil pH must be between 3.5 and 9.0 (you entered: ${ph})`);
+                validationError = true;
+            }
+            
+            if (validationError) {
+                return;
+            }
+            
+        //     // Start continuous loading
+        //     loadingController.show('ai');
+
+        //     try {
+        //         console.log("Payload to AI:", inputs);
+        //         const res = await fetch("http://localhost:3000/api/crops", {
+        //             method: "POST",
+        //             headers: { "Content-Type": "application/json" },
+        //             body: JSON.stringify({
+        //                 messages: [
+        //                     {
+        //                         role: "system",
+        //                         content:
+        //                             "You are an agriculture expert for Kerala. Respond ONLY as valid JSON. JSON shape: {\"crops\":[{\"name\":\"\",\"suitability\":0,\"reason\":\"\",\"varieties\":\"\",\"duration\":\"\",\"yield\":\"\"}],\"tips\":[\"\"]}. Rules: (1) Always include 20-25 Kerala-suitable crops. (2) Use the provided 'month' (January–December) to strictly match Kerala sowing/planting windows; if a crop is outside the sowing window for that month in Kerala, set suitability <= 40 and place it at the end. (3) Compute 'suitability' as an integer 0–100 considering: month-window 50%, soil fit 20%, temperature & rainfall (past 30 days) + forecast (next 16 days) 25%, water availability & pH 5%. (4) Sort crops by descending suitability before returning. (5) Keep 'suitability' numeric (0–100). (6) IMPORTANT: If temperature is above 45°C or below 10°C, or pH is outside 3.5-9.0 range, reduce all crop suitabilities below 20% as these are impossible conditions. No text outside JSON."
+        //                     },
+        //                     {
+        //                         role: "user",
+        //                         content: JSON.stringify(inputs)
+        //                     }
+        //                 ]
+        //             })
+        //         });
+
+        //         const data = await res.json();
+        //         console.log("AI raw:", data);
+
+        //         let ai = null;
+        //         if (data?.choices?.[0]?.message?.content) {
+        //             try {
+        //                 ai = JSON.parse(data.choices[0].message.content);
+        //             } catch (e) {
+        //                 console.error("⚠ JSON parse error:", data.choices[0].message.content);
+        //                 loadingController.hide();
+        //                 alert("⚠ AI did not return valid JSON. See console for raw data.");
+        //                 return;
+        //             }
+        //         }
+
+        //         if (ai) {
+        //             if (Array.isArray(ai.crops)) {
+        //                 ai.crops = sortCropsBySuitability(ai.crops);
+        //             }
+        //             // API complete = instant 100%
+        //             loadingController.complete();
+        //             setTimeout(() => {
+        //                 displayResults(ai.crops, ai.tips);
+        //             }, 800);
+        //         }
+        //     } catch (err) {
+        //         console.error(err);
+        //         loadingController.hide();
+        //         alert("⚠ Could not fetch crops from AI.");
+        //     }
+        // }
+
+        // AI-based recommendations - DEEPSEEK OPTIMIZED WITH ALL CONDITIONS
+// async function getRecommendations() {
+//     const inputs = {
+//         district: document.getElementById('district').value,
+//         soilType: document.getElementById('soilType').value,
+//         month: document.getElementById('month').value,
+//         rainfall: document.getElementById('rainfall').value,
+//         temperature: document.getElementById('temperature').value,
+//         temperatureNext: document.getElementById('temperatureNext').value,
+//         rainfallNext: document.getElementById('rainfallNext').value,
+//         soilPH: document.getElementById('soilPH').value,
+//         waterAvailability: document.getElementById('waterAvailability').value
+//     };
+
+    // [Keep all your validation code as is...]
+    
+    // Start continuous loading
+    loadingController.show('ai');
+
+    try {
+        console.log("Payload to DeepSeek:", inputs);
+        const res = await fetch("http://localhost:3000/api/crops", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                model: "deepseek-chat",
+                temperature: 0.2,  // Low temperature for consistent JSON
+                messages: [
+                    {
+                        role: "system",
+                        content: `You are an agriculture expert for Kerala. You must respond with ONLY valid JSON, no markdown formatting, no code blocks, no explanations.
+
+OUTPUT FORMAT (exactly this structure):
+{"crops":[{"name":"","suitability":0,"reason":"","varieties":"","duration":"","yield":""}],"tips":[""]}
+
+STRICT RULES:
+1. Always include 20-25 Kerala-suitable crops
+2. Use the provided month (January-December) to strictly match Kerala sowing/planting windows. If a crop is outside the sowing window for that month in Kerala, set suitability <= 40 and place it at the end
+3. Calculate suitability as integer 0-100 using:
+   - Month-window match: 50% weight
+   - Soil type fit: 20% weight  
+   - Temperature & rainfall (past 30 days + next 16 days forecast): 25% weight
+   - Water availability & pH: 5% weight
+4. Sort crops by descending suitability before returning
+5. Keep suitability as numeric integer (0-100)
+6. CRITICAL: If temperature is above 45°C or below 10°C, or pH is outside 3.5-9.0 range, reduce all crop suitabilities below 20% as these are impossible conditions
+
+IMPORTANT: Return ONLY the JSON object. No text before or after. No markdown. No code blocks.`
+                    },
+                    {
+                        role: "user",
+                        content: `Generate Kerala crop recommendations for:
+District: ${inputs.district}
+Soil Type: ${inputs.soilType}
+Month: ${inputs.month}
+Rainfall (past 30 days): ${inputs.rainfall}mm
+Temperature (past 30 days avg): ${inputs.temperature}°C
+Temperature (next 16 days forecast): ${inputs.temperatureNext}°C
+Rainfall (next 16 days forecast): ${inputs.rainfallNext}mm
+Soil pH: ${inputs.soilPH}
+Water Availability: ${inputs.waterAvailability}
+
+Return JSON with 20-25 crops and 5-7 farming tips.`
+                    }
+                ]
+            })
+        });
+
+        const data = await res.json();
+        console.log("DeepSeek full response:", data);
+
+        let ai = null;
+        if (data?.choices?.[0]?.message?.content) {
+            let content = data.choices[0].message.content;
+            console.log("Raw content from DeepSeek:", content);
+            
+            // Advanced JSON extraction
+            ai = extractJSONFromDeepSeek(content);
+            
+            if (!ai) {
+                console.error("❌ Failed to extract JSON from DeepSeek response");
+                loadingController.hide();
+                alert("⚠️ DeepSeek ne valid JSON nahi diya. Console check karo for details.");
+                return;
+            }
+        } else {
+            console.error("❌ No content in DeepSeek response");
+            loadingController.hide();
+            alert("⚠️ DeepSeek API se koi response nahi aaya.");
+            return;
+        }
+
+        if (ai && ai.crops) {
+            // Validate and clean the data
+            ai.crops = ai.crops.map(crop => ({
+                name: crop.name || "Unknown Crop",
+                suitability: parseInt(crop.suitability) || 0,
+                reason: crop.reason || "",
+                varieties: crop.varieties || "",
+                duration: crop.duration || "",
+                yield: crop.yield || ""
+            }));
+            
+            // Sort by suitability
+            ai.crops = sortCropsBySuitability(ai.crops);
+            
+            console.log("✅ Processed crops:", ai.crops.length, "items");
+            
+            loadingController.complete();
+            setTimeout(() => {
+                displayResults(ai.crops, ai.tips || []);
+            }, 800);
+        } else {
+            loadingController.hide();
+            alert("⚠️ Response mein crops nahi mile.");
+        }
+    } catch (err) {
+        console.error("API call error:", err);
+        loadingController.hide();
+        alert(`❌ API Error: ${err.message}\n\nCheck:\n1. Server running? (node server.js)\n2. API key set? (.env file)\n3. Console for details`);
+    }
+}
+
+// DeepSeek-specific JSON extraction
+function extractJSONFromDeepSeek(text) {
+    if (!text) return null;
+    
+    console.log("Attempting to extract JSON from:", text.substring(0, 200) + "...");
+    
+    // Method 1: Direct parse (if it's already clean JSON)
+    try {
+        const parsed = JSON.parse(text);
+        console.log("✅ Direct JSON parse successful");
+        return parsed;
+    } catch (e) {
+        console.log("Direct parse failed, trying other methods...");
+    }
+    
+    // Method 2: Remove markdown code blocks
+    let cleaned = text;
+    
+    // Remove ```json and ``` blocks
+    cleaned = cleaned.replace(/```json\s*/gi, '');
+    cleaned = cleaned.replace(/```\s*/g, '');
+    
+    // Remove any text before first { and after last }
+    const firstBrace = cleaned.indexOf('{');
+    const lastBrace = cleaned.lastIndexOf('}');
+    
+    if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+        cleaned = cleaned.substring(firstBrace, lastBrace + 1);
+        
+        try {
+            const parsed = JSON.parse(cleaned);
+            console.log("✅ Parsed after cleaning markdown");
+            return parsed;
+        } catch (e) {
+            console.log("Cleaned parse failed:", e.message);
+        }
+    }
+    
+    // Method 3: Use regex to extract JSON object
+    const jsonMatch = text.match(/\{[\s\S]*"crops"[\s\S]*\}/);
+    if (jsonMatch) {
+        try {
+            const parsed = JSON.parse(jsonMatch[0]);
+            console.log("✅ Regex extraction successful");
+            return parsed;
+        } catch (e) {
+            console.log("Regex parse failed:", e.message);
+        }
+    }
+    
+    // Method 4: Try to fix common issues
+    try {
+        // Remove common problematic characters
+        let fixed = text
+            .replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // Remove control characters
+            .replace(/,\s*}/g, '}') // Remove trailing commas
+            .replace(/,\s*]/g, ']') // Remove trailing commas in arrays
+            .trim();
+        
+        // Find JSON boundaries again
+        const start = fixed.indexOf('{');
+        const end = fixed.lastIndexOf('}');
+        
+        if (start !== -1 && end !== -1) {
+            fixed = fixed.substring(start, end + 1);
+            const parsed = JSON.parse(fixed);
+            console.log("✅ Fixed and parsed successfully");
+            return parsed;
+        }
+    } catch (e) {
+        console.log("Final fix attempt failed:", e.message);
+    }
+    
+    console.error("❌ All JSON extraction methods failed");
+    console.error("First 500 chars of response:", text.substring(0, 500));
+    return null;
+}
+
+        // Display crops and tips WITH AUTO-SCROLL
+        function displayResults(crops, tips) {
+            const c = document.getElementById("cropsContainer"),
+                  t = document.getElementById("tipsList"),
+                  r = document.getElementById("results");
+            c.innerHTML = "";
+            t.innerHTML = "";
+
+            if (!crops || !crops.length) {
+                c.innerHTML = "<p>No crops found.</p>";
+            } else {
+                crops.forEach(x => {
+                    const s = parseSuitability(x.suitability);
+                    let d = document.createElement("div");
+                    d.className = "crop-card";
+                    d.innerHTML = `
+                        <div class="crop-header">
+                            <h3 class="crop-name">${x.name || "-"}</h3>
+                            <div class="suitability-badge">${s}% Match</div>
+                        </div>
+                        <p class="crop-reason">${x.reason || ""}</p>
+                        <div class="crop-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Varieties:</span>
+                                <span class="detail-value">${x.varieties || "-"}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Duration:</span>
+                                <span class="detail-value">${x.duration || "-"}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Expected Yield:</span>
+                                <span class="detail-value">${x.yield || "-"}</span>
+                            </div>
+                        </div>`;
+                    c.appendChild(d);
+                });
+            }
+
+            if (tips && tips.length) {
+                tips.forEach(y => {
+                    let li = document.createElement("li");
+                    li.innerHTML = `<div class="tip-bullet"></div><span>${y}</span>`;
+                    t.appendChild(li);
+                });
+            }
+
+            r.classList.add("show");
+            
+            // ✅ AUTO-SCROLL TO RESULTS
+            setTimeout(() => {
+                r.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
+        // Button bindings
+        document.getElementById("autoDetectBtn").addEventListener("click", autoDetectWeather);
+        document.getElementById("submitBtn").addEventListener("click", getRecommendations);
+    </script>
+</body>
+</html>

@@ -43,7 +43,7 @@
         }
         
         /* Custom Language Dropdown */
-        .header-actions {
+        /* .header-actions {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -85,7 +85,41 @@
             border-color: #16a34a;
             box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.2);
         }
-        
+         */
+         /* Language Selector - RIGHT CORNER */
+.header-actions {
+    display: flex;
+    justify-content: flex-end;  /* Right alignment */
+    align-items: center;
+    margin-top: 15px;
+    padding-right: 20px;
+}
+
+/* Desktop: Absolute top-right position */
+@media (min-width: 769px) {
+    .header-actions {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        margin-top: 0;
+        z-index: 100;  /* Ensure it's above other elements */
+    }
+    
+    .header {
+        position: relative;
+        padding-top: 60px;  /* Add space for the absolute positioned dropdown */
+    }
+}
+
+/* Mobile: Keep it right-aligned but below header */
+@media (max-width: 768px) {
+    .header-actions {
+        justify-content: flex-end;
+        padding-right: 10px;
+    }
+}
+
+
         /* ========== GOOGLE TRANSLATE LOGO KILLER - FIXED ========== */
         /* Hide Google Translate element completely */
         #google_translate_element {

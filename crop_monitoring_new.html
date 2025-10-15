@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kerala Crop Recommender</title>
     
-    <!-- Load Google Translate script directly -->
     <script type="text/javascript">
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({
@@ -20,108 +19,324 @@
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f0fdf4 0%, #d1fae5 100%);
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 50%, #5eead4 100%);
             min-height: 100vh;
             padding: 20px;
             top: 0 !important;
+            position: relative;
+            overflow-x: hidden;
         }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .header { text-align: center; margin-bottom: 40px; }
-        .header-title { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px; }
-        .header-title h1 { font-size: 2.5rem; color: #166534; }
-        .header p { font-size: 1.1rem; color: #4b5563; }
-        .card {
-            background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            padding: 40px; margin-bottom: 30px; position: relative;
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
         }
         
-        /* Smooth scroll */
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            position: relative;
+            z-index: 1;
+        }
+        
         html {
             scroll-behavior: smooth;
         }
         
-        /* Custom Language Dropdown */
-        /* .header-actions {
+        /* ========== NEW ANIMATED LOGO ========== */
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+            position: relative;
+            padding: 15px 20px 10px 20px;
+        }
+
+        .logo-container {
             display: flex;
             justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-wrapper {
+            display: flex;
             align-items: center;
-            margin-top: 15px;
+            gap: 20px;
+            animation: logoEntrance 1s ease-out;
         }
-        
-        .custom-language-dropdown {
+
+        @keyframes logoEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: logoFloat 3s ease-in-out infinite;
             position: relative;
-            margin: 0 10px;
+            border: 3px solid rgba(255, 255, 255, 0.5);
         }
-        
-        .custom-language-dropdown select {
-            appearance: none;
-            background-color: white;
-            border: 1px solid #d1d5db;
-            border-radius: 9999px;
-            padding: 0.5rem 2rem 0.5rem 1rem;
-            font-size: 0.95rem;
-            color: #4b5563;
-            cursor: pointer;
-            font-family: inherit;
-            width: auto;
-            min-width: 120px;
-        }
-        
-        .custom-language-dropdown::after {
-            content: "▼";
-            font-size: 0.7rem;
-            color: #4b5563;
+
+        .logo-circle::before {
+            content: '';
             position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffffff 0%, #ccfbf1 100%);
+            filter: blur(20px);
+            opacity: 0.6;
+            animation: logoPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes logoPulse {
+            0%, 100% {
+                transform: scale(0.8);
+                opacity: 0.6;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.4;
+            }
+        }
+
+        .logo-icon {
+            font-size: 3rem;
+            animation: iconRotate 8s linear infinite;
+        }
+
+        @keyframes iconRotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .logo-text h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #ccfbf1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+            letter-spacing: -1px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-subtitle {
+            display: block;
+            font-size: 1rem;
+            color: #f0fdfa;
+            font-weight: 500;
+            margin-top: 5px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-description {
+            font-size: 1.1rem;
+            color: #f0fdfa;
+            margin: 8px 0 0 0;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ========== LANGUAGE SELECTOR ========== */
+        .language-selector-wrapper {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 5000;
+        }
+
+        .language-btn {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 100px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #0f766e;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 5001;
+        }
+
+        .language-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .lang-icon {
+            font-size: 1.2rem;
+            animation: globeSpin 4s linear infinite;
+        }
+
+        @keyframes globeSpin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .lang-arrow {
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .language-btn.active .lang-arrow {
+            transform: rotate(180deg);
+        }
+
+        .language-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 180px;
+            backdrop-filter: blur(10px);
+            z-index: 5002;
             pointer-events: none;
         }
-        
-        .custom-language-dropdown select:focus {
-            outline: none;
-            border-color: #16a34a;
-            box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.2);
+
+        .language-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            pointer-events: auto;
         }
-         */
-         /* Language Selector - RIGHT CORNER */
-.header-actions {
-    display: flex;
-    justify-content: flex-end;  /* Right alignment */
-    align-items: center;
-    margin-top: 15px;
-    padding-right: 20px;
-}
 
-/* Desktop: Absolute top-right position */
-@media (min-width: 769px) {
-    .header-actions {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        margin-top: 0;
-        z-index: 100;  /* Ensure it's above other elements */
-    }
-    
-    .header {
-        position: relative;
-        padding-top: 60px;  /* Add space for the absolute positioned dropdown */
-    }
-}
+        .lang-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #0f766e;
+            background: white;
+        }
 
-/* Mobile: Keep it right-aligned but below header */
-@media (max-width: 768px) {
-    .header-actions {
-        justify-content: flex-end;
-        padding-right: 10px;
-    }
-}
+        .lang-item:hover {
+            background: linear-gradient(90deg, #ccfbf1 0%, #99f6e4 100%);
+            padding-left: 25px;
+            color: #0f766e;
+        }
 
+        .lang-item .flag {
+            font-size: 1.3rem;
+            transition: transform 0.3s ease;
+        }
 
-        /* ========== GOOGLE TRANSLATE LOGO KILLER - FIXED ========== */
-        /* Hide Google Translate element completely */
+        .lang-item:hover .flag {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .language-selector-wrapper {
+                position: static;
+                display: flex;
+                justify-content: center;
+                margin-top: 20px;
+                z-index: 5000;
+            }
+            
+            .language-menu {
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%) translateY(-10px);
+                right: auto;
+            }
+            
+            .language-menu.show {
+                transform: translateX(-50%) translateY(0);
+            }
+            
+            .logo-wrapper {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .logo-circle {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .logo-icon {
+                font-size: 2.5rem;
+            }
+            
+            .logo-text h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px; 
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px; 
+            margin-bottom: 30px; 
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+        }
+        
         #google_translate_element {
             position: fixed !important;
             bottom: -1000px !important;
@@ -131,7 +346,6 @@
             z-index: -9999 !important;
         }
         
-        /* Hide ALL Google branding */
         .goog-te-banner-frame,
         .goog-te-banner-frame.skiptranslate,
         iframe.goog-te-banner-frame {
@@ -152,45 +366,6 @@
             visibility: hidden !important;
         }
         
-        .goog-te-gadget {
-            color: transparent !important;
-            font-size: 0 !important;
-        }
-        
-        .goog-te-gadget-simple {
-            background-color: transparent !important;
-            border: none !important;
-        }
-        
-        .goog-te-gadget-simple .goog-te-menu-value span {
-            display: none !important;
-        }
-        
-        /* Hide Google spinner during loading */
-        .goog-te-spinner-pos {
-            display: none !important;
-        }
-        
-        div.skiptranslate iframe {
-            visibility: hidden !important;
-        }
-        
-        /* Kill any Google element that appears */
-        [class*="goog-"]:not(.notranslate) img {
-            display: none !important;
-        }
-        
-        /* Override any inline styles Google might add */
-        .goog-te-banner-frame.skiptranslate,
-        .goog-te-gadget-icon {
-            display: none !important;
-            visibility: hidden !important;
-            width: 0 !important;
-            height: 0 !important;
-            overflow: hidden !important;
-        }
-
-        /* ========== ADVANCED LOADING STYLES ========== */
         .loading-overlay {
             display: none;
             position: fixed;
@@ -198,16 +373,18 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
             z-index: 9999;
             justify-content: center;
             align-items: center;
         }
+        
         .loading-overlay.show {
             display: flex;
             animation: fadeIn 0.3s ease-out;
         }
+        
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -217,12 +394,13 @@
             background: white;
             border-radius: 24px;
             padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             max-width: 400px;
             width: 90%;
             text-align: center;
             animation: slideUp 0.4s ease-out;
         }
+        
         @keyframes slideUp {
             from { transform: translateY(30px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
@@ -239,10 +417,11 @@
             width: 100%;
             height: 100%;
             border: 4px solid #e5e7eb;
-            border-top: 4px solid #16a34a;
+            border-top: 4px solid #0f766e;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
+        
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -255,10 +434,11 @@
             transform: translate(-50%, -50%);
             width: 40px;
             height: 40px;
-            background: #16a34a;
+            background: #0f766e;
             border-radius: 50%;
             animation: pulse 1.5s ease-in-out infinite;
         }
+        
         @keyframes pulse {
             0%, 100% { transform: translate(-50%, -50%) scale(0.8); opacity: 1; }
             50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.5; }
@@ -267,7 +447,7 @@
         .loading-title {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #166534;
+            color: #0f766e;
             margin-bottom: 10px;
         }
         
@@ -289,7 +469,7 @@
         
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, #16a34a 0%, #22c55e 100%);
+            background: linear-gradient(90deg, #0f766e 0%, #14b8a6 100%);
             border-radius: 12px;
             width: 0%;
             transition: width 0.3s ease-out;
@@ -312,6 +492,7 @@
             );
             animation: shimmer 2s infinite;
         }
+        
         @keyframes shimmer {
             0% { transform: translateX(-100%); }
             100% { transform: translateX(100%); }
@@ -320,7 +501,7 @@
         .progress-percentage {
             font-size: 1.8rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -333,12 +514,12 @@
             font-style: italic;
             animation: fadeInOut 2s ease-in-out infinite;
         }
+        
         @keyframes fadeInOut {
             0%, 100% { opacity: 0.5; }
             50% { opacity: 1; }
         }
         
-        /* Individual Field Error Styling */
         .field-error {
             display: none;
             background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
@@ -350,14 +531,17 @@
             color: #991b1b;
             animation: slideDown 0.3s ease-out;
         }
+        
         .field-error.show {
             display: block;
         }
+        
         .field-error::before {
             content: "⚠ ";
             font-weight: bold;
             color: #dc2626;
         }
+        
         @keyframes slideDown {
             from {
                 opacity: 0;
@@ -370,74 +554,714 @@
         }
         
         .auto-detect-banner {
-            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-            border-radius: 15px; padding: 20px; margin-bottom: 30px;
-            display: flex; align-items: center; justify-content: space-between; gap: 20px;
+            background: linear-gradient(135deg, rgba(219, 234, 254, 0.95) 0%, rgba(191, 219, 254, 0.95) 100%);
+            border-radius: 20px; 
+            padding: 20px; 
+            margin-bottom: 30px;
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.5);
         }
+        
         .auto-detect-info { flex: 1; }
-        .auto-detect-info h3 { color: #1e40af; font-size: 1.2rem; margin-bottom: 8px; }
-        .auto-detect-info p { color: #1e3a8a; font-size: 0.9rem; }
+        .auto-detect-info h3 { 
+            color: #1e40af; 
+            font-size: 1.2rem; 
+            margin-bottom: 8px;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+        }
+        .auto-detect-info p { 
+            color: #1e3a8a; 
+            font-size: 0.9rem;
+        }
+        
         .btn-auto-detect {
-            background: #2563eb; color: white; border: none; padding: 12px 24px;
-            border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white; 
+            border: none; 
+            padding: 12px 24px;
+            border-radius: 12px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+            position: relative;
+            overflow: hidden;
         }
-        .btn-auto-detect:hover { background: #1d4ed8; transform: translateY(-2px); }
+
+        .btn-auto-detect::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-auto-detect:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn-auto-detect:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
+        }
+        
         .auto-filled-badge {
-            background: #86efac; color: #166534; padding: 4px 12px; border-radius: 20px;
-            font-size: 0.75rem; font-weight: 600; margin-left: 10px; display: none;
+            background: linear-gradient(135deg, #86efac 0%, #4ade80 100%);
+            color: #166534; 
+            padding: 4px 12px; 
+            border-radius: 20px;
+            font-size: 0.75rem; 
+            font-weight: 600; 
+            margin-left: 10px; 
+            display: none;
+            box-shadow: 0 2px 8px rgba(22, 163, 74, 0.3);
         }
+        
         .auto-filled-badge.show { display: inline-block; }
+        
         .form-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px; margin-bottom: 30px;
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px; 
+            margin-bottom: 30px;
         }
-        .form-group { display: flex; flex-direction: column; }
-        .form-group label { font-size: 0.9rem; font-weight: 600; color: #374151; margin-bottom: 8px; }
-        .form-group select, .form-group input {
-            padding: 12px 16px; border: 2px solid #d1d5db; border-radius: 10px; font-size: 1rem; transition: all 0.3s;
+        
+        .form-group { 
+            display: flex; 
+            flex-direction: column;
+            position: relative;
         }
-        .form-group select:focus, .form-group input:focus {
-            outline: none; border-color: #16a34a; box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+
+        .form-group label { 
+            font-size: 0.95rem; 
+            font-weight: 700; 
+            color: #0f766e; 
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
         }
-        .form-group select.error, .form-group input.error {
-            border-color: #dc2626;
-            background-color: #fef2f2;
+        
+        /* ========== CUSTOM DROPDOWN STYLING ========== */
+        .custom-select {
+            position: relative;
+            width: 100%;
         }
+
+        .custom-select select {
+            display: none;
+        }
+
+        .select-selected {
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
+            padding: 14px 18px;
+            border: 2px solid #d1fae5;
+            border-radius: 14px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #0f766e;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .select-selected:hover {
+            border-color: #99f6e4;
+            background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+            box-shadow: 0 6px 16px rgba(15, 118, 110, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .select-selected.select-arrow-active {
+            border-color: #14b8a6;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.15);
+        }
+
+        .select-selected::after {
+            content: "▾";
+            position: absolute;
+            right: 18px;
+            color: #0f766e;
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .select-selected.select-arrow-active::after {
+            transform: rotate(180deg);
+        }
+
+        .select-items {
+            position: absolute;
+            background: white;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            z-index: 99;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-height: 300px;
+            overflow-y: auto;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid #d1fae5;
+        }
+
+        .select-items.select-show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .select-items div {
+            padding: 14px 18px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            color: #0f766e;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #f0fdfa;
+        }
+
+        .select-items div:last-child {
+            border-bottom: none;
+        }
+
+        .select-items div:hover {
+            background: linear-gradient(90deg, #f0fdfa 0%, #d1fae5 100%);
+            padding-left: 24px;
+        }
+
+        .select-items div.same-as-selected {
+            background: linear-gradient(90deg, #ccfbf1 0%, #99f6e4 100%);
+            font-weight: 700;
+        }
+
+        /* Custom scrollbar for dropdown */
+        .select-items::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .select-items::-webkit-scrollbar-track {
+            background: #f0fdfa;
+            border-radius: 10px;
+        }
+
+        .select-items::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+            border-radius: 10px;
+        }
+
+        .select-items::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #14b8a6 0%, #5eead4 100%);
+        }
+
+        /* Input fields */
+        .form-group input {
+            padding: 14px 18px;
+            border: 2px solid #d1fae5;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #0f766e;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-group input:hover {
+            border-color: #99f6e4;
+            background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+            box-shadow: 0 6px 16px rgba(15, 118, 110, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #14b8a6;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.15), 0 8px 20px rgba(15, 118, 110, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .form-group input::placeholder {
+            color: #9ca3af;
+            font-weight: 400;
+            font-style: italic;
+        }
+        
+        /* ========== SUPER ATTRACTIVE SUBMIT BUTTON ========== */
         .btn-submit {
-            width: 100%; padding: 16px; background: #16a34a; color: white; border: none;
-            border-radius: 10px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s;
+            width: 100%; 
+            padding: 18px; 
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 50%, #0d9488 100%);
+            color: white; 
+            border: none;
+            border-radius: 16px; 
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(15, 118, 110, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
+
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -50%;
+            }
+            50% {
+                left: 150%;
+            }
+            100% {
+                left: 150%;
+            }
+        }
+
+        .btn-submit::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-submit:hover::after {
+            width: 400px;
+            height: 400px;
+        }
+        
         .btn-submit:hover {
-            background: #15803d; transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(22, 163, 74, 0.3);
+            background: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #0f766e 100%);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(15, 118, 110, 0.5);
         }
+
+        .btn-submit:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        .btn-submit .btn-icon {
+            display: inline-block;
+            margin-right: 10px;
+            animation: bounceIcon 2s infinite;
+        }
+
+        @keyframes bounceIcon {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+        
         .results { display: none; }
         .results.show { display: block; }
-        .section-title { font-size: 1.8rem; font-weight: 700; color: #166534; margin-bottom: 25px; }
+        
+        .section-title { 
+            font-size: 1.8rem; 
+            font-weight: 700; 
+            color: #0f766e; 
+            margin-bottom: 25px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
         .crop-card {
-            border: 2px solid #bbf7d0; border-radius: 15px; padding: 25px; margin-bottom: 20px; transition: all 0.3s;
+            border: 2px solid #99f6e4; 
+            border-radius: 20px; 
+            padding: 25px; 
+            margin-bottom: 20px; 
+            transition: all 0.3s;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-        .crop-card:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.1); transform: translateY(-3px); }
-        .crop-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px; flex-wrap: wrap; }
-        .crop-name { font-size: 1.5rem; font-weight: 700; color: #1f2937; }
-        .suitability-badge { background: #dcfce7; color: #166534; padding: 8px 16px; border-radius: 20px; font-weight: 700; }
-        .crop-reason { color: #6b7280; margin-bottom: 20px; font-size: 1rem; }
-        .crop-details { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; font-size: 0.9rem; }
+        
+        .crop-card:hover { 
+            box-shadow: 0 12px 30px rgba(15, 118, 110, 0.2); 
+            transform: translateY(-5px); 
+            border-color: #5eead4;
+        }
+        
+        .crop-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: start; 
+            margin-bottom: 15px; 
+            flex-wrap: wrap; 
+        }
+        
+        .crop-name { 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            color: #0f766e;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .suitability-badge { 
+            background: linear-gradient(135deg, #ccfbf1 0%, #99f6e4 100%);
+            color: #0f766e; 
+            padding: 8px 16px; 
+            border-radius: 20px; 
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
+        }
+        .crop-reason { 
+            color: #6b7280; 
+            margin-bottom: 20px; 
+            font-size: 1rem; 
+        }
+        
+        .crop-details { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 15px; 
+            font-size: 0.9rem; 
+        }
+        
         .detail-item { display: flex; flex-direction: column; }
-        .detail-label { font-weight: 600; color: #374151; margin-bottom: 5px; }
-        .detail-value { color: #6b7280; }
-        .tips-card {
-            background: linear-gradient(135deg, #fffbeb 0%, #fed7aa 100%);
-            border-radius: 20px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        .detail-label { 
+            font-weight: 600; 
+            color: #0f766e; 
+            margin-bottom: 5px; 
         }
-        .tips-title { font-size: 1.8rem; font-weight: 700; color: #92400e; margin-bottom: 20px; }
-        .tips-list { list-style: none; }
-        .tips-list li { display: flex; align-items: start; gap: 15px; margin-bottom: 15px; color: #374151; }
-        .tip-bullet { width: 8px; height: 8px; background: #f97316; border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
-        .note-card { background: #eff6ff; border: 2px solid #bfdbfe; border-radius: 15px; padding: 20px; margin-top: 30px; }
-        .note-card p { color: #1e40af; font-size: 0.9rem; line-height: 1.6; }
+        .detail-value { color: #6b7280; }
+
+        /* ========== SEASON-WISE CROP TABLE ========== */
+        .season-table-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .season-table-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(15, 118, 110, 0.03),
+                transparent
+            );
+            animation: tableShine 8s linear infinite;
+        }
+
+        @keyframes tableShine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        .season-table-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0f766e;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .season-table-container {
+            overflow-x: auto;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .season-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .season-table thead {
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+        }
+
+        .season-header {
+            padding: 25px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .season-header:last-child {
+            border-right: none;
+        }
+
+        .season-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        .season-header:nth-child(1) .season-icon {
+            animation-delay: 0s;
+        }
+
+        .season-header:nth-child(2) .season-icon {
+            animation-delay: 1s;
+        }
+
+        .season-header:nth-child(3) .season-icon {
+            animation-delay: 2s;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .season-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .season-months {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .crop-cell {
+            padding: 25px;
+            vertical-align: top;
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
+            border-right: 2px solid #e5e7eb;
+        }
+
+        .crop-cell:last-child {
+            border-right: none;
+        }
+
+        .crop-cell:hover {
+            background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+        }
+
+        .crop-item {
+            background: white;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border: 1px solid #d1fae5;
+            font-size: 0.95rem;
+            color: #0f766e;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .crop-item:hover {
+            transform: translateX(5px);
+            background: linear-gradient(90deg, #ffffff 0%, #d1fae5 100%);
+            box-shadow: 0 4px 12px rgba(15, 118, 110, 0.2);
+        }
+
+        .crop-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .season-note {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 12px;
+            border: 1px solid #fbbf24;
+        }
+
+        .note-icon {
+            font-size: 1.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .season-note span:last-child {
+            color: #78350f;
+            font-size: 0.9rem;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
         @media (max-width: 768px) {
-            .header-title h1 { font-size: 1.8rem; }
+            .season-table-card {
+                padding: 20px;
+            }
+            
+            .season-table-title {
+                font-size: 1.4rem;
+            }
+            
+            .season-table {
+                font-size: 0.85rem;
+            }
+            
+            .season-icon {
+                font-size: 2rem;
+            }
+            
+            .season-name {
+                font-size: 1rem;
+            }
+            
+            .season-months {
+                font-size: 0.8rem;
+            }
+            
+            .crop-cell {
+                padding: 15px;
+            }
+            
+            .crop-item {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+            
+            .season-table-container {
+                overflow-x: scroll;
+            }
+            
+            .season-table {
+                min-width: 600px;
+            }
+        }
+
+        .season-table tbody tr:hover .crop-cell {
+            background: linear-gradient(135deg, #f0fdfa 0%, #d1fae5 100%);
+        }
+
+        .season-table-card {
+            animation: slideInTable 0.6s ease-out;
+        }
+
+        @keyframes slideInTable {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .tips-card {
+            background: linear-gradient(135deg, rgba(255, 251, 235, 0.98) 0%, rgba(254, 215, 170, 0.98) 100%);
+            border-radius: 24px; 
+            padding: 40px; 
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .tips-title { 
+            font-size: 1.8rem; 
+            font-weight: 700; 
+            color: #92400e; 
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+        }
+        .tips-list { list-style: none; }
+        .tips-list li { 
+            display: flex; 
+            align-items: start; 
+            gap: 15px; 
+            margin-bottom: 15px; 
+            color: #374151; 
+        }
+        .tip-bullet { 
+            width: 8px; 
+            height: 8px; 
+            background: #f97316; 
+            border-radius: 50%; 
+            margin-top: 8px; 
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(249, 115, 22, 0.5);
+        }
+        
+        .note-card { 
+            background: rgba(239, 246, 255, 0.98);
+            border: 2px solid rgba(191, 219, 254, 0.8);
+            border-radius: 20px; 
+            padding: 20px; 
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .note-card p { 
+            color: #1e40af; 
+            font-size: 0.9rem; 
+            line-height: 1.6; 
+        }
+        
+        @media (max-width: 768px) {
             .form-grid { grid-template-columns: 1fr; }
             .card { padding: 20px; }
             .auto-detect-banner { flex-direction: column; text-align: center; }
@@ -446,10 +1270,8 @@
     </style>
 </head>
 <body>
-    <!-- Hidden Google Translate Element -->
     <div id="google_translate_element"></div>
     
-    <!-- ADVANCED LOADING OVERLAY -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-container">
             <div class="loading-icon">
@@ -468,17 +1290,39 @@
 
     <div class="container">
         <div class="header">
-            <div class="header-title">
-                <h1>🌱 Kerala Crop Recommender</h1>
+            <div class="logo-container">
+                <div class="logo-wrapper">
+                    <div class="logo-circle">
+                        <span class="logo-icon">👨‍🌾</span>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Kerala Crops Recommender</h1>
+                        <span class="logo-subtitle">AI Recommender</span>
+                    </div>
+                </div>
             </div>
-            <p>AI-powered crop recommendations for Kerala farmers</p>
-            <div class="header-actions">
-                <div class="custom-language-dropdown">
-                    <select id="language-selector" onchange="changeLanguage(this.value)">
-                        <option value="en" class="notranslate">English</option>
-                        <option value="hi" class="notranslate">हिंदी</option>
-                        <option value="ml" class="notranslate">മലയാളം</option>
-                    </select>
+            
+            <p class="header-description">AI-powered crops recommendations for Kerala farmers</p>
+            
+            <div class="language-selector-wrapper notranslate">
+                <button class="language-btn notranslate" id="languageBtn">
+                    <span class="lang-icon">🌐</span>
+                    <span class="lang-text notranslate">English</span>
+                    <span class="lang-arrow">▾</span>
+                </button>
+                <div class="language-menu notranslate" id="languageMenu">
+                    <div class="lang-item notranslate" data-lang="en" onclick="selectLang('en')">
+                        <span class="flag">🇬🇧</span>
+                        <span class="notranslate">English</span>
+                    </div>
+                    <div class="lang-item notranslate" data-lang="hi" onclick="selectLang('hi')">
+                        <span class="flag">🇮🇳</span>
+                        <span class="notranslate">हिंदी</span>
+                    </div>
+                    <div class="lang-item notranslate" data-lang="ml" onclick="selectLang('ml')">
+                        <span class="flag">🇮🇳</span>
+                        <span class="notranslate">മലയാളം</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -495,37 +1339,41 @@
             <div class="form-grid">
                 <div class="form-group">
                     <label>📍 District</label>
-                    <select id="district">
-                        <option value="">Select District</option>
-                        <option value="Thiruvananthapuram">Thiruvananthapuram</option>
-                        <option value="Kollam">Kollam</option>
-                        <option value="Pathanamthitta">Pathanamthitta</option>
-                        <option value="Alappuzha">Alappuzha</option>
-                        <option value="Kottayam">Kottayam</option>
-                        <option value="Idukki">Idukki</option>
-                        <option value="Ernakulam">Ernakulam</option>
-                        <option value="Thrissur">Thrissur</option>
-                        <option value="Palakkad">Palakkad</option>
-                        <option value="Malappuram">Malappuram</option>
-                        <option value="Kozhikode">Kozhikode</option>
-                        <option value="Wayanad">Wayanad</option>
-                        <option value="Kannur">Kannur</option>
-                        <option value="Kasaragod">Kasaragod</option>
-                    </select>
+                    <div class="custom-select">
+                        <select id="district">
+                            <option value="">Select District</option>
+                            <option value="Thiruvananthapuram">🏛️ Thiruvananthapuram (Capital)</option>
+                            <option value="Kollam">🏖️ Kollam (Coastal)</option>
+                            <option value="Pathanamthitta">⛪ Pathanamthitta (Hilly)</option>
+                            <option value="Alappuzha">🚣 Alappuzha (Backwaters)</option>
+                            <option value="Kottayam">📚 Kottayam (Rubber)</option>
+                            <option value="Idukki">🏔️ Idukki (Highlands)</option>
+                            <option value="Ernakulam">🏙️ Ernakulam (Commercial)</option>
+                            <option value="Thrissur">🎭 Thrissur (Cultural)</option>
+                            <option value="Palakkad">🌾 Palakkad (Rice Bowl)</option>
+                            <option value="Malappuram">🕌 Malappuram (Historical)</option>
+                            <option value="Kozhikode">🏖️ Kozhikode (spices)</option>
+                            <option value="Wayanad">☕ Wayanad (Coffee/Tea)</option>
+                            <option value="Kannur">🥥 Kannur (Coconut)</option>
+                            <option value="Kasaragod">🌰 Kasaragod (Cashew)</option>
+                        </select>
+                    </div>
                     <div class="field-error" id="districtError">Please select a district</div>
                 </div>
 
                 <div class="form-group">
                     <label>🌱 Soil Type</label>
-                    <select id="soilType">
+                    <div class="custom-select">
+                        <select id="soilType">
                         <option value="">Select Soil Type</option>
-                        <option value="Laterite Soil">Laterite Soil</option>
-                        <option value="Alluvial Soil">Alluvial Soil</option>
-                        <option value="Black Cotton Soil">Black Cotton Soil</option>
-                        <option value="Red Soil">Red Soil</option>
-                        <option value="Coastal Sandy Soil">Coastal Sandy Soil</option>
-                        <option value="Forest Soil">Forest Soil</option>
+                        <option value="Laterite Soil">🔴 Laterite Soil (Most common)</option>
+                        <option value="Alluvial Soil">🟤 Alluvial Soil (River banks)</option>
+                        <option value="Black Cotton Soil">⚫ Black Cotton Soil (Palakkad)</option>
+                        <option value="Red Soil">🟥 Red Soil (Highlands)</option>
+                        <option value="Coastal Sandy Soil">🏖️ Coastal Sandy Soil</option>
+                        <option value="Forest Soil">🌲 Forest Soil (Wayanad/Idukki)</option>
                     </select>
+                    </div>
                     <div class="field-error" id="soilTypeError">Please select soil type</div>
                 </div>
 
@@ -534,21 +1382,24 @@
                         📅 Month
                         <span class="auto-filled-badge" id="monthBadge">Auto-filled</span>
                     </label>
-                    <select id="month">
-                        <option value="">Select Month</option>
-                        <option value="January">January</option>
-                        <option value="February">February</option>
-                        <option value="March">March</option>
-                        <option value="April">April</option>
-                        <option value="May">May</option>
-                        <option value="June">June</option>
-                        <option value="July">July</option>
-                        <option value="August">August</option>
-                        <option value="September">September</option>
-                        <option value="October">October</option>
-                        <option value="November">November</option>
-                        <option value="December">December</option>
-                    </select>
+                    <div class="custom-select">
+                        <select id="month">
+                            
+                             <option value="">Select Month</option>
+                        <option value="January" data-season="winter">❄️ January (Winter)</option>
+                        <option value="February" data-season="winter">🌸 February (Spring begins)</option>
+                        <option value="March" data-season="summer">☀️ March (Summer)</option>
+                        <option value="April" data-season="summer">🌺 April (Summer)</option>
+                        <option value="May" data-season="summer">🌧️ May (Pre-monsoon)</option>
+                        <option value="June" data-season="monsoon">☔ June (SW Monsoon)</option>
+                        <option value="July" data-season="monsoon">🌧️ July (Peak Monsoon)</option>
+                        <option value="August" data-season="monsoon">⛈️ August (Monsoon)</option>
+                        <option value="September" data-season="monsoon">🌦️ September (Monsoon ending)</option>
+                        <option value="October" data-season="postmonsoon">🍂 October (NE Monsoon)</option>
+                        <option value="November" data-season="postmonsoon">🌾 November (Post-monsoon)</option>
+                        <option value="December" data-season="winter">⛄ December (Winter)</option>
+                        </select>
+                    </div>
                     <div class="field-error" id="monthError">Please select month</div>
                 </div>
 
@@ -596,23 +1447,92 @@
 
                 <div class="form-group">
                     <label>💦 Water Availability</label>
-                    <select id="waterAvailability">
-                        <option value="">Select Availability</option>
-                        <option value="High">High (Irrigation/Canal)</option>
-                        <option value="Medium">Medium (Well/Borewell)</option>
-                        <option value="Low">Low (Rain-fed only)</option>
-                    </select>
+                    <div class="custom-select">
+                        <select id="waterAvailability">
+                            <option value="">Select Availability</option>
+                            <option value="High">💧 High (Irrigation/Canal)</option>
+                            <option value="Medium">💦 Medium (Well/Borewell)</option>
+                            <option value="Low">💨 Low (Rain-fed only)</option>
+                        </select>
+                    </div>
                     <div class="field-error" id="waterAvailabilityError">Please select water availability</div>
                 </div>
             </div>
 
-            <button class="btn-submit" id="submitBtn">📈 Get Crop Recommendations</button>
+            <button class="btn-submit" id="submitBtn">
+                <span class="btn-icon">🚀</span>Get Crop Recommendations
+            </button>
         </div>
 
         <div class="results" id="results">
             <div class="card">
                 <h2 class="section-title">Recommended Crops</h2>
                 <div id="cropsContainer"></div>
+            </div>
+
+            <div class="season-table-card">
+                <h2 class="season-table-title">📅 Season-wise Crop Calendar for Kerala</h2>
+                <div class="season-table-container">
+                    <table class="season-table">
+                        <thead>
+                            <tr>
+                                <th class="season-header">
+                                    <div class="season-icon">☔</div>
+                                    <div class="season-name">Kharif Season</div>
+                                    <div class="season-months">June - September</div>
+                                </th>
+                                <th class="season-header">
+                                    <div class="season-icon">❄️</div>
+                                    <div class="season-name">Rabi Season</div>
+                                    <div class="season-months">October - February</div>
+                                </th>
+                                <th class="season-header">
+                                    <div class="season-icon">☀️</div>
+                                    <div class="season-name">Summer Season</div>
+                                    <div class="season-months">March - May</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="crop-cell">
+                                    <div class="crop-item">🌾 Paddy (Virippu)</div>
+                                    <div class="crop-item">🥥 Coconut</div>
+                                    <div class="crop-item">🌶️ Chilli</div>
+                                    <div class="crop-item">🫘 Black Gram</div>
+                                    <div class="crop-item">🥔 Tapioca</div>
+                                    <div class="crop-item">🍌 Banana</div>
+                                    <div class="crop-item">🫚 Ginger</div>
+                                    <div class="crop-item">🌿 Turmeric</div>
+                                </td>
+                                <td class="crop-cell">
+                                    <div class="crop-item">🌾 Paddy (Mundakan)</div>
+                                    <div class="crop-item">🥕 Vegetables</div>
+                                    <div class="crop-item">🌻 Sunflower</div>
+                                    <div class="crop-item">🥜 Groundnut</div>
+                                    <div class="crop-item">🌽 Maize</div>
+                                    <div class="crop-item">🫘 Green Gram</div>
+                                    <div class="crop-item">🧅 Onion</div>
+                                    <div class="crop-item">🍅 Tomato</div>
+                                </td>
+                                <td class="crop-cell">
+                                    <div class="crop-item">🌾 Paddy (Puncha)</div>
+                                    <div class="crop-item">🥒 Cucumber</div>
+                                    <div class="crop-item">🍉 Watermelon</div>
+                                    <div class="crop-item">🎃 Pumpkin</div>
+                                    <div class="crop-item">🫛 Cowpea</div>
+                                    <div class="crop-item">🌱 Sesame</div>
+                                    <div class="crop-item">🥬 Leafy Vegetables</div>
+                                    <div class="crop-item">🫑 Bitter Gourd</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="season-note">
+                    <span class="note-icon">💡</span>
+                    <span>Best results depend on local climate conditions, soil type, and water availability in your specific district.</span>
+                </div>
             </div>
 
             <div class="tips-card">
@@ -630,13 +1550,275 @@
         </div>
     </div>
 
-
     <script>
-        // ========== FORM AUTO-SAVE & RESTORE - METHOD 2 ==========
-        
+        // ========== PREVENT AUTO-SAVE CONFLICTS ==========
+        let AUTO_DETECT_IN_PROGRESS = false;
+        let AUTO_DETECT_COMPLETED = false;
+
+        // ========== CUSTOM DROPDOWN FUNCTIONALITY ==========
+        function initCustomSelects() {
+            const selectElements = document.querySelectorAll('.custom-select select');
+            
+            selectElements.forEach(selectEl => {
+                const customSelect = selectEl.parentElement;
+                
+                // Create selected display element
+                const selectedDiv = document.createElement('div');
+                selectedDiv.setAttribute('class', 'select-selected');
+                selectedDiv.innerHTML = selectEl.options[0].innerHTML;
+                customSelect.appendChild(selectedDiv);
+                
+                // Create options container
+                const optionsDiv = document.createElement('div');
+                optionsDiv.setAttribute('class', 'select-items');
+                
+                // Add all options
+                for (let i = 1; i < selectEl.length; i++) {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.innerHTML = selectEl.options[i].innerHTML;
+                    optionDiv.addEventListener('click', function() {
+                        // Update original select
+                        selectEl.selectedIndex = i;
+                        selectEl.value = selectEl.options[i].value;
+                        
+                        // Update display
+                        selectedDiv.innerHTML = this.innerHTML;
+                        
+                        // Remove previous selection highlighting
+                        const sameElements = this.parentElement.querySelectorAll('.same-as-selected');
+                        sameElements.forEach(el => el.classList.remove('same-as-selected'));
+                        this.classList.add('same-as-selected');
+                        
+                        // Close dropdown
+                        selectedDiv.classList.remove('select-arrow-active');
+                        optionsDiv.classList.remove('select-show');
+                        
+                        // Trigger change event
+                        selectEl.dispatchEvent(new Event('change'));
+                    });
+                    optionsDiv.appendChild(optionDiv);
+                }
+                customSelect.appendChild(optionsDiv);
+                
+                // Toggle dropdown on click
+                selectedDiv.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    closeAllSelect(this);
+                    this.classList.toggle('select-arrow-active');
+                    optionsDiv.classList.toggle('select-show');
+                });
+            });
+        }
+
+        function closeAllSelect(element) {
+            const items = document.querySelectorAll('.select-items');
+            const selected = document.querySelectorAll('.select-selected');
+            
+            selected.forEach((sel, index) => {
+                if (element !== sel) {
+                    sel.classList.remove('select-arrow-active');
+                }
+            });
+            
+            items.forEach((item, index) => {
+                if (element && element.nextSibling === item) {
+                    return;
+                }
+                item.classList.remove('select-show');
+            });
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', closeAllSelect);
+
+        // Initialize custom selects when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            initCustomSelects();
+        });
+
+        // ========== LANGUAGE SELECTOR ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageBtn = document.getElementById('languageBtn');
+            const languageMenu = document.getElementById('languageMenu');
+            const langText = languageBtn.querySelector('.lang-text');
+            
+            languageBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                languageBtn.classList.toggle('active');
+                languageMenu.classList.toggle('show');
+            });
+            
+            document.addEventListener('click', function() {
+                languageBtn.classList.remove('active');
+                languageMenu.classList.remove('show');
+            });
+            
+            languageMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+
+        function selectLang(langCode) {
+            const languageBtn = document.getElementById('languageBtn');
+            const languageMenu = document.getElementById('languageMenu');
+            const langText = languageBtn.querySelector('.lang-text');
+            
+            const langNames = {
+                'en': 'English',
+                'hi': 'हिंदी',
+                'ml': 'മലയാളം'
+            };
+            
+            langText.textContent = langNames[langCode];
+            
+            languageBtn.classList.remove('active');
+            languageMenu.classList.remove('show');
+            
+            changeLanguage(langCode);
+        }
+
+        // ========== SAVE & RESTORE WITH JSON DATA ==========
+        function saveFormAndResults() {
+            try {
+                const formData = {
+                    district: document.getElementById('district')?.value || '',
+                    soilType: document.getElementById('soilType')?.value || '',
+                    month: document.getElementById('month')?.value || '',
+                    rainfall: document.getElementById('rainfall')?.value || '',
+                    temperature: document.getElementById('temperature')?.value || '',
+                    temperatureNext: document.getElementById('temperatureNext')?.value || '',
+                    rainfallNext: document.getElementById('rainfallNext')?.value || '',
+                    soilPH: document.getElementById('soilPH')?.value || '',
+                    waterAvailability: document.getElementById('waterAvailability')?.value || '',
+                    autoFillBadges: {
+                        month: document.getElementById('monthBadge')?.classList.contains('show') || false,
+                        rainfall: document.getElementById('rainfallBadge')?.classList.contains('show') || false,
+                        temperature: document.getElementById('temperatureBadge')?.classList.contains('show') || false,
+                        temperatureNext: document.getElementById('temperatureNextBadge')?.classList.contains('show') || false,
+                        rainfallNext: document.getElementById('rainfallNextBadge')?.classList.contains('show') || false
+                    },
+                    timestamp: Date.now(),
+                    languageChange: true
+                };
+                
+                // Save results as JSON DATA (not HTML)
+                const resultsDiv = document.getElementById('results');
+                if (resultsDiv && resultsDiv.classList.contains('show')) {
+                    formData.resultsVisible = true;
+                    
+                    // Get crops and tips from window storage (set during displayResults)
+                    formData.cropsData = window.__savedCropsData__ || [];
+                    formData.tipsData = window.__savedTipsData__ || [];
+                } else {
+                    formData.resultsVisible = false;
+                }
+                
+                sessionStorage.setItem('__cropLangChange__', JSON.stringify(formData));
+                console.log('✅ Saved form + JSON results data');
+            } catch(e) {
+                console.warn('Failed to save:', e);
+            }
+        }
+
+        function restoreFormAndResults() {
+            try {
+                const saved = sessionStorage.getItem('__cropLangChange__');
+                if (!saved) return;
+                
+                const data = JSON.parse(saved);
+                if (!data.languageChange) return;
+                
+                if (Date.now() - data.timestamp > 300000) {
+                    sessionStorage.removeItem('__cropLangChange__');
+                    return;
+                }
+                
+                console.log('📂 Restoring form + results...');
+                
+                setTimeout(() => {
+                    // Restore form
+                    if (data.district) document.getElementById('district').value = data.district;
+                    if (data.soilType) document.getElementById('soilType').value = data.soilType;
+                    if (data.month) document.getElementById('month').value = data.month;
+                    if (data.rainfall) document.getElementById('rainfall').value = data.rainfall;
+                    if (data.temperature) document.getElementById('temperature').value = data.temperature;
+                    if (data.temperatureNext) document.getElementById('temperatureNext').value = data.temperatureNext;
+                    if (data.rainfallNext) document.getElementById('rainfallNext').value = data.rainfallNext;
+                    if (data.soilPH) document.getElementById('soilPH').value = data.soilPH;
+                    if (data.waterAvailability) document.getElementById('waterAvailability').value = data.waterAvailability;
+                    
+                    // Update dropdowns
+                    document.querySelectorAll('.custom-select').forEach(customSelect => {
+                        const select = customSelect.querySelector('select');
+                        const selectedDiv = customSelect.querySelector('.select-selected');
+                        if (select && selectedDiv && select.value) {
+                            const selectedOption = select.options[select.selectedIndex];
+                            if (selectedOption) {
+                                selectedDiv.innerHTML = selectedOption.innerHTML;
+                            }
+                        }
+                    });
+                    
+                    // Restore badges
+                    if (data.autoFillBadges) {
+                        if (data.autoFillBadges.month) document.getElementById('monthBadge')?.classList.add('show');
+                        if (data.autoFillBadges.rainfall) document.getElementById('rainfallBadge')?.classList.add('show');
+                        if (data.autoFillBadges.temperature) document.getElementById('temperatureBadge')?.classList.add('show');
+                        if (data.autoFillBadges.temperatureNext) document.getElementById('temperatureNextBadge')?.classList.add('show');
+                        if (data.autoFillBadges.rainfallNext) document.getElementById('rainfallNextBadge')?.classList.add('show');
+                    }
+                    
+                    // Restore results from JSON DATA
+                    if (data.resultsVisible && data.cropsData && data.tipsData) {
+                        console.log('🌱 Regenerating results from JSON data...');
+                        displayResults(data.cropsData, data.tipsData);
+                    }
+                    
+                    console.log('✅ Restored! Google Translate will now translate fresh HTML.');
+                    sessionStorage.removeItem('__cropLangChange__');
+                }, 1500); // Increased delay for Google Translate
+                
+            } catch(e) {
+                console.warn('Failed to restore:', e);
+            }
+        }
+
+        function changeLanguage(langCode) {
+            console.log("🌐 Changing language to:", langCode);
+            
+            // Save form + results JSON
+            saveFormAndResults();
+            localStorage.setItem('selectedLanguage', langCode);
+            
+            // Clear Google Translate cookies
+            const cookies = ['googtrans', 'googtrans_backup'];
+            cookies.forEach(cookie => {
+                document.cookie = cookie + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                document.cookie = cookie + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
+                document.cookie = cookie + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + window.location.hostname;
+            });
+            
+            // Set new language
+            const langPair = langCode === 'en' ? '/en/en' : '/en/' + langCode;
+            document.cookie = 'googtrans=' + langPair + '; path=/';
+            
+            // Hard reload
+            setTimeout(() => {
+                window.location.reload(true);
+            }, 100);
+        }
+
+        // ========== FORM AUTO-SAVE & RESTORE (FOR NORMAL USAGE) ==========
         (function() {
-            // Save form data to sessionStorage
             function autoSaveForm() {
+                if (AUTO_DETECT_IN_PROGRESS || AUTO_DETECT_COMPLETED) {
+                    return;
+                }
+                
+                if (sessionStorage.getItem('__cropLangChange__')) {
+                    return;
+                }
+                
                 try {
                     const data = {
                         district: document.getElementById('district')?.value || '',
@@ -651,29 +1833,33 @@
                         timestamp: Date.now()
                     };
                     sessionStorage.setItem('__cropFormBackup__', JSON.stringify(data));
-                    console.log('💾 Auto-saved:', data);
                 } catch(e) {
                     console.warn('Save failed:', e);
                 }
             }
             
-            // Restore form data from sessionStorage
             function autoRestoreForm() {
+                const langChangeData = sessionStorage.getItem('__cropLangChange__');
+                if (langChangeData) {
+                    restoreFormAndResults();
+                    return;
+                }
+                
+                if (AUTO_DETECT_COMPLETED) {
+                    return;
+                }
+                
                 try {
                     const saved = sessionStorage.getItem('__cropFormBackup__');
                     if (!saved) return;
                     
                     const data = JSON.parse(saved);
                     
-                    // Check if data is recent (within 10 minutes)
                     if (Date.now() - data.timestamp > 600000) {
                         sessionStorage.removeItem('__cropFormBackup__');
                         return;
                     }
                     
-                    console.log('📂 Restoring form data...');
-                    
-                    // Restore with delay to ensure DOM is ready
                     setTimeout(() => {
                         if (data.district) document.getElementById('district').value = data.district;
                         if (data.soilType) document.getElementById('soilType').value = data.soilType;
@@ -684,8 +1870,6 @@
                         if (data.rainfallNext) document.getElementById('rainfallNext').value = data.rainfallNext;
                         if (data.soilPH) document.getElementById('soilPH').value = data.soilPH;
                         if (data.waterAvailability) document.getElementById('waterAvailability').value = data.waterAvailability;
-                        
-                        console.log('✅ Form restored!');
                     }, 200);
                     
                 } catch(e) {
@@ -693,7 +1877,6 @@
                 }
             }
             
-            // Setup auto-save listeners
             function setupAutoSave() {
                 const fieldIds = [
                     'district', 'soilType', 'month', 'rainfall',
@@ -706,13 +1889,10 @@
                     if (el) {
                         el.addEventListener('change', autoSaveForm);
                         el.addEventListener('input', autoSaveForm);
-                    }
+                                        }
                 });
-                
-                console.log('🔄 Auto-save enabled');
             }
             
-            // Run on page load
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', function() {
                     autoRestoreForm();
@@ -723,16 +1903,9 @@
                 setTimeout(setupAutoSave, 500);
             }
             
-            // Save before page unload
             window.addEventListener('beforeunload', autoSaveForm);
-            
-            // Save before language change (intercept)
-            window.addEventListener('hashchange', autoSaveForm);
-            
         })();
 
-        // ========== GOOGLE LOGO KILLER - AGGRESSIVE ==========
-        // Kill Google logos immediately on page load
         function killGoogleLogos() {
             const selectors = [
                 '.goog-logo-link',
@@ -760,41 +1933,14 @@
             });
         }
 
-        // Run immediately
         killGoogleLogos();
-
-        // Run continuously to catch any new elements
         setInterval(killGoogleLogos, 50);
-
-        // Also run on various events
         document.addEventListener('DOMContentLoaded', killGoogleLogos);
         window.addEventListener('load', killGoogleLogos);
         
-        // Watch for any new elements being added
         const observer = new MutationObserver(killGoogleLogos);
         observer.observe(document.body, { childList: true, subtree: true });
-
-        // Simple direct language change function that works reliably
-        function changeLanguage(langCode) {
-            console.log("Changing language to:", langCode);
-            
-            // Store in localStorage
-            localStorage.setItem('selectedLanguage', langCode);
-            
-            // Use this direct method for more reliable language switching
-            if (langCode === 'en') {
-                // For English, use the default language
-                location.href = window.location.pathname + '#googtrans(en|en)';
-            } else {
-                // For other languages
-                location.href = window.location.pathname + '#googtrans(en|' + langCode + ')';
-            }
-            
-            // Reload the page to ensure the translation takes effect
-            location.reload();
-        }
         
-        // ========== PERFECT CONTINUOUS LOADING WITH RELEVANT MESSAGES ==========
         class LoadingController {
             constructor() {
                 this.overlay = document.getElementById('loadingOverlay');
@@ -815,7 +1961,6 @@
                 this.apiCompleted = false;
                 this.updateProgress(0);
                 
-                // Define RELEVANT agricultural messages only
                 this.messages = {
                     'ai': [
                         { at: 3, msg: 'Initializing AI system...', sub: 'Starting agricultural analysis' },
@@ -870,7 +2015,6 @@
                 this.startContinuousProgress(type);
             }
 
-            // Continuous progress that NEVER stops
             startContinuousProgress(type) {
                 const msgList = this.messages[type];
                 let messageIndex = 0;
@@ -879,33 +2023,29 @@
                 
                 this.progressInterval = setInterval(() => {
                     if (!this.apiCompleted) {
-                        // Dynamic speed based on progress
                         let increment;
                         if (this.currentProgress < 30) {
-                            increment = 0.8; // Fast start
+                            increment = 0.8;
                         } else if (this.currentProgress < 60) {
-                            increment = 0.5; // Medium
+                            increment = 0.5;
                         } else if (this.currentProgress < 80) {
-                            increment = 0.3; // Slower
+                            increment = 0.3;
                         } else if (this.currentProgress < 95) {
-                            increment = 0.15; // Very slow
+                            increment = 0.15;
                         } else if (this.currentProgress < 99) {
-                            increment = 0.05; // Ultra slow
+                            increment = 0.05;
                         } else {
-                            increment = 0.01; // Barely moving but still moving
+                            increment = 0.01;
                         }
                         
-                        // Progress NEVER stops at 99.9%
                         this.currentProgress = Math.min(this.currentProgress + increment, 99.9);
                         
-                        // Update messages based on progress
                         while (messageIndex < msgList.length && this.currentProgress >= msgList[messageIndex].at) {
                             this.message.textContent = msgList[messageIndex].msg;
                             this.substatus.textContent = msgList[messageIndex].sub;
                             messageIndex++;
                         }
                         
-                        // If we've shown all messages but still waiting
                         if (messageIndex >= msgList.length && this.currentProgress > 98) {
                             const waitMessages = [
                                 'AI is processing complex data...',
@@ -919,7 +2059,7 @@
                         
                         this.updateProgress(this.currentProgress);
                     }
-                }, 100); // Update every 100ms for smooth animation
+                }, 100);
             }
 
             updateProgress(value) {
@@ -927,12 +2067,10 @@
                 this.percentage.textContent = `${Math.floor(value)}%`;
             }
 
-            // API complete = instant jump to 100%
             complete() {
                 this.apiCompleted = true;
                 clearInterval(this.progressInterval);
                 
-                // Instant jump to 100
                 this.currentProgress = 100;
                 this.updateProgress(100);
                 this.message.textContent = '✅ Complete!';
@@ -955,7 +2093,6 @@
 
         const loadingController = new LoadingController();
 
-        // Function to show field-specific error
         function showFieldError(fieldId, message) {
             const field = document.getElementById(fieldId);
             const errorEl = document.getElementById(fieldId + 'Error');
@@ -966,7 +2103,6 @@
             }
         }
 
-        // Function to hide field-specific error
         function hideFieldError(fieldId) {
             const field = document.getElementById(fieldId);
             const errorEl = document.getElementById(fieldId + 'Error');
@@ -974,7 +2110,6 @@
             if (errorEl) errorEl.classList.remove('show');
         }
 
-        // Validate field and auto-remove error
         function validateFieldOnInput(fieldId) {
             const field = document.getElementById(fieldId);
             const value = field.value;
@@ -1014,28 +2149,24 @@
             }
         }
 
-        // ADD EVENT LISTENERS TO ALL FIELDS
         document.addEventListener('DOMContentLoaded', function() {
-            // Kill Google logos aggressively
             killGoogleLogos();
             
-            // Apply translation from localStorage
             setTimeout(function() {
                 const savedLanguage = localStorage.getItem('selectedLanguage');
-                if (savedLanguage && savedLanguage !== 'en') {
-                    // Set the dropdown to match the stored language
-                    document.getElementById('language-selector').value = savedLanguage;
-                    
-                    // Check if we need to apply translation (if URL doesn't already have it)
-                    const currentHash = window.location.hash;
-                    if (!currentHash.includes('googtrans')) {
-                        window.location.hash = 'googtrans(en|' + savedLanguage + ')';
-                        window.location.reload();
+                if (savedLanguage) {
+                    const langText = document.querySelector('.lang-text');
+                    const langNames = {
+                        'en': 'English',
+                        'hi': 'हिंदी',
+                        'ml': 'മലയാളം'
+                    };
+                    if (langText) {
+                        langText.textContent = langNames[savedLanguage] || 'English';
                     }
                 }
             }, 500);
             
-            // More aggressive Google element hiding
             const killInterval = setInterval(function() {
                 const googleElements = document.querySelectorAll('[class*="goog-"], [id*="goog-"], iframe[src*="translate.google"]');
                 googleElements.forEach(el => {
@@ -1045,7 +2176,6 @@
                 });
             }, 100);
             
-            // Stop after 10 seconds to save resources
             setTimeout(() => clearInterval(killInterval), 10000);
             
             document.getElementById('district').addEventListener('change', function() {
@@ -1085,338 +2215,6 @@
             });
         });
 
-    // ========== GOOGLE LOGO KILLER - AGGRESSIVE ==========
-    // function killGoogleLogos() {
-    //     const selectors = [
-    //         '.goog-logo-link',
-    //         '.goog-te-gadget-icon', 
-    //         '.goog-te-gadget img',
-    //         '.goog-te-banner-frame',
-    //         '.skiptranslate:not(#google_translate_element)',
-    //         'iframe.goog-te-banner-frame',
-    //         '.goog-te-spinner-pos',
-    //         'div.skiptranslate iframe'
-    //     ];
-        
-    //     selectors.forEach(selector => {
-    //         const elements = document.querySelectorAll(selector);
-    //         elements.forEach(el => {
-    //             el.style.display = 'none';
-    //             el.style.visibility = 'hidden';
-    //             el.style.opacity = '0';
-    //             el.style.width = '0';
-    //             el.style.height = '0';
-    //             el.style.overflow = 'hidden';
-    //             el.style.position = 'absolute';
-    //             el.style.left = '-9999px';
-    //         });
-    //     });
-    // }
-
-    // killGoogleLogos();
-    // setInterval(killGoogleLogos, 50);
-    // document.addEventListener('DOMContentLoaded', killGoogleLogos);
-    // window.addEventListener('load', killGoogleLogos);
-    
-    // const observer = new MutationObserver(killGoogleLogos);
-    // observer.observe(document.body, { childList: true, subtree: true });
-
-    // function changeLanguage(langCode) {
-    //     console.log("Changing language to:", langCode);
-    //     localStorage.setItem('selectedLanguage', langCode);
-        
-    //     if (langCode === 'en') {
-    //         location.href = window.location.pathname + '#googtrans(en|en)';
-    //     } else {
-    //         location.href = window.location.pathname + '#googtrans(en|' + langCode + ')';
-    //     }
-    //     location.reload();
-    // }
-    
-    // // ========== LOADING CONTROLLER WITH TIMEOUT ==========
-    // class LoadingController {
-    //     constructor() {
-    //         this.overlay = document.getElementById('loadingOverlay');
-    //         this.title = document.getElementById('loadingTitle');
-    //         this.message = document.getElementById('loadingMessage');
-    //         this.progressBar = document.getElementById('progressBar');
-    //         this.percentage = document.getElementById('progressPercentage');
-    //         this.substatus = document.getElementById('loadingSubstatus');
-    //         this.currentProgress = 0;
-    //         this.progressInterval = null;
-    //         this.apiCompleted = false;
-    //         this.messages = {};
-    //         this.timeoutId = null;
-    //     }
-
-    //     show(type = 'ai') {
-    //         this.overlay.classList.add('show');
-    //         this.currentProgress = 0;
-    //         this.apiCompleted = false;
-    //         this.updateProgress(0);
-            
-    //         this.timeoutId = setTimeout(() => {
-    //             if (!this.apiCompleted) {
-    //                 this.hide();
-    //                 alert("⏱️ Request timeout!\n\nPlease check:\n1. Server is running (node server.js)\n2. API key is correct in .env file\n3. Internet connection is active\n\nTerminal mein error dekho!");
-    //             }
-    //         }, 60000);
-            
-    //         this.messages = {
-    //             'ai': [
-    //                 { at: 3, msg: 'Initializing AI system...', sub: 'Starting agricultural analysis' },
-    //                 { at: 6, msg: 'Validating input parameters...', sub: 'Checking form data' },
-    //                 { at: 10, msg: 'Connecting to AI model...', sub: 'DeepSeek Agriculture Expert' },
-    //                 { at: 14, msg: 'Sending farm parameters...', sub: `District: ${document.getElementById('district').value || 'Kerala'}` },
-    //                 { at: 18, msg: 'Analyzing soil type...', sub: `${document.getElementById('soilType').value || 'Soil'} compatibility check` },
-    //                 { at: 22, msg: 'Processing pH levels...', sub: `pH ${document.getElementById('soilPH').value || '6.5'} analysis` },
-    //                 { at: 26, msg: 'Evaluating temperature...', sub: `${document.getElementById('temperature').value || '28'}°C conditions` },
-    //                 { at: 30, msg: 'Analyzing rainfall data...', sub: `${document.getElementById('rainfall').value || '250'}mm monthly average` },
-    //                 { at: 34, msg: 'Processing forecast data...', sub: 'Next 16 days predictions' },
-    //                 { at: 38, msg: 'Checking water resources...', sub: `${document.getElementById('waterAvailability').value || 'Water'} availability` },
-    //                 { at: 42, msg: 'Accessing crop database...', sub: 'Kerala agriculture repository' },
-    //                 { at: 46, msg: 'Matching suitable crops...', sub: 'Finding best matches' },
-    //                 { at: 50, msg: 'Calculating suitability...', sub: 'Processing 20-25 crops' },
-    //                 { at: 54, msg: 'Analyzing growth duration...', sub: 'Crop cycle calculations' },
-    //                 { at: 58, msg: 'Computing expected yields...', sub: 'Tonnage per hectare' },
-    //                 { at: 62, msg: 'Selecting best varieties...', sub: 'High-yield cultivars' },
-    //                 { at: 66, msg: 'Month-wise filtering...', sub: `${document.getElementById('month').value || 'Current month'} sowing window` },
-    //                 { at: 70, msg: 'Optimizing crop rotation...', sub: 'Sequential planting advice' },
-    //                 { at: 74, msg: 'Generating farming calendar...', sub: 'Sowing to harvest timeline' },
-    //                 { at: 78, msg: 'Creating irrigation schedule...', sub: 'Water management plan' },
-    //                 { at: 82, msg: 'Preparing fertilizer advice...', sub: 'NPK recommendations' },
-    //                 { at: 86, msg: 'Generating best practices...', sub: 'Location-specific tips' },
-    //                 { at: 90, msg: 'Finalizing recommendations...', sub: 'AI processing complete' },
-    //                 { at: 94, msg: 'Compiling results...', sub: 'Preparing your report' },
-    //                 { at: 97, msg: 'Almost ready...', sub: 'Formatting output' },
-    //                 { at: 99, msg: 'Loading results...', sub: 'Get ready!' }
-    //             ],
-    //             'weather': [
-    //                 { at: 5, msg: 'Connecting to weather service...', sub: 'Open-Meteo API' },
-    //                 { at: 15, msg: 'Locating coordinates...', sub: `${document.getElementById('district').value || 'District'} GPS location` },
-    //                 { at: 25, msg: 'Fetching past 30 days data...', sub: 'Historical weather' },
-    //                 { at: 40, msg: 'Processing temperature records...', sub: 'Daily min/max values' },
-    //                 { at: 55, msg: 'Calculating rainfall totals...', sub: 'Monthly accumulation' },
-    //                 { at: 70, msg: 'Getting 16-day forecast...', sub: 'Future predictions' },
-    //                 { at: 85, msg: 'Computing averages...', sub: 'Statistical analysis' },
-    //                 { at: 95, msg: 'Finalizing weather data...', sub: 'Almost done!' }
-    //             ]
-    //         };
-            
-    //         if (type === 'weather') {
-    //             this.title.textContent = '🌤️ Fetching Weather Data';
-    //             this.message.textContent = 'Connecting to weather satellites...';
-    //             this.substatus.textContent = 'Loading real-time data';
-    //         } else {
-    //             this.title.textContent = '🤖 AI Analysis in Progress';
-    //             this.message.textContent = 'Initializing AI model...';
-    //             this.substatus.textContent = 'Starting analysis';
-    //         }
-            
-    //         this.startContinuousProgress(type);
-    //     }
-
-    //     startContinuousProgress(type) {
-    //         const msgList = this.messages[type];
-    //         let messageIndex = 0;
-            
-    //         if (this.progressInterval) clearInterval(this.progressInterval);
-            
-    //         this.progressInterval = setInterval(() => {
-    //             if (!this.apiCompleted) {
-    //                 let increment;
-    //                 if (this.currentProgress < 30) {
-    //                     increment = 0.8;
-    //                 } else if (this.currentProgress < 60) {
-    //                     increment = 0.5;
-    //                 } else if (this.currentProgress < 80) {
-    //                     increment = 0.3;
-    //                 } else if (this.currentProgress < 95) {
-    //                     increment = 0.15;
-    //                 } else if (this.currentProgress < 99) {
-    //                     increment = 0.05;
-    //                 } else {
-    //                     increment = 0.01;
-    //                 }
-                    
-    //                 this.currentProgress = Math.min(this.currentProgress + increment, 99.9);
-                    
-    //                 while (messageIndex < msgList.length && this.currentProgress >= msgList[messageIndex].at) {
-    //                     this.message.textContent = msgList[messageIndex].msg;
-    //                     this.substatus.textContent = msgList[messageIndex].sub;
-    //                     messageIndex++;
-    //                 }
-                    
-    //                 if (messageIndex >= msgList.length && this.currentProgress > 98) {
-    //                     const waitMessages = [
-    //                         'AI is processing complex data...',
-    //                         'Analyzing agricultural patterns...',
-    //                         'Please wait a moment...',
-    //                         'Finalizing recommendations...'
-    //                     ];
-    //                     const waitIndex = Math.floor((Date.now() / 3000) % waitMessages.length);
-    //                     this.substatus.textContent = waitMessages[waitIndex];
-    //                 }
-                    
-    //                 this.updateProgress(this.currentProgress);
-    //             }
-    //         }, 100);
-    //     }
-
-    //     updateProgress(value) {
-    //         this.progressBar.style.width = `${value}%`;
-    //         this.percentage.textContent = `${Math.floor(value)}%`;
-    //     }
-
-    //     complete() {
-    //         this.apiCompleted = true;
-    //         if (this.timeoutId) clearTimeout(this.timeoutId);
-    //         clearInterval(this.progressInterval);
-            
-    //         this.currentProgress = 100;
-    //         this.updateProgress(100);
-    //         this.message.textContent = '✅ Complete!';
-    //         this.substatus.textContent = 'Loading your recommendations...';
-            
-    //         setTimeout(() => {
-    //             this.hide();
-    //         }, 800);
-    //     }
-
-    //     hide() {
-    //         this.apiCompleted = true;
-    //         if (this.timeoutId) clearTimeout(this.timeoutId);
-    //         clearInterval(this.progressInterval);
-    //         this.overlay.classList.remove('show');
-    //         this.progressBar.style.width = '0%';
-    //         this.percentage.textContent = '0%';
-    //         this.currentProgress = 0;
-    //     }
-    // }
-
-    // const loadingController = new LoadingController();
-
-    // function showFieldError(fieldId, message) {
-    //     const field = document.getElementById(fieldId);
-    //     const errorEl = document.getElementById(fieldId + 'Error');
-    //     if (field) field.classList.add('error');
-    //     if (errorEl) {
-    //         errorEl.textContent = message;
-    //         errorEl.classList.add('show');
-    //     }
-    // }
-
-    // function hideFieldError(fieldId) {
-    //     const field = document.getElementById(fieldId);
-    //     const errorEl = document.getElementById(fieldId + 'Error');
-    //     if (field) field.classList.remove('error');
-    //     if (errorEl) errorEl.classList.remove('show');
-    // }
-
-    // function validateFieldOnInput(fieldId) {
-    //     const field = document.getElementById(fieldId);
-    //     const value = field.value;
-        
-    //     if (value && value !== "") {
-    //         if (field.type === 'number') {
-    //             const numValue = parseFloat(value);
-                
-    //             if (fieldId === 'temperature' || fieldId === 'temperatureNext') {
-    //                 if (numValue >= 10 && numValue <= 45) {
-    //                     hideFieldError(fieldId);
-    //                 } else {
-    //                     showFieldError(fieldId, `Temperature must be between 10°C and 45°C`);
-    //                 }
-    //             } else if (fieldId === 'rainfall') {
-    //                 if (numValue >= 0 && numValue <= 2000) {
-    //                     hideFieldError(fieldId);
-    //                 } else {
-    //                     showFieldError(fieldId, `Rainfall must be between 0mm and 2000mm`);
-    //                 }
-    //             } else if (fieldId === 'rainfallNext') {
-    //                 if (numValue >= 0 && numValue <= 1000) {
-    //                     hideFieldError(fieldId);
-    //                 } else {
-    //                     showFieldError(fieldId, `Rainfall must be between 0mm and 1000mm`);
-    //                 }
-    //             } else if (fieldId === 'soilPH') {
-    //                 if (numValue >= 3.5 && numValue <= 9.0) {
-    //                     hideFieldError(fieldId);
-    //                 } else {
-    //                     showFieldError(fieldId, `Soil pH must be between 3.5 and 9.0`);
-    //                 }
-    //             }
-    //         } else {
-    //             hideFieldError(fieldId);
-    //         }
-    //     }
-    // }
-
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     killGoogleLogos();
-        
-    //     setTimeout(function() {
-    //         const savedLanguage = localStorage.getItem('selectedLanguage');
-    //         if (savedLanguage && savedLanguage !== 'en') {
-    //             document.getElementById('language-selector').value = savedLanguage;
-    //             const currentHash = window.location.hash;
-    //             if (!currentHash.includes('googtrans')) {
-    //                 window.location.hash = 'googtrans(en|' + savedLanguage + ')';
-    //                 window.location.reload();
-    //             }
-    //         }
-    //     }, 500);
-        
-    //     const killInterval = setInterval(function() {
-    //         const googleElements = document.querySelectorAll('[class*="goog-"], [id*="goog-"], iframe[src*="translate.google"]');
-    //         googleElements.forEach(el => {
-    //             if (el.id !== 'google_translate_element') {
-    //                 el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important; width: 0 !important; height: 0 !important;';
-    //             }
-    //         });
-    //     }, 100);
-        
-    //     setTimeout(() => clearInterval(killInterval), 10000);
-        
-    //     document.getElementById('district').addEventListener('change', function() {
-    //         validateFieldOnInput('district');
-    //     });
-        
-    //     document.getElementById('soilType').addEventListener('change', function() {
-    //         validateFieldOnInput('soilType');
-    //     });
-        
-    //     document.getElementById('month').addEventListener('change', function() {
-    //         validateFieldOnInput('month');
-    //     });
-        
-    //     document.getElementById('waterAvailability').addEventListener('change', function() {
-    //         validateFieldOnInput('waterAvailability');
-    //     });
-        
-    //     document.getElementById('rainfall').addEventListener('input', function() {
-    //         validateFieldOnInput('rainfall');
-    //     });
-        
-    //     document.getElementById('temperature').addEventListener('input', function() {
-    //         validateFieldOnInput('temperature');
-    //     });
-        
-    //     document.getElementById('temperatureNext').addEventListener('input', function() {
-    //         validateFieldOnInput('temperatureNext');
-    //     });
-        
-    //     document.getElementById('rainfallNext').addEventListener('input', function() {
-    //         validateFieldOnInput('rainfallNext');
-    //     });
-        
-    //     document.getElementById('soilPH').addEventListener('input', function() {
-    //         validateFieldOnInput('soilPH');
-    //     });
-
-    //     });
-
-        // Kerala districts lat/lon
         var keralaDistricts = {
             'Thiruvananthapuram': { lat: 8.5241, lon: 76.9366 },
             'Kollam': { lat: 8.8932, lon: 76.6141 },
@@ -1442,7 +2240,6 @@
             return monthNames[new Date().getMonth()];
         }
 
-        // Auto Detect Weather
         async function autoDetectWeather() {
             const districtEl = document.getElementById("district");
             const districtVal = districtEl.value;
@@ -1450,6 +2247,8 @@
                 showFieldError('district', '❌ Please select your District first!');
                 return;
             }
+
+            AUTO_DETECT_IN_PROGRESS = true;
 
             loadingController.show('weather');
 
@@ -1463,7 +2262,6 @@
                 startDateObj.setDate(startDateObj.getDate() - 30);
                 const startDate = startDateObj.toISOString().split("T")[0];
 
-                // Past 30 Days Archive Data
                 const pastUrl = `https://archive-api.open-meteo.com/v1/archive?latitude=${latitude}&longitude=${longitude}&start_date=${startDate}&end_date=${endDate}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=Asia/Kolkata`;
                 const resPast = await fetch(pastUrl);
                 const dataPast = await resPast.json();
@@ -1476,7 +2274,6 @@
                 const totalRainPast = Math.round(rainPast);
                 const avgTempPast = Math.round(tempPast / dataPast.daily.time.length);
 
-                // Next 16 Days Forecast
                 const futUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days=16&timezone=Asia/Kolkata`;
                 const resFut = await fetch(futUrl);
                 const dataFut = await resFut.json();
@@ -1491,13 +2288,21 @@
 
                 const monthNow = getCurrentMonth();
 
-                // Fill fields
                 document.getElementById('district').value = districtVal;
                 document.getElementById('temperature').value = avgTempPast;
                 document.getElementById('rainfall').value = totalRainPast;
                 document.getElementById('temperatureNext').value = avgTempNext;
                 document.getElementById('rainfallNext').value = totalRainNext;
                 document.getElementById('month').value = monthNow;
+
+                // Update custom dropdowns display
+                document.querySelectorAll('.select-selected').forEach(el => {
+                    const select = el.previousElementSibling;
+                    if (select && select.value) {
+                        const selectedOption = select.options[select.selectedIndex];
+                        el.innerHTML = selectedOption.innerHTML;
+                    }
+                });
 
                 hideFieldError('district');
                 hideFieldError('temperature');
@@ -1512,16 +2317,20 @@
                 document.getElementById('rainfallNextBadge').classList.add('show');
                 document.getElementById('monthBadge').classList.add('show');
 
-                // API complete
+                AUTO_DETECT_COMPLETED = true;
+                sessionStorage.removeItem('__cropFormBackup__');
+                console.log('✅ Auto-detect completed. Auto-save disabled for this session.');
+
                 loadingController.complete();
             } catch (err) {
                 console.error(err);
                 loadingController.hide();
                 alert("⚠ Could not fetch weather data, please fill manually.");
+            } finally {
+                AUTO_DETECT_IN_PROGRESS = false;
             }
         }
 
-        // Helper: suitability parsing + sorting
         function parseSuitability(val) {
             if (typeof val === "number") {
                 return Math.max(0, Math.min(100, Math.round(val)));
@@ -1545,34 +2354,19 @@
             });
         }
 
-        // // AI-based recommendations
-        // async function getRecommendations() {
-        //     const inputs = {
-        //         district: document.getElementById('district').value,
-        //         soilType: document.getElementById('soilType').value,
-        //         month: document.getElementById('month').value,
-        //         rainfall: document.getElementById('rainfall').value,
-        //         temperature: document.getElementById('temperature').value,
-        //         temperatureNext: document.getElementById('temperatureNext').value,
-        //         rainfallNext: document.getElementById('rainfallNext').value,
-        //         soilPH: document.getElementById('soilPH').value,
-        //         waterAvailability: document.getElementById('waterAvailability').value
-        //     };
-// AI-based recommendations - DEEPSEEK OPTIMIZED WITH ALL CONDITIONS
-async function getRecommendations() {
-    const inputs = {
-        district: document.getElementById('district').value,
-        soilType: document.getElementById('soilType').value,
-        month: document.getElementById('month').value,
-        rainfall: document.getElementById('rainfall').value,
-        temperature: document.getElementById('temperature').value,
-        temperatureNext: document.getElementById('temperatureNext').value,
-        rainfallNext: document.getElementById('rainfallNext').value,
-        soilPH: document.getElementById('soilPH').value,
-        waterAvailability: document.getElementById('waterAvailability').value
-    };
+        async function getRecommendations() {
+            const inputs = {
+                district: document.getElementById('district').value,
+                soilType: document.getElementById('soilType').value,
+                month: document.getElementById('month').value,
+                rainfall: document.getElementById('rainfall').value,
+                temperature: document.getElementById('temperature').value,
+                temperatureNext: document.getElementById('temperatureNext').value,
+                rainfallNext: document.getElementById('rainfallNext').value,
+                soilPH: document.getElementById('soilPH').value,
+                waterAvailability: document.getElementById('waterAvailability').value
+            };
 
-            // Validation
             let hasError = false;
             
             if (!inputs.district) {
@@ -1642,7 +2436,6 @@ async function getRecommendations() {
                 return;
             }
             
-            // Value validation
             let validationError = false;
             
             const temp = parseFloat(inputs.temperature);
@@ -1679,93 +2472,20 @@ async function getRecommendations() {
                 return;
             }
             
-        //     // Start continuous loading
-        //     loadingController.show('ai');
+            loadingController.show('ai');
 
-        //     try {
-        //         console.log("Payload to AI:", inputs);
-        //         const res = await fetch("http://localhost:3000/api/crops", {
-        //             method: "POST",
-        //             headers: { "Content-Type": "application/json" },
-        //             body: JSON.stringify({
-        //                 messages: [
-        //                     {
-        //                         role: "system",
-        //                         content:
-        //                             "You are an agriculture expert for Kerala. Respond ONLY as valid JSON. JSON shape: {\"crops\":[{\"name\":\"\",\"suitability\":0,\"reason\":\"\",\"varieties\":\"\",\"duration\":\"\",\"yield\":\"\"}],\"tips\":[\"\"]}. Rules: (1) Always include 20-25 Kerala-suitable crops. (2) Use the provided 'month' (January–December) to strictly match Kerala sowing/planting windows; if a crop is outside the sowing window for that month in Kerala, set suitability <= 40 and place it at the end. (3) Compute 'suitability' as an integer 0–100 considering: month-window 50%, soil fit 20%, temperature & rainfall (past 30 days) + forecast (next 16 days) 25%, water availability & pH 5%. (4) Sort crops by descending suitability before returning. (5) Keep 'suitability' numeric (0–100). (6) IMPORTANT: If temperature is above 45°C or below 10°C, or pH is outside 3.5-9.0 range, reduce all crop suitabilities below 20% as these are impossible conditions. No text outside JSON."
-        //                     },
-        //                     {
-        //                         role: "user",
-        //                         content: JSON.stringify(inputs)
-        //                     }
-        //                 ]
-        //             })
-        //         });
-
-        //         const data = await res.json();
-        //         console.log("AI raw:", data);
-
-        //         let ai = null;
-        //         if (data?.choices?.[0]?.message?.content) {
-        //             try {
-        //                 ai = JSON.parse(data.choices[0].message.content);
-        //             } catch (e) {
-        //                 console.error("⚠ JSON parse error:", data.choices[0].message.content);
-        //                 loadingController.hide();
-        //                 alert("⚠ AI did not return valid JSON. See console for raw data.");
-        //                 return;
-        //             }
-        //         }
-
-        //         if (ai) {
-        //             if (Array.isArray(ai.crops)) {
-        //                 ai.crops = sortCropsBySuitability(ai.crops);
-        //             }
-        //             // API complete = instant 100%
-        //             loadingController.complete();
-        //             setTimeout(() => {
-        //                 displayResults(ai.crops, ai.tips);
-        //             }, 800);
-        //         }
-        //     } catch (err) {
-        //         console.error(err);
-        //         loadingController.hide();
-        //         alert("⚠ Could not fetch crops from AI.");
-        //     }
-        // }
-
-        // AI-based recommendations - DEEPSEEK OPTIMIZED WITH ALL CONDITIONS
-// async function getRecommendations() {
-//     const inputs = {
-//         district: document.getElementById('district').value,
-//         soilType: document.getElementById('soilType').value,
-//         month: document.getElementById('month').value,
-//         rainfall: document.getElementById('rainfall').value,
-//         temperature: document.getElementById('temperature').value,
-//         temperatureNext: document.getElementById('temperatureNext').value,
-//         rainfallNext: document.getElementById('rainfallNext').value,
-//         soilPH: document.getElementById('soilPH').value,
-//         waterAvailability: document.getElementById('waterAvailability').value
-//     };
-
-    // [Keep all your validation code as is...]
-    
-    // Start continuous loading
-    loadingController.show('ai');
-
-    try {
-        console.log("Payload to DeepSeek:", inputs);
-        // const res = await fetch("http://localhost:3000/api/crops", {
-        const res = await fetch("/api/crops", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                model: "deepseek-chat",
-                temperature: 0.2,  // Low temperature for consistent JSON
-                messages: [
-                    {
-                        role: "system",
-                        content: `You are an agriculture expert for Kerala. You must respond with ONLY valid JSON, no markdown formatting, no code blocks, no explanations.
+            try {
+                console.log("Payload to DeepSeek:", inputs);
+                const res = await fetch("/api/crops", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        model: "deepseek-chat",
+                        temperature: 0.2,
+                        messages: [
+                            {
+                                role: "system",
+                                content: `You are an agriculture expert for Kerala. You must respond with ONLY valid JSON, no markdown formatting, no code blocks, no explanations.
 
 OUTPUT FORMAT (exactly this structure):
 {"crops":[{"name":"","suitability":0,"reason":"","varieties":"","duration":"","yield":""}],"tips":[""]}
@@ -1783,10 +2503,10 @@ STRICT RULES:
 6. CRITICAL: If temperature is above 45°C or below 10°C, or pH is outside 3.5-9.0 range, reduce all crop suitabilities below 20% as these are impossible conditions
 
 IMPORTANT: Return ONLY the JSON object. No text before or after. No markdown. No code blocks.`
-                    },
-                    {
-                        role: "user",
-                        content: `Generate Kerala crop recommendations for:
+                            },
+                            {
+                                role: "user",
+                                content: `Generate Kerala crop recommendations for:
 District: ${inputs.district}
 Soil Type: ${inputs.soilType}
 Month: ${inputs.month}
@@ -1798,151 +2518,142 @@ Soil pH: ${inputs.soilPH}
 Water Availability: ${inputs.waterAvailability}
 
 Return JSON with 20-25 crops and 5-7 farming tips.`
+                            }
+                        ]
+                    })
+                });
+
+                const data = await res.json();
+                console.log("DeepSeek full response:", data);
+
+                let ai = null;
+                if (data?.choices?.[0]?.message?.content) {
+                    let content = data.choices[0].message.content;
+                    console.log("Raw content from DeepSeek:", content);
+                    
+                    ai = extractJSONFromDeepSeek(content);
+                    
+                    if (!ai) {
+                        console.error("❌ Failed to extract JSON from DeepSeek response");
+                        loadingController.hide();
+                        alert("⚠️ DeepSeek ne valid JSON nahi diya. Console check karo for details.");
+                        return;
                     }
-                ]
-            })
-        });
+                } else {
+                    console.error("❌ No content in DeepSeek response");
+                    loadingController.hide();
+                    alert("⚠️ DeepSeek API se koi response nahi aaya.");
+                    return;
+                }
 
-        const data = await res.json();
-        console.log("DeepSeek full response:", data);
-
-        let ai = null;
-        if (data?.choices?.[0]?.message?.content) {
-            let content = data.choices[0].message.content;
-            console.log("Raw content from DeepSeek:", content);
-            
-            // Advanced JSON extraction
-            ai = extractJSONFromDeepSeek(content);
-            
-            if (!ai) {
-                console.error("❌ Failed to extract JSON from DeepSeek response");
+                if (ai && ai.crops) {
+                    ai.crops = ai.crops.map(crop => ({
+                        name: crop.name || "Unknown Crop",
+                        suitability: parseInt(crop.suitability) || 0,
+                        reason: crop.reason || "",
+                        varieties: crop.varieties || "",
+                        duration: crop.duration || "",
+                        yield: crop.yield || ""
+                    }));
+                    
+                    ai.crops = sortCropsBySuitability(ai.crops);
+                    
+                    console.log("✅ Processed crops:", ai.crops.length, "items");
+                    
+                    loadingController.complete();
+                    setTimeout(() => {
+                        displayResults(ai.crops, ai.tips || []);
+                    }, 800);
+                } else {
+                    loadingController.hide();
+                    alert("⚠️ Response mein crops nahi mile.");
+                }
+            } catch (err) {
+                console.error("API call error:", err);
                 loadingController.hide();
-                alert("⚠️ DeepSeek ne valid JSON nahi diya. Console check karo for details.");
-                return;
+                alert(`❌ API Error: ${err.message}\n\nCheck:\n1. Server running? (node server.js)\n2. API key set? (.env file)\n3. Console for details`);
             }
-        } else {
-            console.error("❌ No content in DeepSeek response");
-            loadingController.hide();
-            alert("⚠️ DeepSeek API se koi response nahi aaya.");
-            return;
         }
 
-        if (ai && ai.crops) {
-            // Validate and clean the data
-            ai.crops = ai.crops.map(crop => ({
-                name: crop.name || "Unknown Crop",
-                suitability: parseInt(crop.suitability) || 0,
-                reason: crop.reason || "",
-                varieties: crop.varieties || "",
-                duration: crop.duration || "",
-                yield: crop.yield || ""
-            }));
+        function extractJSONFromDeepSeek(text) {
+            if (!text) return null;
             
-            // Sort by suitability
-            ai.crops = sortCropsBySuitability(ai.crops);
+            console.log("Attempting to extract JSON from:", text.substring(0, 200) + "...");
             
-            console.log("✅ Processed crops:", ai.crops.length, "items");
+            try {
+                const parsed = JSON.parse(text);
+                console.log("✅ Direct JSON parse successful");
+                return parsed;
+            } catch (e) {
+                console.log("Direct parse failed, trying other methods...");
+            }
             
-            loadingController.complete();
-            setTimeout(() => {
-                displayResults(ai.crops, ai.tips || []);
-            }, 800);
-        } else {
-            loadingController.hide();
-            alert("⚠️ Response mein crops nahi mile.");
+            let cleaned = text;
+            
+            cleaned = cleaned.replace(/```json\s*/gi, '');
+            cleaned = cleaned.replace(/```\s*/g, '');
+            
+            const firstBrace = cleaned.indexOf('{');
+            const lastBrace = cleaned.lastIndexOf('}');
+            
+            if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+                cleaned = cleaned.substring(firstBrace, lastBrace + 1);
+                
+                try {
+                    const parsed = JSON.parse(cleaned);
+                    console.log("✅ Parsed after cleaning markdown");
+                    return parsed;
+                } catch (e) {
+                    console.log("Cleaned parse failed:", e.message);
+                }
+            }
+            
+            const jsonMatch = text.match(/\{[\s\S]*"crops"[\s\S]*\}/);
+            if (jsonMatch) {
+                try {
+                    const parsed = JSON.parse(jsonMatch[0]);
+                    console.log("✅ Regex extraction successful");
+                    return parsed;
+                } catch (e) {
+                    console.log("Regex parse failed:", e.message);
+                }
+            }
+            
+            try {
+                let fixed = text
+                    .replace(/[\u0000-\u001F\u007F-\u009F]/g, '')
+                    .replace(/,\s*}/g, '}')
+                    .replace(/,\s*]/g, ']')
+                    .trim();
+                
+                const start = fixed.indexOf('{');
+                const end = fixed.lastIndexOf('}');
+                
+                if (start !== -1 && end !== -1) {
+                    fixed = fixed.substring(start, end + 1);
+                    const parsed = JSON.parse(fixed);
+                    console.log("✅ Fixed and parsed successfully");
+                    return parsed;
+                }
+            } catch (e) {
+                console.log("Final fix attempt failed:", e.message);
+            }
+            
+            console.error("❌ All JSON extraction methods failed");
+            console.error("First 500 chars of response:", text.substring(0, 500));
+            return null;
         }
-    } catch (err) {
-        console.error("API call error:", err);
-        loadingController.hide();
-        alert(`❌ API Error: ${err.message}\n\nCheck:\n1. Server running? (node server.js)\n2. API key set? (.env file)\n3. Console for details`);
-    }
-}
 
-// DeepSeek-specific JSON extraction
-function extractJSONFromDeepSeek(text) {
-    if (!text) return null;
-    
-    console.log("Attempting to extract JSON from:", text.substring(0, 200) + "...");
-    
-    // Method 1: Direct parse (if it's already clean JSON)
-    try {
-        const parsed = JSON.parse(text);
-        console.log("✅ Direct JSON parse successful");
-        return parsed;
-    } catch (e) {
-        console.log("Direct parse failed, trying other methods...");
-    }
-    
-    // Method 2: Remove markdown code blocks
-    let cleaned = text;
-    
-    // Remove ```json and ``` blocks
-    cleaned = cleaned.replace(/```json\s*/gi, '');
-    cleaned = cleaned.replace(/```\s*/g, '');
-    
-    // Remove any text before first { and after last }
-    const firstBrace = cleaned.indexOf('{');
-    const lastBrace = cleaned.lastIndexOf('}');
-    
-    if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
-        cleaned = cleaned.substring(firstBrace, lastBrace + 1);
-        
-        try {
-            const parsed = JSON.parse(cleaned);
-            console.log("✅ Parsed after cleaning markdown");
-            return parsed;
-        } catch (e) {
-            console.log("Cleaned parse failed:", e.message);
-        }
-    }
-    
-    // Method 3: Use regex to extract JSON object
-    const jsonMatch = text.match(/\{[\s\S]*"crops"[\s\S]*\}/);
-    if (jsonMatch) {
-        try {
-            const parsed = JSON.parse(jsonMatch[0]);
-            console.log("✅ Regex extraction successful");
-            return parsed;
-        } catch (e) {
-            console.log("Regex parse failed:", e.message);
-        }
-    }
-    
-    // Method 4: Try to fix common issues
-    try {
-        // Remove common problematic characters
-        let fixed = text
-            .replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // Remove control characters
-            .replace(/,\s*}/g, '}') // Remove trailing commas
-            .replace(/,\s*]/g, ']') // Remove trailing commas in arrays
-            .trim();
-        
-        // Find JSON boundaries again
-        const start = fixed.indexOf('{');
-        const end = fixed.lastIndexOf('}');
-        
-        if (start !== -1 && end !== -1) {
-            fixed = fixed.substring(start, end + 1);
-            const parsed = JSON.parse(fixed);
-            console.log("✅ Fixed and parsed successfully");
-            return parsed;
-        }
-    } catch (e) {
-        console.log("Final fix attempt failed:", e.message);
-    }
-    
-    console.error("❌ All JSON extraction methods failed");
-    console.error("First 500 chars of response:", text.substring(0, 500));
-    return null;
-}
-
-        // Display crops and tips WITH AUTO-SCROLL
         function displayResults(crops, tips) {
             const c = document.getElementById("cropsContainer"),
                   t = document.getElementById("tipsList"),
                   r = document.getElementById("results");
             c.innerHTML = "";
             t.innerHTML = "";
+
+            // SAVE crops and tips to window for language change
+            window.__savedCropsData__ = crops;
+            window.__savedTipsData__ = tips;
 
             if (!crops || !crops.length) {
                 c.innerHTML = "<p>No crops found.</p>";
@@ -1985,13 +2696,11 @@ function extractJSONFromDeepSeek(text) {
 
             r.classList.add("show");
             
-            // ✅ AUTO-SCROLL TO RESULTS
             setTimeout(() => {
                 r.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 100);
         }
 
-        // Button bindings
         document.getElementById("autoDetectBtn").addEventListener("click", autoDetectWeather);
         document.getElementById("submitBtn").addEventListener("click", getRecommendations);
     </script>

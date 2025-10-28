@@ -1,6 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
-  fetchKeralaWeather();        // show current live Kerala weather
-  initializeWeatherData();     // show 5-day forecast
+  // Initialize district selector first
+  const districtSelector = document.getElementById('district-selector');
+  if (districtSelector) {
+    districtSelector.value = "8.5241,76.9366"; // Default to Thiruvananthapuram
+    
+    fetchKeralaWeather();
+    initializeWeatherData();
+    
+    districtSelector.addEventListener('change', function() {
+      fetchKeralaWeather();
+      initializeWeatherData();
+    });
+  }
+  
+  // Initialize all other functions
   initializeMandiPrices();
   initializeSteps();
   initializeStats();
@@ -9,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initializeTestimonials();
   initializeKnowledge();
   initializeMap();
-  initGoogleTranslate();      // initialize Google Translate
+  initGoogleTranslate();
 });
 
 // Google Translate Integration
@@ -76,28 +89,86 @@ document.addEventListener('DOMContentLoaded', function() {
         subtree: true 
     });
 });
-// ================== WEATHER (KERALA, Free API) ==================
-const apiKey = "09d43ea438e62547228202d0b7fa123c";   // 🔑 Put your OpenWeather key here
-const lat = 9.9312, lon = 76.2673; // Kochi, Kerala
 
-// Emoji helper
-function getWeatherEmoji(condition, temp, wind) {
+// ================== ENHANCED WEATHER (KERALA DISTRICTS) ==================
+const apiKey = "09d43ea438e62547228202d0b7fa123c";
+
+// Enhanced emoji function with better weather identification
+function getWeatherEmoji(condition, temp, wind, humidity) {
   condition = condition.toLowerCase();
-  if (condition.includes("clear")) return "☀️";
-  if (condition.includes("cloud")) return "☁️";
-  if (condition.includes("rain")) return "🌧️";
-  if (condition.includes("thunder")) return "⛈️";
+  
+  // Specific weather conditions
+  if (condition.includes("thunderstorm") || condition.includes("thunder")) return "⛈️";
   if (condition.includes("drizzle")) return "🌦️";
+  if (condition.includes("rain")) {
+    if (condition.includes("heavy")) return "🌧️";
+    if (condition.includes("light")) return "🌦️";
+    return "🌧️";
+  }
   if (condition.includes("snow")) return "❄️";
-  if (condition.includes("mist") || condition.includes("fog") || condition.includes("haze")) return "🌫️";
-  if (wind > 8) return "💨";
-  if (temp >= 32) return "🔥";
+  if (condition.includes("mist")) return "🌫️";
+  if (condition.includes("fog")) return "🌫️";
+  if (condition.includes("haze")) return "🌫️";
+  if (condition.includes("smoke")) return "💨";
+  if (condition.includes("dust") || condition.includes("sand")) return "🌪️";
+  if (condition.includes("tornado")) return "🌪️";
+  
+  // Cloud conditions
+  if (condition.includes("overcast")) return "☁️";
+  if (condition.includes("clouds")) {
+    if (condition.includes("few")) return "🌤️";
+    if (condition.includes("scattered")) return "⛅";
+    if (condition.includes("broken")) return "☁️";
+    return "☁️";
+  }
+  
+  // Clear sky
+  if (condition.includes("clear")) {
+    const hour = new Date().getHours();
+    if (hour >= 6 && hour < 18) return "☀️";
+    return "🌙";
+  }
+  
+  // Based on temperature and wind
+  if (temp >= 35) return "🔥";
   if (temp <= 15) return "❄️";
+  if (wind > 10) return "💨";
+  if (humidity > 80) return "💧";
+  
   return "🌍";
 }
 
-// Current Kerala Weather (today)
+// Get district name from coordinates
+function getDistrictName(coords) {
+  const districts = {
+    "8.5241,76.9366": "Thiruvananthapuram",
+    "9.4981,76.3388": "Kollam",
+    "8.8932,76.6141": "Pathanamthitta",
+    "9.2648,76.5120": "Alappuzha",
+    "9.5916,76.5222": "Kottayam",
+    "9.5810,76.8220": "Idukki",
+    "9.9312,76.2673": "Ernakulam",
+    "10.5276,76.2144": "Palakkad",
+    "10.9601,76.2399": "Malappuram",
+    "11.2588,75.7804": "Kozhikode",
+    "11.6854,75.8811": "Wayanad",
+    "11.8745,75.3704": "Kannur",
+    "12.3149,75.1309": "Kasaragod",
+    "10.0889,76.3881": "Thrissur"
+  };
+  return districts[coords] || "Kerala";
+}
+
+// Fetch current weather for selected district
 function fetchKeralaWeather() {
+  const selector = document.getElementById("district-selector");
+  if (!selector) return;
+  
+  const coords = selector.value.split(',');
+  const lat = parseFloat(coords[0]);
+  const lon = parseFloat(coords[1]);
+  const districtName = getDistrictName(selector.value);
+
   fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`)
     .then(res => res.json())
     .then(data => {
@@ -106,21 +177,60 @@ function fetchKeralaWeather() {
 
       const condition = data.weather[0].description;
       const temp = Math.round(data.main.temp);
+      const feelsLike = Math.round(data.main.feels_like);
       const wind = data.wind.speed;
-      const emoji = getWeatherEmoji(condition, temp, wind);
+      const humidity = data.main.humidity;
+      const pressure = data.main.pressure;
+      const emoji = getWeatherEmoji(condition, temp, wind, humidity);
 
       div.innerHTML = `
-        <h3>🌴 Kerala Live Weather (${data.name})</h3>
-        <p>${emoji} ${temp}°C<br>${condition}, 💨 ${wind} m/s</p>
+        <div class="current-location">
+          <span class="current-location-pin">📍</span>
+          ${districtName}
+        </div>
+        <div class="weather-display">
+          <div class="weather-emoji-large">${emoji}</div>
+          <div class="weather-info">
+            <div class="current-temp">${temp}°C</div>
+            <div class="current-condition">${condition}</div>
+          </div>
+        </div>
+        <div class="weather-details">
+          <div class="weather-detail-item">
+            <strong>Feels Like</strong>
+            <span>${feelsLike}°C</span>
+          </div>
+          <div class="weather-detail-item">
+            <strong>Wind</strong>
+            <span>${wind} m/s</span>
+          </div>
+          <div class="weather-detail-item">
+            <strong>Humidity</strong>
+            <span>${humidity}%</span>
+          </div>
+          <div class="weather-detail-item">
+            <strong>Pressure</strong>
+            <span>${pressure}</span>
+          </div>
+        </div>
       `;
     })
     .catch(err => {
       console.error("Current weather error:", err);
-      document.getElementById("current-weather").innerHTML = `<p>Unable to fetch Kerala live weather ☁️</p>`;
+      document.getElementById("current-weather").innerHTML = 
+        `<div class="weather-loader">❌ Unable to fetch weather data</div>`;
     });
 }
-// 5-Day Kerala Forecast (Free OpenWeather API)
+
+// 5-Day Forecast for selected district
 function initializeWeatherData() {
+  const selector = document.getElementById("district-selector");
+  if (!selector) return;
+  
+  const coords = selector.value.split(',');
+  const lat = parseFloat(coords[0]);
+  const lon = parseFloat(coords[1]);
+
   fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`)
     .then(res => res.json())
     .then(data => {
@@ -128,7 +238,7 @@ function initializeWeatherData() {
       if (!grid) return;
 
       if (data.cod !== "200") {
-        grid.innerHTML = `<p>Error: ${data.message}</p>`;
+        grid.innerHTML = `<div class="weather-loader">❌ ${data.message}</div>`;
         return;
       }
 
@@ -137,33 +247,33 @@ function initializeWeatherData() {
         const d = new Date(entry.dt * 1000);
         const dayName = d.toLocaleDateString("en-US", { weekday: "short" });
 
-        // if we do NOT yet have a forecast saved for this day, save this entry
         if (!daily[dayName]) {
           daily[dayName] = entry;
         }
       });
 
-      // Build forecast cards (first forecast per day → ensures 5 days)
       grid.innerHTML = Object.keys(daily).slice(0, 5).map(day => {
         const f = daily[day];
         const t = Math.round(f.main.temp);
         const c = f.weather[0].description;
         const w = f.wind.speed;
-        const e = getWeatherEmoji(c, t, w);
+        const h = f.main.humidity;
+        const e = getWeatherEmoji(c, t, w, h);
 
         return `
-          <div class="weather-card">
-            <div class="weather-day">${day}</div>
-            <div class="weather-icon">${e}</div>
-            <div class="weather-temp">${t}°C</div>
-            <div class="weather-condition">${c}</div>
+          <div class="forecast-card">
+            <div class="forecast-day">${day}</div>
+            <div class="forecast-icon">${e}</div>
+            <div class="forecast-temp">${t}°C</div>
+            <div class="forecast-condition">${c}</div>
           </div>
         `;
       }).join("");
     })
     .catch(err => {
       console.error("Forecast error:", err);
-      document.getElementById("weatherGrid").innerHTML = `<p>Unable to fetch 5-day forecast ☁️</p>`;
+      document.getElementById("weatherGrid").innerHTML = 
+        `<div class="weather-loader">❌ Unable to fetch forecast</div>`;
     });
 }
 
@@ -372,8 +482,6 @@ function initializeFeatures() {
       title:"Crop Monitoring",
       description:"Know in real time which crops can be grown in Kerala based on weather, soil, season and water availability.",
       link:"crop_monitoring_new.html" 
-    //   link:"cropmonitoring.html" 
-
     },
     { 
       icon:"💧", 
@@ -426,7 +534,7 @@ function initializeFeatures() {
           const target = document.querySelector(feature.link);
           if (target) {
             target.scrollIntoView({ behavior:"smooth", block:"start" });
-            target.style.boxShadow = "0 0 12px 3px #22c55e"; // highlight briefly
+            target.style.boxShadow = "0 0 12px 3px #3b82f6"; // highlight briefly
             setTimeout(() => target.style.boxShadow="none", 2000);
           }
         } else {
@@ -489,72 +597,6 @@ function predictYield(){
   if(rain<100) y*=0.8; else if(rain>250) y*=0.9;
   if(fert==="low") y*=0.85; else if(fert==="high") y*=1.15;
   document.getElementById("yieldResult").innerHTML=`🌱 Predicted Yield: <b>${Math.round(y)} kg</b>`;
-}
-
-// ============ CROP MONITORING HELP ============
-// function showCropSuggestions(){
-//   fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`)
-//    .then(r=>r.json())
-//    .then(d=>{
-//      const temp=d.main.temp;
-//      const humidity=d.main.humidity;
-//      const rain=d.rain ? (d.rain["1h"]||d.rain["3h"]||0) : 0;
-//      const month=new Date().getMonth()+1;
-//      let crops=[];
-//      if([6,7,8,9].includes(month)||rain>100){crops.push("Paddy","Banana","Turmeric","Ginger","Tapioca");}
-//      if([10,11,12,1,2].includes(month)||(temp>=18&&temp<=28)){crops.push("Black Pepper","Cardamom","Onion","Vegetables");}
-//      if([3,4,5].includes(month)||temp>30){crops.push("Watermelon","Cucumber","Okra","Maize");}
-//      crops.push("Coconut","Banana (all-year)","Tea","Coffee","Rubber");
-//      if(humidity<40)crops.push("Millets","Pulses");
-//      if(rain>200)crops.push("Taro","Yam");
-//      document.getElementById("todayCrops").innerHTML=
-//       "<ul class='crops-list'>"+crops.map(c=>`<li>✅ ${c}</li>`).join("")+"</ul>";
-//    })
-//    .catch(e=>{
-//      console.error(e);
-//      document.getElementById("todayCrops").innerHTML="⚠️ Unable to fetch crops.";
-//    });
-// }
-// --- Weather + Crop Suggestion (Kerala) ---
-function fetchCropMonitoringWeather() {
-  const apiKey = "09d43ea438e62547228202d0b7fa123c"; // ✅ your key
-  const lat = 9.9312, lon = 76.2673;
-
-  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`)
-    .then(res => res.json())
-    .then(data => {
-      const temp = Math.round(data.main.temp);
-      const weather = data.weather[0].description;
-      const rain = data.rain ? (data.rain["1h"] || data.rain["3h"] || 0) : 0;
-      const month = new Date().getMonth() + 1;
-
-      // Update live weather card
-      document.getElementById("current-weather").innerHTML = `
-        <h3>${data.name}: ${weather.toUpperCase()}</h3>
-        <p>🌡️ Temp: ${temp}°C <br> 🌧️ Rainfall: ${rain} mm (last hr)</p>
-      `;
-
-      // 🌾 Suggest crops based on rules
-      let crops = [];
-      if ([6,7,8,9].includes(month) || rain > 120) {
-        crops = ["Paddy (Rice)", "Banana", "Tapioca", "Turmeric", "Ginger"];
-      } else if ([10,11,12,1,2].includes(month) || temp < 28) {
-        crops = ["Black Pepper", "Cardamom", "Vegetables", "Banana"];
-      } else {
-        crops = ["Watermelon", "Muskmelon", "Cucumber", "Short-duration Maize"];
-      }
-
-      // Always recommend perennials
-      crops.push("Coconut","Rubber","Tea","Coffee");
-
-      // Update crop list
-      document.getElementById("todayCrops").innerHTML = 
-        "<ul class='crops-list'>" + crops.map(c => `<li>✅ ${c}</li>`).join("") + "</ul>";
-    })
-    .catch(err => {
-      console.error("Crop monitoring error:", err);
-      document.getElementById("todayCrops").textContent = "⚠️ Unable to fetch crops today.";
-    });
 }
 
 // Rewards Data
@@ -903,7 +945,7 @@ const observer = new IntersectionObserver(function(entries) {
 
 document.addEventListener('DOMContentLoaded', function() {
     const animatedElements = document.querySelectorAll(`
-        .weather-card,
+        .forecast-card,
         .feature-card,
         .reward-card,
         .testimonial-card,
@@ -928,23 +970,8 @@ function updateLiveIndicators() {
     });
 }
 
-// Simulated updates
-function simulateDataUpdates() {
-    setInterval(() => {
-        const weatherCards = document.querySelectorAll('.weather-temp');
-        weatherCards.forEach(card => {
-            const currentTemp = parseInt(card.textContent);
-            const variation = Math.random() > 0.5 ? 1 : -1;
-            card.textContent = `${currentTemp + variation}°C`;
-        });
-        
-        console.log('Data updated at:', new Date().toLocaleTimeString());
-    }, 30000);
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     updateLiveIndicators();
-    simulateDataUpdates();
 });
 
 document.addEventListener('keydown', function(e) {
@@ -1101,7 +1128,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 5000);
 });
-// Add this to your script.js file:
 
 // Store selected language in localStorage
 document.addEventListener('DOMContentLoaded', function() {

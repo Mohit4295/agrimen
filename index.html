@@ -209,19 +209,58 @@
         </div>
     </section>
 
+<!-- 🌦️ COMPACT ANIMATED WEATHER SECTION -->
 <section class="weather-section" id="weather-section">
-  <div class="container">
-    <h2 class="section-title">Kerala Weather Forecast</h2>
+    <div class="container">
+        <div class="weather-main-container">
+            <!-- Header -->
+            <div class="weather-header">
+                <div class="weather-title-box">
+                    <span class="weather-icon-title">⛅</span>
+                    <h2 class="section-title">Weather Forecast</h2>
+                </div>
+                
+                <div class="district-selector-wrapper">
+                    <label for="district-selector" class="district-label">📍 District</label>
+                    <select id="district-selector" class="district-dropdown">
+                        <option value="8.5241,76.9366">Thiruvananthapuram</option>
+                        <option value="9.4981,76.3388">Kollam</option>
+                        <option value="8.8932,76.6141">Pathanamthitta</option>
+                        <option value="9.2648,76.5120">Alappuzha</option>
+                        <option value="9.5916,76.5222">Kottayam</option>
+                        <option value="9.5810,76.8220">Idukki</option>
+                        <option value="9.9312,76.2673">Ernakulam (Kochi)</option>
+                        <option value="10.5276,76.2144">Palakkad</option>
+                        <option value="10.9601,76.2399">Malappuram</option>
+                        <option value="11.2588,75.7804">Kozhikode</option>
+                        <option value="11.6854,75.8811">Wayanad</option>
+                        <option value="11.8745,75.3704">Kannur</option>
+                        <option value="12.3149,75.1309">Kasaragod</option>
+                        <option value="10.0889,76.3881">Thrissur</option>
+                    </select>
+                </div>
+            </div>
 
+            <!-- Weather Content -->
+            <div class="weather-content-grid">
+                <!-- Current Weather -->
+                <div id="current-weather" class="current-weather-card">
+                    <div class="weather-loader">🌍 Loading...</div>
+                </div>
 
-    <!-- Current Weather -->
-    <div id="current-weather" class="weather-card" style="margin-bottom:1rem;">
-      Loading Kerala weather...
+                <!-- 5 Day Forecast -->
+                <div class="forecast-section">
+                    <div class="forecast-header">
+                        <span style="font-size: 1.2rem;">📅</span>
+                        <h3 class="forecast-title">5-Day Forecast</h3>
+                    </div>
+                    <div class="forecast-grid" id="weatherGrid">
+                        <div class="weather-loader">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <!-- 5 Day Forecast -->
-    <div class="weather-grid" id="weatherGrid"></div>
-  </div>
 </section>
 
     <!-- Mandi Prices -->

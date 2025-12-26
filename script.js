@@ -2,13 +2,13 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize district selector first
   const districtSelector = document.getElementById('district-selector');
   if (districtSelector) {
-    districtSelector.value = "8.5241,76.9366"; // Default to Thiruvananthapuram
+    districtSelector.value = "28.6692,77.4380"; // Default to Lucknow
     
-    fetchKeralaWeather();
+    fetchUPWeather();
     initializeWeatherData();
     
     districtSelector.addEventListener('change', function() {
-      fetchKeralaWeather();
+      fetchUPWeather();
       initializeWeatherData();
     });
   }
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// ================== ENHANCED WEATHER (KERALA DISTRICTS) ==================
+// ================== ENHANCED WEATHER (UTTAR PRADESH DISTRICTS) ==================
 const apiKey = "09d43ea438e62547228202d0b7fa123c";
 
 // Enhanced emoji function with better weather identification
@@ -138,29 +138,187 @@ function getWeatherEmoji(condition, temp, wind, humidity) {
   return "🌍";
 }
 
-// Get district name from coordinates
+// Get district name from coordinates - Uttar Pradesh Districts (More Precise Coordinates)
 function getDistrictName(coords) {
   const districts = {
-    "8.5241,76.9366": "Thiruvananthapuram",
-    "9.4981,76.3388": "Kollam",
-    "8.8932,76.6141": "Pathanamthitta",
-    "9.2648,76.5120": "Alappuzha",
-    "9.5916,76.5222": "Kottayam",
-    "9.5810,76.8220": "Idukki",
-    "9.9312,76.2673": "Ernakulam",
-    "10.5276,76.2144": "Palakkad",
-    "10.9601,76.2399": "Malappuram",
-    "11.2588,75.7804": "Kozhikode",
-    "11.6854,75.8811": "Wayanad",
-    "11.8745,75.3704": "Kannur",
-    "12.3149,75.1309": "Kasaragod",
-    "10.0889,76.3881": "Thrissur"
+    "27.1767,78.0081": "Agra",
+    "27.8974,78.0880": "Aligarh",
+    "26.4481,82.5359": "Ambedkar Nagar",
+    "26.1542,81.8145": "Amethi",
+    "28.9044,78.4673": "Amroha",
+    "26.4655,79.5091": "Auraiya",
+    "26.7922,82.1998": "Ayodhya",
+    "26.0735,83.1857": "Azamgarh",
+    "28.9455,77.2183": "Baghpat",
+    "27.5745,81.5959": "Bahraich",
+    "25.7619,84.1487": "Ballia",
+    "27.4306,82.1803": "Balrampur",
+    "25.4765,80.3367": "Banda",
+    "26.9259,81.1836": "Barabanki",
+    "28.3670,79.4304": "Bareilly",
+    "26.8016,82.7460": "Basti",
+    "25.3953,82.5698": "Bhadohi",
+    "29.3724,78.1350": "Bijnor",
+    "28.0370,79.1200": "Budaun",
+    "28.4070,77.8498": "Bulandshahr",
+    "25.2579,83.2679": "Chandauli",
+    "25.2018,80.8997": "Chitrakoot",
+    "26.5024,83.7791": "Deoria",
+    "27.5582,78.6637": "Etah",
+    "26.7856,79.0151": "Etawah",
+    "27.3906,79.5806": "Farrukhabad",
+    "25.9318,80.8135": "Fatehpur",
+    "27.1591,78.3957": "Firozabad",
+    "28.5355,77.3910": "Gautam Buddha Nagar",
+    "28.6692,77.4380": "Ghaziabad",
+    "25.5877,83.5777": "Ghazipur",
+    "27.1342,81.9619": "Gonda",
+    "26.7606,83.3732": "Gorakhpur",
+    "25.9570,80.1415": "Hamirpur",
+    "28.7309,77.7787": "Hapur",
+    "27.3956,80.1315": "Hardoi",
+    "27.5963,78.0519": "Hathras",
+    "26.1547,79.3509": "Jalaun",
+    "25.7464,82.6836": "Jaunpur",
+    "25.4484,78.5685": "Jhansi",
+    "27.0531,79.9137": "Kannauj",
+    "26.4085,79.9806": "Kanpur Dehat",
+    "26.4499,80.3319": "Kanpur Nagar",
+    "27.8067,78.6462": "Kasganj",
+    "25.5324,81.3814": "Kaushambi",
+    "26.7412,83.8876": "Kushinagar",
+    "27.9471,80.7819": "Lakhimpur Kheri",
+    "24.6876,78.4160": "Lalitpur",
+    "26.8467,80.9462": "Lucknow",
+    "27.1251,83.5610": "Maharajganj",
+    "25.2918,79.8720": "Mahoba",
+    "27.2360,79.0243": "Mainpuri",
+    "27.4924,77.6737": "Mathura",
+    "25.9422,83.5610": "Mau",
+    "28.9845,77.7064": "Meerut",
+    "25.1462,82.5690": "Mirzapur",
+    "28.8386,78.7733": "Moradabad",
+    "29.4727,77.7085": "Muzaffarnagar",
+    "28.6359,79.8040": "Pilibhit",
+    "25.8971,81.9400": "Pratapgarh",
+    "25.4358,81.8463": "Prayagraj",
+    "26.2345,81.2409": "Raebareli",
+    "28.7940,79.0260": "Rampur",
+    "29.9680,77.5510": "Saharanpur",
+    "28.5903,78.5699": "Sambhal",
+    "26.7919,83.0366": "Sant Kabir Nagar",
+    "27.8826,79.9110": "Shahjahanpur",
+    "29.4513,77.3089": "Shamli",
+    "27.5073,81.9969": "Shravasti",
+    "27.2647,83.0866": "Siddharthnagar",
+    "27.5704,80.6829": "Sitapur",
+    "24.6900,83.0600": "Sonbhadra",
+    "26.2648,82.0727": "Sultanpur",
+    "26.5393,80.4878": "Unnao",
+    "25.3176,82.9739": "Varanasi"
   };
-  return districts[coords] || "Kerala";
+  return districts[coords] || "Uttar Pradesh";
 }
 
-// Fetch current weather for selected district
-function fetchKeralaWeather() {
+// Format time for last updated
+function formatUpdateTime(timestamp) {
+  const date = new Date(timestamp * 1000);
+  return date.toLocaleTimeString('en-IN', { 
+    hour: '2-digit', 
+    minute: '2-digit',
+    hour12: true 
+  });
+}
+
+// // Fetch current weather for selected district - EXACT TEMPERATURE
+// function fetchUPWeather() {
+//   const selector = document.getElementById("district-selector");
+//   if (!selector) return;
+  
+//   const coords = selector.value.split(',');
+//   const lat = parseFloat(coords[0]);
+//   const lon = parseFloat(coords[1]);
+//   const districtName = getDistrictName(selector.value);
+
+//   fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`)
+//     .then(res => res.json())
+//     .then(data => {
+//       const div = document.getElementById("current-weather");
+//       if (!div) return;
+
+//       const condition = data.weather[0].description;
+//       // EXACT TEMPERATURE - No rounding, show 1 decimal place
+//       const temp = data.main.temp.toFixed(1);
+//       const feelsLike = data.main.feels_like.toFixed(1);
+//       const tempMin = data.main.temp_min.toFixed(1);
+//       const tempMax = data.main.temp_max.toFixed(1);
+//       const wind = data.wind.speed.toFixed(1);
+//       const humidity = data.main.humidity;
+//       const pressure = data.main.pressure;
+//       const visibility = data.visibility ? (data.visibility / 1000).toFixed(1) : 'N/A';
+//       const emoji = getWeatherEmoji(condition, parseFloat(temp), parseFloat(wind), humidity);
+//       const lastUpdated = formatUpdateTime(data.dt);
+//       const sunrise = formatUpdateTime(data.sys.sunrise);
+//       const sunset = formatUpdateTime(data.sys.sunset);
+
+//       div.innerHTML = `
+//         <div class="current-location">
+//           <span class="current-location-pin">📍</span>
+//           ${districtName}
+//           <span class="last-updated">Updated: ${lastUpdated}</span>
+//         </div>
+//         <div class="weather-display">
+//           <div class="weather-emoji-large">${emoji}</div>
+//           <div class="weather-info">
+//             <div class="current-temp">${temp}°C</div>
+//             <div class="temp-range">↓${tempMin}°C / ↑${tempMax}°C</div>
+//             <div class="current-condition">${condition}</div>
+//           </div>
+//         </div>
+//         <div class="weather-details">
+//           <div class="weather-detail-item">
+//             <strong>Feels Like</strong>
+//             <span>${feelsLike}°C</span>
+//           </div>
+//           <div class="weather-detail-item">
+//             <strong>Wind</strong>
+//             <span>${wind} m/s</span>
+//           </div>
+//           <div class="weather-detail-item">
+//             <strong>Humidity</strong>
+//             <span>${humidity}%</span>
+//           </div>
+//           <div class="weather-detail-item">
+//             <strong>Pressure</strong>
+//             <span>${pressure} hPa</span>
+//           </div>
+//           <div class="weather-detail-item">
+//             <strong>Visibility</strong>
+//             <span>${visibility} km</span>
+//           </div>
+//           <div class="weather-detail-item">
+//             <strong>Sunrise</strong>
+//             <span>🌅 ${sunrise}</span>
+//           </div>
+//           <div class="weather-detail-item">
+//             <strong>Sunset</strong>
+//             <span>🌇 ${sunset}</span>
+//           </div>
+//         </div>
+//         <div class="weather-source">
+//           <small>📡 Data: OpenWeatherMap | Coords: ${lat.toFixed(4)}, ${lon.toFixed(4)}</small>
+//         </div>
+//       `;
+//     })
+//     .catch(err => {
+//       console.error("Current weather error:", err);
+//       document.getElementById("current-weather").innerHTML = 
+//         `<div class="weather-loader">❌ Unable to fetch weather data</div>`;
+//     });
+// }
+
+// Fetch current weather for selected district - EXACT TEMPERATURE
+function fetchUPWeather() {
   const selector = document.getElementById("district-selector");
   if (!selector) return;
   
@@ -176,42 +334,66 @@ function fetchKeralaWeather() {
       if (!div) return;
 
       const condition = data.weather[0].description;
-      const temp = Math.round(data.main.temp);
-      const feelsLike = Math.round(data.main.feels_like);
-      const wind = data.wind.speed;
+      // EXACT TEMPERATURE - No rounding, show 1 decimal place
+      const temp = data.main.temp.toFixed(1);
+      const feelsLike = data.main.feels_like.toFixed(1);
+      const tempMin = data.main.temp_min.toFixed(1);
+      const tempMax = data.main.temp_max.toFixed(1);
+      const wind = data.wind.speed.toFixed(1);
       const humidity = data.main.humidity;
       const pressure = data.main.pressure;
-      const emoji = getWeatherEmoji(condition, temp, wind, humidity);
+      const visibility = data.visibility ? (data.visibility / 1000).toFixed(1) : 'N/A';
+      const emoji = getWeatherEmoji(condition, parseFloat(temp), parseFloat(wind), humidity);
+      const lastUpdated = formatUpdateTime(data.dt);
+      const sunrise = formatUpdateTime(data.sys.sunrise);
+      const sunset = formatUpdateTime(data.sys.sunset);
 
       div.innerHTML = `
         <div class="current-location">
           <span class="current-location-pin">📍</span>
           ${districtName}
+          <span class="last-updated">🕐 ${lastUpdated}</span>
         </div>
         <div class="weather-display">
           <div class="weather-emoji-large">${emoji}</div>
           <div class="weather-info">
             <div class="current-temp">${temp}°C</div>
+            <div class="temp-range">↓${tempMin}° / ↑${tempMax}°</div>
             <div class="current-condition">${condition}</div>
           </div>
         </div>
         <div class="weather-details">
           <div class="weather-detail-item">
             <strong>Feels Like</strong>
-            <span>${feelsLike}°C</span>
+            <span>🌡️ ${feelsLike}°</span>
           </div>
           <div class="weather-detail-item">
             <strong>Wind</strong>
-            <span>${wind} m/s</span>
+            <span>💨 ${wind} m/s</span>
           </div>
           <div class="weather-detail-item">
             <strong>Humidity</strong>
-            <span>${humidity}%</span>
+            <span>💧 ${humidity}%</span>
           </div>
           <div class="weather-detail-item">
             <strong>Pressure</strong>
-            <span>${pressure}</span>
+            <span>🔵 ${pressure}</span>
           </div>
+          <div class="weather-detail-item">
+            <strong>Visibility</strong>
+            <span>👁️ ${visibility} km</span>
+          </div>
+          <div class="weather-detail-item">
+            <strong>Sunrise</strong>
+            <span>🌅 ${sunrise}</span>
+          </div>
+          <div class="weather-detail-item">
+            <strong>Sunset</strong>
+            <span>🌇 ${sunset}</span>
+          </div>
+        </div>
+        <div class="weather-source">
+          <small>📡 OpenWeatherMap | ${lat.toFixed(2)}°N, ${lon.toFixed(2)}°E</small>
         </div>
       `;
     })
@@ -222,7 +404,7 @@ function fetchKeralaWeather() {
     });
 }
 
-// 5-Day Forecast for selected district
+// 5-Day Forecast for selected district - EXACT TEMPERATURE
 function initializeWeatherData() {
   const selector = document.getElementById("district-selector");
   if (!selector) return;
@@ -246,26 +428,41 @@ function initializeWeatherData() {
       data.list.forEach(entry => {
         const d = new Date(entry.dt * 1000);
         const dayName = d.toLocaleDateString("en-US", { weekday: "short" });
+        const dateStr = d.toLocaleDateString("en-US", { day: "numeric", month: "short" });
 
         if (!daily[dayName]) {
-          daily[dayName] = entry;
+          daily[dayName] = {
+            ...entry,
+            dateStr: dateStr,
+            temps: [entry.main.temp],
+            conditions: [entry.weather[0].description]
+          };
+        } else {
+          daily[dayName].temps.push(entry.main.temp);
+          daily[dayName].conditions.push(entry.weather[0].description);
         }
       });
 
       grid.innerHTML = Object.keys(daily).slice(0, 5).map(day => {
         const f = daily[day];
-        const t = Math.round(f.main.temp);
+        const temps = f.temps;
+        const avgTemp = (temps.reduce((a, b) => a + b, 0) / temps.length).toFixed(1);
+        const minTemp = Math.min(...temps).toFixed(1);
+        const maxTemp = Math.max(...temps).toFixed(1);
         const c = f.weather[0].description;
-        const w = f.wind.speed;
+        const w = f.wind.speed.toFixed(1);
         const h = f.main.humidity;
-        const e = getWeatherEmoji(c, t, w, h);
+        const e = getWeatherEmoji(c, parseFloat(avgTemp), parseFloat(w), h);
 
         return `
           <div class="forecast-card">
             <div class="forecast-day">${day}</div>
+            <div class="forecast-date">${f.dateStr}</div>
             <div class="forecast-icon">${e}</div>
-            <div class="forecast-temp">${t}°C</div>
+            <div class="forecast-temp">${avgTemp}°C</div>
+            <div class="forecast-temp-range">↓${minTemp}° / ↑${maxTemp}°</div>
             <div class="forecast-condition">${c}</div>
+            <div class="forecast-humidity">💧 ${h}%</div>
           </div>
         `;
       }).join("");
@@ -480,7 +677,7 @@ function initializeFeatures() {
     { 
       icon:"🌱", 
       title:"Crop Monitoring",
-      description:"Know in real time which crops can be grown in Kerala based on weather, soil, season and water availability.",
+      description:"Know in real time which crops can be grown in Uttar Pradesh based on weather, soil, season and water availability.",
       link:"crop_monitoring_new.html" 
     },
     { 
@@ -561,10 +758,10 @@ function initializeFeatures() {
       <h2>🌾 Yield Prediction Tool</h2>
       <label>Select Crop:</label>
       <select id="cropType">
-        <option value="paddy">Paddy (Rice)</option>
-        <option value="banana">Banana</option>
-        <option value="coconut">Coconut</option>
-        <option value="pepper">Black Pepper</option>
+        <option value="wheat">Wheat</option>
+        <option value="rice">Rice</option>
+        <option value="sugarcane">Sugarcane</option>
+        <option value="potato">Potato</option>
       </select>
       <label>Area (acres):</label>
       <input type="number" id="area" placeholder="e.g. 2">
@@ -592,7 +789,7 @@ function predictYield(){
   const rain=parseFloat(document.getElementById("rainfall").value);
   const fert=document.getElementById("fertilizer").value;
   if(!area||!rain){document.getElementById("yieldResult").innerHTML="⚠️ Enter valid area+rainfall"; return;}
-  const base={paddy:2500, banana:8000,coconut:7000,pepper:500};
+  const base={wheat:3000, rice:2800, sugarcane:70000, potato:25000};
   let y= base[crop]*area;
   if(rain<100) y*=0.8; else if(rain>250) y*=0.9;
   if(fert==="low") y*=0.85; else if(fert==="high") y*=1.15;
@@ -644,20 +841,20 @@ function initializeTestimonials() {
     const testimonials = [
         {
             text: "AgriQuest transformed my farming practices! The water management tips alone saved me 20% on irrigation costs.",
-            author: "Rajesh Kumar",
-            location: "Kochi, Kerala",
+            author: "Ramesh Yadav",
+            location: "Lucknow, Uttar Pradesh",
             avatar: "🧑‍🌾"
         },
         {
             text: "The gamification aspect makes learning about sustainable farming so engaging. My crop yield increased by 15%!",
-            author: "Priya Nair",
-            location: "Thrissur, Kerala",
+            author: "Sunita Devi",
+            location: "Varanasi, Uttar Pradesh",
             avatar: "👩‍🌾"
         },
         {
             text: "Real-time weather alerts and mandi prices help me make better decisions. Highly recommend to all farmers!",
-            author: "Arun Menon",
-            location: "Palakkad, Kerala",
+            author: "Suresh Kumar",
+            location: "Kanpur, Uttar Pradesh",
             avatar: "🧑‍🌾"
         }
     ];
@@ -724,14 +921,14 @@ function initializeKnowledge() {
     `).join('');
 }
 
-// Initialize Real-time Map with Leaflet
+// Initialize Real-time Map with Leaflet - Uttar Pradesh
 let map;
 let userLocationMarker;
 let farmerMarkers = [];
 
 function initializeMap() {
-    // Initialize map centered on Kerala
-    map = L.map('map').setView([10.8505, 76.2711], 7);
+    // Initialize map centered on Uttar Pradesh
+    map = L.map('map').setView([26.8467, 80.9462], 6);
 
     // Add OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -739,15 +936,18 @@ function initializeMap() {
         maxZoom: 18
     }).addTo(map);
 
-    // Add sample farmer locations across Kerala
+    // Add sample farmer locations across Uttar Pradesh
     const farmerLocations = [
-        { lat: 9.9312, lng: 76.2673, name: "Kochi Farmers Hub", farmers: 310 },
-        { lat: 8.5241, lng: 76.9366, name: "Thiruvananthapuram Farmers", farmers: 250 },
-        { lat: 11.2588, lng: 75.7804, name: "Kozhikode Community", farmers: 180 },
-        { lat: 9.2981, lng: 76.3320, name: "Alappuzha Rice Farmers", farmers: 220 },
-        { lat: 10.0889, lng: 76.3881, name: "Thrissur Collective", farmers: 260 },
-        { lat: 10.5276, lng: 76.2144, name: "Palakkad Farmers", farmers: 300 },
-        { lat: 11.8745, lng: 75.3704, name: "Kannur Group", farmers: 200 }
+        { lat: 26.8467, lng: 80.9462, name: "Lucknow Farmers Hub", farmers: 450 },
+        { lat: 25.3176, lng: 82.9739, name: "Varanasi Farmers", farmers: 380 },
+        { lat: 26.4499, lng: 80.3319, name: "Kanpur Community", farmers: 320 },
+        { lat: 27.1767, lng: 78.0081, name: "Agra Farmers Group", farmers: 280 },
+        { lat: 25.4358, lng: 81.8463, name: "Prayagraj Collective", farmers: 350 },
+        { lat: 28.9845, lng: 77.7064, name: "Meerut Farmers", farmers: 290 },
+        { lat: 26.7606, lng: 83.3732, name: "Gorakhpur Group", farmers: 260 },
+        { lat: 28.6692, lng: 77.4380, name: "Ghaziabad Farmers", farmers: 310 },
+        { lat: 28.3670, lng: 79.4304, name: "Bareilly Community", farmers: 240 },
+        { lat: 25.7464, lng: 82.6836, name: "Jaunpur Farmers", farmers: 220 }
     ];
 
     farmerLocations.forEach(location => {
@@ -862,7 +1062,7 @@ function initializeMap() {
         div.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
         div.style.fontSize = '12px';
         div.innerHTML = `
-            <strong>AgriQuest Kerala Community</strong><br>
+            <strong>AgriQuest UP Community</strong><br>
             <span style="color: #16a34a;">● Farmer Groups</span><br>
             <span>📍 Your Location</span><br>
             <small>Circle size = Number of farmers</small>

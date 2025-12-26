@@ -21,12 +21,12 @@
     <!-- Google Translate API -->
     <script type="text/javascript">
     function googleTranslateElementInit() {
-      new google.translate.TranslateElement({
+    new google.translate.TranslateElement({
         pageLanguage: 'en',
         includedLanguages: 'en,hi,ml',
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
         autoDisplay: false
-      }, 'google_translate_element');
+    }, 'google_translate_element');
     }
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
@@ -98,7 +98,7 @@
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({
             pageLanguage: 'en',
-            includedLanguages: 'en,hi,ml',
+            includedLanguages: 'en,hi',
             layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
             autoDisplay: false
         }, 'google_translate_element');
@@ -126,7 +126,7 @@
 
 </head>
 <body>
- <!-- Header -->
+<!-- Header -->
 <header class="header">
     <div class="container">
         <div class="header-content">
@@ -147,38 +147,107 @@
             </nav>
 
             <!-- Language and Join Button -->
-            <!-- <div class="header-actions">
-                <div class="custom-language-dropdown">
-                    <select id="language-selector">
-                        <option value="en">English</option>
-                        <option value="hi">हिंदी</option>
-                        <option value="ml">മലയാളം</option>
-                    </select>
-                </div> -->
-
-                <div class="custom-language-dropdown">
-    <select id="language-selector" onchange="changeLanguage(this.value)">
-        <option value="en" class="notranslate">English</option>
-        <option value="hi" class="notranslate">हिंदी</option>
-        <option value="ml" class="notranslate">മലയാളം</option>
-    </select>
-</div>
-
-                <button class="join-btn">Join Now</button>
+            <div class="custom-language-dropdown">
+                <select id="language-selector" onchange="changeLanguage(this.value)">
+                    <option value="en" class="notranslate">English</option>
+                    <option value="hi" class="notranslate">हिंदी</option>
+                </select>
             </div>
+
+            <button class="join-btn">Join Now</button>
         </div>
     </div>
     <!-- Hidden Google Translate Element -->
     <div id="google_translate_element" style="display:none"></div>
 </header>
 
-
-    <!-- Hidden Google Translate Element -->
-    <div id="google_translate_element" style="display:none"></div>
-</header>
-
-    <!-- Hero Section -->
+    <!-- Hero Section with 3D Water & Bubble Animations -->
     <section class="hero">
+        <!-- 3D Water Droplets Animation Container -->
+        <div class="hero-animations">
+            <!-- 3D Water Droplets -->
+            <div class="water-droplets-container">
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+                <div class="water-droplet"></div>
+            </div>
+
+            <!-- 3D Bubbles -->
+            <div class="bubbles-container">
+                <div class="bubble-3d"></div>
+                <div class="bubble-3d"></div>
+                <div class="bubble-3d"></div>
+                <div class="bubble-3d"></div>
+                <div class="bubble-3d"></div>
+                <div class="bubble-3d"></div>
+                <div class="bubble-3d"></div>
+                <div class="bubble-3d"></div>
+                <div class="bubble-3d"></div>
+                <div class="bubble-3d"></div>
+                <div class="bubble-3d"></div>
+                <div class="bubble-3d"></div>
+                <div class="bubble-3d"></div>
+                <div class="bubble-3d"></div>
+                <div class="bubble-3d"></div>
+            </div>
+
+            <!-- Water Splash Effects -->
+            <div class="splash-container">
+                <div class="splash"></div>
+                <div class="splash"></div>
+                <div class="splash"></div>
+                <div class="splash"></div>
+                <div class="splash"></div>
+                <div class="splash"></div>
+                <div class="splash"></div>
+                <div class="splash"></div>
+            </div>
+
+            <!-- Ripple Effects at Bottom -->
+            <div class="ripple-container">
+                <div class="ripple"></div>
+                <div class="ripple"></div>
+                <div class="ripple"></div>
+                <div class="ripple"></div>
+                <div class="ripple"></div>
+                <div class="ripple"></div>
+            </div>
+
+            <!-- Mist/Fog Effect -->
+            <div class="mist-container">
+                <div class="mist"></div>
+                <div class="mist"></div>
+                <div class="mist"></div>
+            </div>
+        </div>
+
         <div class="container">
             <div class="hero-content">
                 <h1 class="hero-title">Farming for the Future</h1>
@@ -223,20 +292,81 @@
                 <div class="district-selector-wrapper">
                     <label for="district-selector" class="district-label">📍 District</label>
                     <select id="district-selector" class="district-dropdown">
-                        <option value="8.5241,76.9366">Thiruvananthapuram</option>
-                        <option value="9.4981,76.3388">Kollam</option>
-                        <option value="8.8932,76.6141">Pathanamthitta</option>
-                        <option value="9.2648,76.5120">Alappuzha</option>
-                        <option value="9.5916,76.5222">Kottayam</option>
-                        <option value="9.5810,76.8220">Idukki</option>
-                        <option value="9.9312,76.2673">Ernakulam (Kochi)</option>
-                        <option value="10.5276,76.2144">Palakkad</option>
-                        <option value="10.9601,76.2399">Malappuram</option>
-                        <option value="11.2588,75.7804">Kozhikode</option>
-                        <option value="11.6854,75.8811">Wayanad</option>
-                        <option value="11.8745,75.3704">Kannur</option>
-                        <option value="12.3149,75.1309">Kasaragod</option>
-                        <option value="10.0889,76.3881">Thrissur</option>
+                        <option value="27.1767,78.0081">Agra</option>
+                        <option value="27.8974,78.0880">Aligarh</option>
+                        <option value="26.4481,82.5359">Ambedkar Nagar</option>
+                        <option value="26.1542,81.8145">Amethi</option>
+                        <option value="28.9044,78.4673">Amroha</option>
+                        <option value="26.4655,79.5091">Auraiya</option>
+                        <option value="26.7922,82.1998">Ayodhya</option>
+                        <option value="26.0735,83.1857">Azamgarh</option>
+                        <option value="28.9455,77.2183">Baghpat</option>
+                        <option value="27.5745,81.5959">Bahraich</option>
+                        <option value="25.7619,84.1487">Ballia</option>
+                        <option value="27.4306,82.1803">Balrampur</option>
+                        <option value="25.4765,80.3367">Banda</option>
+                        <option value="26.9259,81.1836">Barabanki</option>
+                        <option value="28.3670,79.4304">Bareilly</option>
+                        <option value="26.8016,82.7460">Basti</option>
+                        <option value="25.3953,82.5698">Bhadohi</option>
+                        <option value="29.3724,78.1350">Bijnor</option>
+                        <option value="28.0370,79.1200">Budaun</option>
+                        <option value="28.4070,77.8498">Bulandshahr</option>
+                        <option value="25.2579,83.2679">Chandauli</option>
+                        <option value="25.2018,80.8997">Chitrakoot</option>
+                        <option value="26.5024,83.7791">Deoria</option>
+                        <option value="27.5582,78.6637">Etah</option>
+                        <option value="26.7856,79.0151">Etawah</option>
+                        <option value="27.3906,79.5806">Farrukhabad</option>
+                        <option value="25.9318,80.8135">Fatehpur</option>
+                        <option value="27.1591,78.3957">Firozabad</option>
+                        <option value="28.5355,77.3910">Gautam Buddha Nagar</option>
+                        <option value="28.6692,77.4380" selected >Ghaziabad</option>
+                        <option value="25.5877,83.5777">Ghazipur</option>
+                        <option value="27.1342,81.9619">Gonda</option>
+                        <option value="26.7606,83.3732">Gorakhpur</option>
+                        <option value="25.9570,80.1415">Hamirpur</option>
+                        <option value="28.7309,77.7787">Hapur</option>
+                        <option value="27.3956,80.1315">Hardoi</option>
+                        <option value="27.5963,78.0519">Hathras</option>
+                        <option value="26.1547,79.3509">Jalaun</option>
+                        <option value="25.7464,82.6836">Jaunpur</option>
+                        <option value="25.4484,78.5685">Jhansi</option>
+                        <option value="27.0531,79.9137">Kannauj</option>
+                        <option value="26.4085,79.9806">Kanpur Dehat</option>
+                        <option value="26.4499,80.3319">Kanpur Nagar</option>
+                        <option value="27.8067,78.6462">Kasganj</option>
+                        <option value="25.5324,81.3814">Kaushambi</option>
+                        <option value="27.9471,80.7819">Lakhimpur Kheri</option>
+                        <option value="26.7412,83.8876">Kushinagar</option>
+                        <option value="24.6876,78.4160">Lalitpur</option>
+                        <option value="26.8467,80.9462">Lucknow</option>
+                        <option value="27.1251,83.5610">Maharajganj</option>
+                        <option value="25.2918,79.8720">Mahoba</option>
+                        <option value="27.2360,79.0243">Mainpuri</option>
+                        <option value="27.4924,77.6737">Mathura</option>
+                        <option value="25.9422,83.5610">Mau</option>
+                        <option value="28.9845,77.7064">Meerut</option>
+                        <option value="25.1462,82.5690">Mirzapur</option>
+                        <option value="28.8386,78.7733">Moradabad</option>
+                        <option value="29.4727,77.7085">Muzaffarnagar</option>
+                        <option value="28.6359,79.8040">Pilibhit</option>
+                        <option value="25.8971,81.9400">Pratapgarh</option>
+                        <option value="25.4358,81.8463">Prayagraj</option>
+                        <option value="26.2345,81.2409">Raebareli</option>
+                        <option value="28.7940,79.0260">Rampur</option>
+                        <option value="29.9680,77.5510">Saharanpur</option>
+                        <option value="28.5903,78.5699">Sambhal</option>
+                        <option value="26.7919,83.0366">Sant Kabir Nagar</option>
+                        <option value="27.8826,79.9110">Shahjahanpur</option>
+                        <option value="29.4513,77.3089">Shamli</option>
+                        <option value="27.5073,81.9969">Shravasti</option>
+                        <option value="27.2647,83.0866">Siddharthnagar</option>
+                        <option value="27.5704,80.6829">Sitapur</option>
+                        <option value="24.6900,83.0600">Sonbhadra</option>
+                        <option value="26.2648,82.0727">Sultanpur</option>
+                        <option value="26.5393,80.4878">Unnao</option>
+                        <option value="25.3176,82.9739">Varanasi</option>
                     </select>
                 </div>
             </div>
@@ -269,7 +399,7 @@
             <div class="section-header">
                 <h2 class="section-title">Today's Mandi Prices</h2>
                 <p class="section-subtitle">
-                    Live rates from Kerala local market (per quintal). Updated regularly.
+                    Live rates from Uttar Pradesh local market (per quintal). Updated regularly.
                 </p>
                 <div class="live-indicator">
                     <div class="live-dot"></div>
@@ -297,31 +427,30 @@
 
     <!-- 🎮 Game/Quiz Section -->
 <section class="game-section">
-  <div class="container">
+<div class="container">
     <h2 class="section-title">🎮 Farmer's Quiz</h2>
-    <p class="section-subtitle">Test your knowledge in <strong>English | हिंदी | മലയാളം</strong></p>
+    <p class="section-subtitle">Test your knowledge in <strong>English | हिंदी</strong></p>
 
     <!-- 🔽 Language Switcher -->
     <label for="language" class="quiz-label">Choose Language: </label>
     <select id="language" class="quiz-select">
-      <option value="en">English</option>
-      <option value="hi">हिंदी</option>
-      <option value="ml">മലയാളം</option>
+    <option value="en">English</option>
+    <option value="hi">हिंदी</option>
     </select>
 
     <!-- 🪙 Scoreboard -->
-     <div class="quiz-scoreboard">
-      <span>🏅 Points: <span id="quiz-score">0</span></span>
-      <span>🪙 Coins: <span id="quiz-coins">0</span></span>
+    <div class="quiz-scoreboard">
+    <span>🏅 Points: <span id="quiz-score">0</span></span>
+    <span>🪙 Coins: <span id="quiz-coins">0</span></span>
     </div>
 
     <div class="quiz-card">
-      <h3 id="quiz-question">Loading...</h3>
-      <div id="quiz-options" class="quiz-options"></div>
-      <div id="quiz-result" class="quiz-result"></div>
-      <button id="next-btn" class="quiz-btn">Next Question</button>
+    <h3 id="quiz-question">Loading...</h3>
+    <div id="quiz-options" class="quiz-options"></div>
+    <div id="quiz-result" class="quiz-result"></div>
+    <button id="next-btn" class="quiz-btn">Next Question</button>
     </div>
-  </div>
+</div>
 </section>
 
 
@@ -348,7 +477,7 @@
     <section class="features-section">
         <div class="container">
             <h2 class="section-title">Smart Farming Features</h2>
-         <div class="features-grid" id="featuresGrid"></div>
+        <div class="features-grid" id="featuresGrid"></div>
         </div>
     </section>
 
@@ -397,48 +526,48 @@
     </section>
 
 <section class="schemes-section">
-  <div class="container">
+<div class="container">
     <h2 class="section-title">Helpful Government Schemes</h2>
     <p class="section-subtitle">
-      Explore government initiatives that can support your farming journey.
+    Explore government initiatives that can support your farming journey.
     </p>
 
     <div class="schemes-grid">
-      <!-- Scheme Card -->
-      <div class="scheme-card">
+    <!-- Scheme Card -->
+    <div class="scheme-card">
         <div class="scheme-icon blue">
-          📄
+        📄
         </div>
         <h3 class="scheme-title">PM-KISAN Scheme</h3>
         <p class="scheme-desc">
-          Financial support of ₹6,000 per year for small and marginal farmers.
+        Financial support of ₹6,000 per year for small and marginal farmers.
         </p>
-     <a href="https://pmkisan.gov.in/" target="_blank" class="scheme-link">Official Website</a>
+    <a href="https://pmkisan.gov.in/" target="_blank" class="scheme-link">Official Website</a>
 </div>
 
-      <div class="scheme-card">
+    <div class="scheme-card">
         <div class="scheme-icon yellow">
-          🛡️
+        🛡️
         </div>
         <h3 class="scheme-title">PM Fasal Bima Yojana</h3>
         <p class="scheme-desc">
-          Crop insurance against yield losses due to natural calamities.
+        Crop insurance against yield losses due to natural calamities.
         </p>
         <a href="https://pmfby.gov.in/" target="_blank" class="scheme-link">Official Website</a>
 </div>
-      <div class="scheme-card">
+    <div class="scheme-card">
         <div class="scheme-icon red">
-          🧾
+        🧾
         </div>
         <h3 class="scheme-title">Soil Health Card</h3>
         <p class="scheme-desc">
-          Provides farmers with information on soil nutrient status
-          and recommendations.
+        Provides farmers with information on soil nutrient status
+        and recommendations.
         </p>
         <a href="http://soilhealth.dac.gov.in/home" class="scheme-link">Official Website</a>
-      </div>
     </div>
-  </div>
+    </div>
+</div>
 </section>
 
     <!-- Knowledge Hub -->
@@ -449,13 +578,13 @@
         </div>
     </section>
 
-    <!-- ✅ Kerala Community Map -->
+    <!-- ✅ Uttar Pradesh Community Map -->
     <section class="community-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Kerala Farmers Community Map</h2>
+                <h2 class="section-title">Uttar Pradesh Farmers Community Map</h2>
                 <p class="section-subtitle">
-                    See where farmers across Kerala are making an impact.
+                    See where farmers across Uttar Pradesh are making an impact.
                 </p>
             </div>
             <div class="map-container">

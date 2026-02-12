@@ -2,9 +2,13 @@ name: Fetch Weather Data (Every 5 Minutes)
 
 on:
   schedule:
-    # Every 5 minutes
     - cron: '*/5 * * * *'
-  workflow_dispatch: # Manual trigger button
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
 
 jobs:
   fetch-weather:
@@ -14,27 +18,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       
-      - name: Fetch All Weather Data
+      - name: Create data folder
+        run: mkdir -p data
+      
+      - name: Fetch OpenWeatherMap Weather
         run: |
-          mkdir -p data
-          
           echo "🌤️ Fetching OpenWeatherMap..."
-          
-          # OpenWeatherMap - Current Weather
           curl -s "https://api.openweathermap.org/data/2.5/weather?lat=28.6692&lon=77.4380&units=metric&appid=${{ secrets.OPENWEATHER_API_KEY }}" > data/ow_weather.json
-          
-          # OpenWeatherMap - Air Pollution
+          cat data/ow_weather.json
+      
+      - name: Fetch OpenWeatherMap Air Pollution
+        run: |
+          echo "🌫️ Fetching Air Pollution..."
           curl -s "https://api.openweathermap.org/data/2.5/air_pollution?lat=28.6692&lon=77.4380&appid=${{ secrets.OPENWEATHER_API_KEY }}" > data/ow_air.json
-          
-          # OpenWeatherMap - 5 Day Forecast
+      
+      - name: Fetch OpenWeatherMap Forecast
+        run: |
+          echo "📅 Fetching Forecast..."
           curl -s "https://api.openweathermap.org/data/2.5/forecast?lat=28.6692&lon=77.4380&units=metric&appid=${{ secrets.OPENWEATHER_API_KEY }}" > data/ow_forecast.json
-          
+      
+      - name: Fetch Tomorrow.io
+        run: |
           echo "🌦️ Fetching Tomorrow.io..."
-          
-          # Tomorrow.io - Current Weather
           curl -s "https://api.tomorrow.io/v4/weather/realtime?location=28.6692,77.4380&apikey=${{ secrets.TOMORROW_API_KEY }}&units=metric" > data/tm_weather.json || echo '{"error":"failed"}' > data/tm_weather.json
-          
-          echo "✅ All data fetched!"
+          cat data/tm_weather.json
       
       - name: Create Combined JSON
         run: |
@@ -42,33 +49,48 @@ jobs:
           DATETIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           DATETIME_IST=$(TZ='Asia/Kolkata' date +"%Y-%m-%d %H:%M:%S IST")
           
-          # Read all files
-          OW_WEATHER=$(cat data/ow_weather.json)
-          OW_AIR=$(cat data/ow_air.json)
-          OW_FORECAST=$(cat data/ow_forecast.json)
-          TM_WEATHER=$(cat data/tm_weather.json)
+          echo "📦 Creating combined weather.json..."
           
-          # Create combined JSON
-          cat > data/weather.json << EOF
-          {
-            "lastUpdated": "$DATETIME",
-            "lastUpdatedIST": "$DATETIME_IST",
-            "timestamp": $TIMESTAMP,
-            "refreshInterval": "5 minutes",
-            "source": "GitHub Actions",
-            "openweather": $OW_WEATHER,
-            "airPollution": $OW_AIR,
-            "forecast": $OW_FORECAST,
-            "tomorrow": $TM_WEATHER
+          python3 << EOF
+          import json
+          
+          with open('data/ow_weather.json', 'r') as f:
+              ow_weather = json.load(f)
+          
+          with open('data/ow_air.json', 'r') as f:
+              ow_air = json.load(f)
+          
+          with open('data/ow_forecast.json', 'r') as f:
+              ow_forecast = json.load(f)
+          
+          with open('data/tm_weather.json', 'r') as f:
+              tm_weather = json.load(f)
+          
+          combined = {
+              "lastUpdated": "$DATETIME",
+              "lastUpdatedIST": "$DATETIME_IST",
+              "timestamp": $TIMESTAMP,
+              "refreshInterval": "5 minutes",
+              "source": "GitHub Actions",
+              "openweather": ow_weather,
+              "airPollution": ow_air,
+              "forecast": ow_forecast,
+              "tomorrow": tm_weather
           }
+          
+          with open('data/weather.json', 'w') as f:
+              json.dump(combined, f, indent=2)
+          
+          print("✅ weather.json created!")
           EOF
           
-          echo "📦 Combined weather.json created at $DATETIME_IST"
+          head -20 data/weather.json
       
       - name: Commit and Push
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add data/
-          git diff --staged --quiet || git commit -m "🌤️ Weather update: $(TZ='Asia/Kolkata' date +'%H:%M IST')"
+          git status
+          git diff --staged --quiet || git commit -m "🌤️ Weather update: $(TZ='Asia/Kolkata' date +'%d %b %H:%M IST')"
           git push

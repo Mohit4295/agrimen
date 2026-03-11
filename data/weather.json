@@ -1,13 +1,13 @@
 {
-  "lastUpdated": "2026-03-11T14:36:27Z",
-  "lastUpdatedIST": "2026-03-11 20:06:27 IST",
-  "timestamp": 1773239787,
+  "lastUpdated": "2026-03-11T15:32:33Z",
+  "lastUpdatedIST": "2026-03-11 21:02:33 IST",
+  "timestamp": 1773243153,
   "refreshInterval": "5 minutes",
   "source": "GitHub Actions",
   "openweather": {
     "coord": {
-      "lon": 77.4399,
-      "lat": 28.6723
+      "lon": 77.438,
+      "lat": 28.6692
     },
     "weather": [
       {
@@ -19,28 +19,28 @@
     ],
     "base": "stations",
     "main": {
-      "temp": 31.59,
-      "feels_like": 29.42,
-      "temp_min": 31.59,
-      "temp_max": 31.59,
-      "pressure": 1008,
+      "temp": 29.92,
+      "feels_like": 28.07,
+      "temp_min": 29.92,
+      "temp_max": 29.92,
+      "pressure": 1009,
       "humidity": 11,
-      "sea_level": 1008,
-      "grnd_level": 984
+      "sea_level": 1009,
+      "grnd_level": 985
     },
     "visibility": 10000,
     "wind": {
-      "speed": 4.04,
-      "deg": 273,
-      "gust": 9.62
+      "speed": 3.45,
+      "deg": 256,
+      "gust": 8.44
     },
     "clouds": {
       "all": 100
     },
-    "dt": 1773239399,
+    "dt": 1773243152,
     "sys": {
       "country": "IN",
-      "sunrise": 1773191103,
+      "sunrise": 1773191104,
       "sunset": 1773233753
     },
     "timezone": 19800,
@@ -59,16 +59,16 @@
           "aqi": 3
         },
         "components": {
-          "co": 516.26,
+          "co": 547.04,
           "no": 0,
-          "no2": 27.82,
-          "o3": 40.25,
-          "so2": 3.77,
-          "pm2_5": 47.04,
-          "pm10": 83.99,
-          "nh3": 25.94
+          "no2": 26.92,
+          "o3": 31.3,
+          "so2": 3.64,
+          "pm2_5": 48.35,
+          "pm10": 84.92,
+          "nh3": 27.34
         },
-        "dt": 1773239786
+        "dt": 1773243153
       }
     ]
   },
@@ -77,42 +77,6 @@
     "message": 0,
     "cnt": 40,
     "list": [
-      {
-        "dt": 1773241200,
-        "main": {
-          "temp": 30.73,
-          "feels_like": 28.72,
-          "temp_min": 30.73,
-          "temp_max": 30.73,
-          "pressure": 1009,
-          "sea_level": 1009,
-          "grnd_level": 984,
-          "humidity": 11,
-          "temp_kf": 0
-        },
-        "weather": [
-          {
-            "id": 804,
-            "main": "Clouds",
-            "description": "overcast clouds",
-            "icon": "04n"
-          }
-        ],
-        "clouds": {
-          "all": 100
-        },
-        "wind": {
-          "speed": 3.3,
-          "deg": 263,
-          "gust": 8.2
-        },
-        "visibility": 10000,
-        "pop": 0,
-        "sys": {
-          "pod": "n"
-        },
-        "dt_txt": "2026-03-11 15:00:00"
-      },
       {
         "dt": 1773252000,
         "main": {
@@ -1516,48 +1480,84 @@
           "pod": "d"
         },
         "dt_txt": "2026-03-16 12:00:00"
+      },
+      {
+        "dt": 1773673200,
+        "main": {
+          "temp": 27.57,
+          "feels_like": 26.35,
+          "temp_min": 27.57,
+          "temp_max": 27.57,
+          "pressure": 1005,
+          "sea_level": 1005,
+          "grnd_level": 980,
+          "humidity": 15,
+          "temp_kf": 0
+        },
+        "weather": [
+          {
+            "id": 800,
+            "main": "Clear",
+            "description": "clear sky",
+            "icon": "01n"
+          }
+        ],
+        "clouds": {
+          "all": 4
+        },
+        "wind": {
+          "speed": 4.16,
+          "deg": 277,
+          "gust": 8.67
+        },
+        "visibility": 10000,
+        "pop": 0,
+        "sys": {
+          "pod": "n"
+        },
+        "dt_txt": "2026-03-16 15:00:00"
       }
     ],
     "city": {
       "id": 1271308,
       "name": "Ghaziabad",
       "coord": {
-        "lat": 28.6723,
-        "lon": 77.4399
+        "lat": 28.6692,
+        "lon": 77.438
       },
       "country": "IN",
       "population": 1199191,
       "timezone": 19800,
-      "sunrise": 1773191103,
+      "sunrise": 1773191104,
       "sunset": 1773233753
     }
   },
   "tomorrow": {
     "data": {
-      "time": "2026-03-11T14:36:00Z",
+      "time": "2026-03-11T15:32:00Z",
       "values": {
-        "altimeterSetting": 1010.72,
-        "cloudBase": 8.92,
-        "cloudCeiling": 9.6,
+        "altimeterSetting": 1010.56,
+        "cloudBase": 7.48,
+        "cloudCeiling": 8.9,
         "cloudCover": 100,
-        "dewPoint": 8.4,
+        "dewPoint": 5.3,
         "freezingRainIntensity": 0,
-        "humidity": 31,
+        "humidity": 27,
         "precipitationProbability": 0,
-        "pressureSeaLevel": 1010.12,
-        "pressureSurfaceLevel": 986.3,
+        "pressureSeaLevel": 1009.93,
+        "pressureSurfaceLevel": 986.15,
         "rainIntensity": 0,
         "sleetIntensity": 0,
         "snowIntensity": 0,
-        "temperature": 26.88,
-        "temperatureApparent": 26.4,
+        "temperature": 25.84,
+        "temperatureApparent": 25.8,
         "uvHealthConcern": 0,
         "uvIndex": 0,
         "visibility": 16,
         "weatherCode": 1001,
-        "windDirection": 304,
-        "windGust": 4.3,
-        "windSpeed": 2.4
+        "windDirection": 306,
+        "windGust": 3.4,
+        "windSpeed": 2
       }
     },
     "location": {

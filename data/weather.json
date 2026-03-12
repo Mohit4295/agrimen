@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-03-12T22:17:25Z",
-  "lastUpdatedIST": "2026-03-13 03:47:25 IST",
-  "timestamp": 1773353845,
+  "lastUpdated": "2026-03-12T22:47:42Z",
+  "lastUpdatedIST": "2026-03-13 04:17:42 IST",
+  "timestamp": 1773355662,
   "refreshInterval": "5 minutes",
   "source": "GitHub Actions",
   "openweather": {
@@ -19,25 +19,25 @@
     ],
     "base": "stations",
     "main": {
-      "temp": 23.62,
-      "feels_like": 22.72,
-      "temp_min": 23.62,
-      "temp_max": 23.62,
+      "temp": 22.83,
+      "feels_like": 21.93,
+      "temp_min": 22.83,
+      "temp_max": 22.83,
       "pressure": 1008,
-      "humidity": 26,
+      "humidity": 29,
       "sea_level": 1008,
       "grnd_level": 983
     },
     "visibility": 10000,
     "wind": {
-      "speed": 2.92,
+      "speed": 2.64,
       "deg": 307,
-      "gust": 6.46
+      "gust": 5.4
     },
     "clouds": {
-      "all": 25
+      "all": 31
     },
-    "dt": 1773353845,
+    "dt": 1773355662,
     "sys": {
       "country": "IN",
       "sunrise": 1773363767,
@@ -59,16 +59,16 @@
           "aqi": 4
         },
         "components": {
-          "co": 400.77,
+          "co": 381.78,
           "no": 0,
-          "no2": 9.99,
-          "o3": 54.95,
-          "so2": 2.72,
-          "pm2_5": 53.12,
-          "pm10": 99.74,
-          "nh3": 24.35
+          "no2": 7.1,
+          "o3": 64.2,
+          "so2": 3.63,
+          "pm2_5": 62.41,
+          "pm10": 102.49,
+          "nh3": 22.5
         },
-        "dt": 1773353845
+        "dt": 1773355662
       }
     ]
   },
@@ -80,26 +80,26 @@
       {
         "dt": 1773360000,
         "main": {
-          "temp": 23.59,
-          "feels_like": 22.66,
+          "temp": 22.27,
+          "feels_like": 21.36,
           "temp_min": 22.27,
-          "temp_max": 23.59,
+          "temp_max": 22.27,
           "pressure": 1008,
           "sea_level": 1008,
           "grnd_level": 983,
-          "humidity": 25,
-          "temp_kf": 1.32
+          "humidity": 31,
+          "temp_kf": 0
         },
         "weather": [
           {
-            "id": 801,
+            "id": 802,
             "main": "Clouds",
-            "description": "few clouds",
-            "icon": "02n"
+            "description": "scattered clouds",
+            "icon": "03n"
           }
         ],
         "clouds": {
-          "all": 18
+          "all": 41
         },
         "wind": {
           "speed": 2.11,
@@ -116,15 +116,15 @@
       {
         "dt": 1773370800,
         "main": {
-          "temp": 25.02,
-          "feels_like": 24.23,
-          "temp_min": 25.02,
+          "temp": 23.32,
+          "feels_like": 22.46,
+          "temp_min": 23.32,
           "temp_max": 25.41,
           "pressure": 1009,
           "sea_level": 1009,
           "grnd_level": 985,
-          "humidity": 25,
-          "temp_kf": -0.39
+          "humidity": 29,
+          "temp_kf": -2.09
         },
         "weather": [
           {
@@ -135,7 +135,7 @@
           }
         ],
         "clouds": {
-          "all": 69
+          "all": 61
         },
         "wind": {
           "speed": 2.33,
@@ -152,26 +152,26 @@
       {
         "dt": 1773381600,
         "main": {
-          "temp": 32.62,
-          "feels_like": 30.37,
-          "temp_min": 32.62,
+          "temp": 29.17,
+          "feels_like": 27.62,
+          "temp_min": 29.17,
           "temp_max": 32.62,
           "pressure": 1009,
           "sea_level": 1009,
           "grnd_level": 985,
-          "humidity": 16,
-          "temp_kf": 0
+          "humidity": 21,
+          "temp_kf": -3.45
         },
         "weather": [
           {
-            "id": 804,
+            "id": 803,
             "main": "Clouds",
-            "description": "overcast clouds",
+            "description": "broken clouds",
             "icon": "04d"
           }
         ],
         "clouds": {
-          "all": 100
+          "all": 80
         },
         "wind": {
           "speed": 3.18,
@@ -1542,8 +1542,36 @@
     }
   },
   "tomorrow": {
-    "code": 500001,
-    "type": "Unknown",
-    "message": "Temporary issue due to an unknown internal error. For more details please visit our status page at: https://status.tomorrow.io"
+    "data": {
+      "time": "2026-03-12T22:47:00Z",
+      "values": {
+        "altimeterSetting": 1008.51,
+        "cloudBase": 9.69,
+        "cloudCeiling": 10.4,
+        "cloudCover": 78.12,
+        "dewPoint": 12.3,
+        "freezingRainIntensity": 0,
+        "humidity": 59,
+        "precipitationProbability": 0,
+        "pressureSeaLevel": 1008.18,
+        "pressureSurfaceLevel": 984.14,
+        "rainIntensity": 0,
+        "sleetIntensity": 0,
+        "snowIntensity": 0,
+        "temperature": 20.6,
+        "temperatureApparent": 20.6,
+        "uvHealthConcern": 0,
+        "uvIndex": 0,
+        "visibility": 16,
+        "weatherCode": 1001,
+        "windDirection": 315,
+        "windGust": 4.8,
+        "windSpeed": 2.5
+      }
+    },
+    "location": {
+      "lat": 28.6692,
+      "lon": 77.438
+    }
   }
 }

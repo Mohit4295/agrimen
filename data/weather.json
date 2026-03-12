@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-03-12T21:19:33Z",
-  "lastUpdatedIST": "2026-03-13 02:49:33 IST",
-  "timestamp": 1773350373,
+  "lastUpdated": "2026-03-12T21:51:53Z",
+  "lastUpdatedIST": "2026-03-13 03:21:53 IST",
+  "timestamp": 1773352313,
   "refreshInterval": "5 minutes",
   "source": "GitHub Actions",
   "openweather": {
@@ -11,33 +11,33 @@
     },
     "weather": [
       {
-        "id": 800,
-        "main": "Clear",
-        "description": "clear sky",
-        "icon": "01n"
+        "id": 802,
+        "main": "Clouds",
+        "description": "scattered clouds",
+        "icon": "03n"
       }
     ],
     "base": "stations",
     "main": {
-      "temp": 24.25,
-      "feels_like": 23.31,
-      "temp_min": 24.25,
-      "temp_max": 24.25,
+      "temp": 23.62,
+      "feels_like": 22.72,
+      "temp_min": 23.62,
+      "temp_max": 23.62,
       "pressure": 1008,
-      "humidity": 22,
+      "humidity": 26,
       "sea_level": 1008,
       "grnd_level": 983
     },
     "visibility": 10000,
     "wind": {
-      "speed": 3.16,
-      "deg": 303,
-      "gust": 6.97
+      "speed": 2.92,
+      "deg": 307,
+      "gust": 6.46
     },
     "clouds": {
-      "all": 7
+      "all": 25
     },
-    "dt": 1773350373,
+    "dt": 1773352313,
     "sys": {
       "country": "IN",
       "sunrise": 1773363767,
@@ -56,19 +56,19 @@
     "list": [
       {
         "main": {
-          "aqi": 3
+          "aqi": 4
         },
         "components": {
-          "co": 490.81,
+          "co": 400.77,
           "no": 0,
-          "no2": 17.31,
-          "o3": 23.18,
-          "so2": 1.83,
-          "pm2_5": 45.25,
-          "pm10": 84.05,
-          "nh3": 28.35
+          "no2": 9.99,
+          "o3": 54.95,
+          "so2": 2.72,
+          "pm2_5": 53.12,
+          "pm10": 99.74,
+          "nh3": 24.35
         },
-        "dt": 1773350373
+        "dt": 1773352313
       }
     ]
   },
@@ -1542,8 +1542,36 @@
     }
   },
   "tomorrow": {
-    "code": 500001,
-    "type": "Unknown",
-    "message": "Temporary issue due to an unknown internal error. For more details please visit our status page at: https://status.tomorrow.io"
+    "data": {
+      "time": "2026-03-12T21:51:00Z",
+      "values": {
+        "altimeterSetting": 1008.58,
+        "cloudBase": 10.38,
+        "cloudCeiling": 10.8,
+        "cloudCover": 52.34,
+        "dewPoint": 11.3,
+        "freezingRainIntensity": 0,
+        "humidity": 51,
+        "precipitationProbability": 0,
+        "pressureSeaLevel": 1008.12,
+        "pressureSurfaceLevel": 984.21,
+        "rainIntensity": 0,
+        "sleetIntensity": 0,
+        "snowIntensity": 0,
+        "temperature": 21.85,
+        "temperatureApparent": 21.9,
+        "uvHealthConcern": 0,
+        "uvIndex": 0,
+        "visibility": 16,
+        "weatherCode": 1101,
+        "windDirection": 311,
+        "windGust": 5.9,
+        "windSpeed": 3.1
+      }
+    },
+    "location": {
+      "lat": 28.6692,
+      "lon": 77.438
+    }
   }
 }

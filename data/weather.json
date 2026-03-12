@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-03-12T20:47:49Z",
-  "lastUpdatedIST": "2026-03-13 02:17:49 IST",
-  "timestamp": 1773348469,
+  "lastUpdated": "2026-03-12T21:19:33Z",
+  "lastUpdatedIST": "2026-03-13 02:49:33 IST",
+  "timestamp": 1773350373,
   "refreshInterval": "5 minutes",
   "source": "GitHub Actions",
   "openweather": {
@@ -37,7 +37,7 @@
     "clouds": {
       "all": 7
     },
-    "dt": 1773348469,
+    "dt": 1773350373,
     "sys": {
       "country": "IN",
       "sunrise": 1773363767,
@@ -68,7 +68,7 @@
           "pm10": 84.05,
           "nh3": 28.35
         },
-        "dt": 1773348469
+        "dt": 1773350373
       }
     ]
   },
@@ -77,42 +77,6 @@
     "message": 0,
     "cnt": 40,
     "list": [
-      {
-        "dt": 1773349200,
-        "main": {
-          "temp": 24.25,
-          "feels_like": 23.31,
-          "temp_min": 24.25,
-          "temp_max": 24.25,
-          "pressure": 1008,
-          "sea_level": 1008,
-          "grnd_level": 983,
-          "humidity": 22,
-          "temp_kf": 0
-        },
-        "weather": [
-          {
-            "id": 800,
-            "main": "Clear",
-            "description": "clear sky",
-            "icon": "01n"
-          }
-        ],
-        "clouds": {
-          "all": 7
-        },
-        "wind": {
-          "speed": 3.16,
-          "deg": 303,
-          "gust": 6.97
-        },
-        "visibility": 10000,
-        "pop": 0,
-        "sys": {
-          "pod": "n"
-        },
-        "dt_txt": "2026-03-12 21:00:00"
-      },
       {
         "dt": 1773360000,
         "main": {
@@ -1525,6 +1489,42 @@
           "pod": "n"
         },
         "dt_txt": "2026-03-17 18:00:00"
+      },
+      {
+        "dt": 1773781200,
+        "main": {
+          "temp": 22.77,
+          "feels_like": 21.52,
+          "temp_min": 22.77,
+          "temp_max": 22.77,
+          "pressure": 1007,
+          "sea_level": 1007,
+          "grnd_level": 982,
+          "humidity": 16,
+          "temp_kf": 0
+        },
+        "weather": [
+          {
+            "id": 804,
+            "main": "Clouds",
+            "description": "overcast clouds",
+            "icon": "04n"
+          }
+        ],
+        "clouds": {
+          "all": 100
+        },
+        "wind": {
+          "speed": 1.57,
+          "deg": 64,
+          "gust": 2.47
+        },
+        "visibility": 10000,
+        "pop": 0,
+        "sys": {
+          "pod": "n"
+        },
+        "dt_txt": "2026-03-17 21:00:00"
       }
     ],
     "city": {
@@ -1542,36 +1542,8 @@
     }
   },
   "tomorrow": {
-    "data": {
-      "time": "2026-03-12T20:47:00Z",
-      "values": {
-        "altimeterSetting": 1008.4,
-        "cloudBase": null,
-        "cloudCeiling": null,
-        "cloudCover": 3.91,
-        "dewPoint": 11.1,
-        "freezingRainIntensity": 0,
-        "humidity": 50,
-        "precipitationProbability": 0,
-        "pressureSeaLevel": 1007.97,
-        "pressureSurfaceLevel": 984.03,
-        "rainIntensity": 0,
-        "sleetIntensity": 0,
-        "snowIntensity": 0,
-        "temperature": 22.08,
-        "temperatureApparent": 22.1,
-        "uvHealthConcern": 0,
-        "uvIndex": 0,
-        "visibility": 16,
-        "weatherCode": 1000,
-        "windDirection": 278,
-        "windGust": 3.5,
-        "windSpeed": 2
-      }
-    },
-    "location": {
-      "lat": 28.6692,
-      "lon": 77.438
-    }
+    "code": 500001,
+    "type": "Unknown",
+    "message": "Temporary issue due to an unknown internal error. For more details please visit our status page at: https://status.tomorrow.io"
   }
 }

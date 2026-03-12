@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-03-12T21:51:53Z",
-  "lastUpdatedIST": "2026-03-13 03:21:53 IST",
-  "timestamp": 1773352313,
+  "lastUpdated": "2026-03-12T22:17:25Z",
+  "lastUpdatedIST": "2026-03-13 03:47:25 IST",
+  "timestamp": 1773353845,
   "refreshInterval": "5 minutes",
   "source": "GitHub Actions",
   "openweather": {
@@ -37,7 +37,7 @@
     "clouds": {
       "all": 25
     },
-    "dt": 1773352313,
+    "dt": 1773353845,
     "sys": {
       "country": "IN",
       "sunrise": 1773363767,
@@ -68,7 +68,7 @@
           "pm10": 99.74,
           "nh3": 24.35
         },
-        "dt": 1773352313
+        "dt": 1773353845
       }
     ]
   },
@@ -1542,36 +1542,8 @@
     }
   },
   "tomorrow": {
-    "data": {
-      "time": "2026-03-12T21:51:00Z",
-      "values": {
-        "altimeterSetting": 1008.58,
-        "cloudBase": 10.38,
-        "cloudCeiling": 10.8,
-        "cloudCover": 52.34,
-        "dewPoint": 11.3,
-        "freezingRainIntensity": 0,
-        "humidity": 51,
-        "precipitationProbability": 0,
-        "pressureSeaLevel": 1008.12,
-        "pressureSurfaceLevel": 984.21,
-        "rainIntensity": 0,
-        "sleetIntensity": 0,
-        "snowIntensity": 0,
-        "temperature": 21.85,
-        "temperatureApparent": 21.9,
-        "uvHealthConcern": 0,
-        "uvIndex": 0,
-        "visibility": 16,
-        "weatherCode": 1101,
-        "windDirection": 311,
-        "windGust": 5.9,
-        "windSpeed": 3.1
-      }
-    },
-    "location": {
-      "lat": 28.6692,
-      "lon": 77.438
-    }
+    "code": 500001,
+    "type": "Unknown",
+    "message": "Temporary issue due to an unknown internal error. For more details please visit our status page at: https://status.tomorrow.io"
   }
 }

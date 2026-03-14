@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-03-14T21:56:09Z",
-  "lastUpdatedIST": "2026-03-15 03:26:09 IST",
-  "timestamp": 1773525369,
+  "lastUpdated": "2026-03-14T22:30:33Z",
+  "lastUpdatedIST": "2026-03-15 04:00:33 IST",
+  "timestamp": 1773527433,
   "refreshInterval": "5 minutes",
   "source": "GitHub Actions",
   "openweather": {
@@ -19,25 +19,25 @@
     ],
     "base": "stations",
     "main": {
-      "temp": 20.31,
-      "feels_like": 19.55,
-      "temp_min": 20.31,
-      "temp_max": 20.31,
+      "temp": 19.8,
+      "feels_like": 19.17,
+      "temp_min": 19.8,
+      "temp_max": 19.8,
       "pressure": 1008,
-      "humidity": 44,
+      "humidity": 51,
       "sea_level": 1008,
       "grnd_level": 983
     },
     "visibility": 10000,
     "wind": {
-      "speed": 0.6,
-      "deg": 66,
-      "gust": 1.17
+      "speed": 2.68,
+      "deg": 159,
+      "gust": 3.99
     },
     "clouds": {
-      "all": 70
+      "all": 64
     },
-    "dt": 1773525368,
+    "dt": 1773527432,
     "sys": {
       "country": "IN",
       "sunrise": 1773536429,
@@ -59,16 +59,16 @@
           "aqi": 3
         },
         "components": {
-          "co": 392.25,
+          "co": 322.61,
           "no": 0,
-          "no2": 6.95,
-          "o3": 73.04,
-          "so2": 2.56,
-          "pm2_5": 39.16,
-          "pm10": 53.95,
-          "nh3": 10.55
+          "no2": 4.41,
+          "o3": 89.85,
+          "so2": 1.59,
+          "pm2_5": 34.83,
+          "pm10": 49.35,
+          "nh3": 7.5
         },
-        "dt": 1773525368
+        "dt": 1773527432
       }
     ]
   },
@@ -80,15 +80,15 @@
       {
         "dt": 1773532800,
         "main": {
-          "temp": 21.21,
-          "feels_like": 20.46,
+          "temp": 19.53,
+          "feels_like": 19.08,
           "temp_min": 19.53,
-          "temp_max": 21.21,
-          "pressure": 1008,
-          "sea_level": 1008,
+          "temp_max": 19.53,
+          "pressure": 1009,
+          "sea_level": 1009,
           "grnd_level": 984,
-          "humidity": 41,
-          "temp_kf": 1.68
+          "humidity": 59,
+          "temp_kf": 0
         },
         "weather": [
           {
@@ -99,7 +99,7 @@
           }
         ],
         "clouds": {
-          "all": 65
+          "all": 70
         },
         "wind": {
           "speed": 1.46,
@@ -119,15 +119,15 @@
       {
         "dt": 1773543600,
         "main": {
-          "temp": 20.83,
-          "feels_like": 20.38,
-          "temp_min": 20.22,
-          "temp_max": 20.83,
+          "temp": 19.76,
+          "feels_like": 19.38,
+          "temp_min": 19.76,
+          "temp_max": 20.22,
           "pressure": 1010,
           "sea_level": 1010,
           "grnd_level": 986,
-          "humidity": 54,
-          "temp_kf": 0.61
+          "humidity": 61,
+          "temp_kf": -0.46
         },
         "weather": [
           {
@@ -138,7 +138,7 @@
           }
         ],
         "clouds": {
-          "all": 88
+          "all": 80
         },
         "wind": {
           "speed": 3.51,
@@ -158,15 +158,15 @@
       {
         "dt": 1773554400,
         "main": {
-          "temp": 31.24,
-          "feels_like": 29.38,
-          "temp_min": 31.24,
+          "temp": 27.34,
+          "feels_like": 26.81,
+          "temp_min": 27.34,
           "temp_max": 31.24,
           "pressure": 1009,
           "sea_level": 1009,
           "grnd_level": 985,
-          "humidity": 22,
-          "temp_kf": 0
+          "humidity": 34,
+          "temp_kf": -3.9
         },
         "weather": [
           {
@@ -177,7 +177,7 @@
           }
         ],
         "clouds": {
-          "all": 62
+          "all": 65
         },
         "wind": {
           "speed": 5.96,
@@ -1543,10 +1543,10 @@
   },
   "tomorrow": {
     "data": {
-      "time": "2026-03-14T21:56:00Z",
+      "time": "2026-03-14T22:30:00Z",
       "values": {
         "altimeterSetting": 1009.71,
-        "cloudBase": 2.52,
+        "cloudBase": 2.29,
         "cloudCeiling": 8.2,
         "cloudCover": 96.88,
         "dewPoint": 12.7,

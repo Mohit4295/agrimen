@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-03-15T14:35:35Z",
-  "lastUpdatedIST": "2026-03-15 20:05:35 IST",
-  "timestamp": 1773585335,
+  "lastUpdated": "2026-03-15T15:00:28Z",
+  "lastUpdatedIST": "2026-03-15 20:30:28 IST",
+  "timestamp": 1773586828,
   "refreshInterval": "5 minutes",
   "source": "GitHub Actions",
   "openweather": {
@@ -37,7 +37,7 @@
     "clouds": {
       "all": 100
     },
-    "dt": 1773585334,
+    "dt": 1773586827,
     "sys": {
       "country": "IN",
       "sunrise": 1773536429,
@@ -68,7 +68,7 @@
           "pm10": 60.75,
           "nh3": 16.72
         },
-        "dt": 1773585334
+        "dt": 1773586827
       }
     ]
   },
@@ -77,42 +77,6 @@
     "message": 0,
     "cnt": 40,
     "list": [
-      {
-        "dt": 1773586800,
-        "main": {
-          "temp": 24.87,
-          "feels_like": 24.27,
-          "temp_min": 24.87,
-          "temp_max": 24.87,
-          "pressure": 1007,
-          "sea_level": 1007,
-          "grnd_level": 982,
-          "humidity": 33,
-          "temp_kf": 0
-        },
-        "weather": [
-          {
-            "id": 804,
-            "main": "Clouds",
-            "description": "overcast clouds",
-            "icon": "04n"
-          }
-        ],
-        "clouds": {
-          "all": 100
-        },
-        "wind": {
-          "speed": 4.61,
-          "deg": 53,
-          "gust": 6.89
-        },
-        "visibility": 10000,
-        "pop": 0,
-        "sys": {
-          "pod": "n"
-        },
-        "dt_txt": "2026-03-15 15:00:00"
-      },
       {
         "dt": 1773597600,
         "main": {
@@ -1519,6 +1483,45 @@
           "pod": "d"
         },
         "dt_txt": "2026-03-20 12:00:00"
+      },
+      {
+        "dt": 1774018800,
+        "main": {
+          "temp": 19.8,
+          "feels_like": 19.77,
+          "temp_min": 19.8,
+          "temp_max": 19.8,
+          "pressure": 1011,
+          "sea_level": 1011,
+          "grnd_level": 986,
+          "humidity": 74,
+          "temp_kf": 0
+        },
+        "weather": [
+          {
+            "id": 500,
+            "main": "Rain",
+            "description": "light rain",
+            "icon": "10n"
+          }
+        ],
+        "clouds": {
+          "all": 100
+        },
+        "wind": {
+          "speed": 5.85,
+          "deg": 294,
+          "gust": 8.68
+        },
+        "visibility": 10000,
+        "pop": 1,
+        "rain": {
+          "3h": 0.99
+        },
+        "sys": {
+          "pod": "n"
+        },
+        "dt_txt": "2026-03-20 15:00:00"
       }
     ],
     "city": {
@@ -1537,12 +1540,12 @@
   },
   "tomorrow": {
     "data": {
-      "time": "2026-03-15T14:35:00Z",
+      "time": "2026-03-15T15:00:00Z",
       "values": {
         "altimeterSetting": 1009.76,
         "cloudBase": 0.16,
         "cloudCeiling": null,
-        "cloudCover": 2.95,
+        "cloudCover": 3.12,
         "dewPoint": 13.8,
         "freezingRainIntensity": 0,
         "humidity": 64,

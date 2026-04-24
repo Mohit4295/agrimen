@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-04-24T16:40:10Z",
-  "lastUpdatedIST": "2026-04-24 22:10:10 IST",
-  "timestamp": 1777048810,
+  "lastUpdated": "2026-04-24T17:37:44Z",
+  "lastUpdatedIST": "2026-04-24 23:07:44 IST",
+  "timestamp": 1777052264,
   "refreshInterval": "5 minutes",
   "source": "GitHub Actions",
   "openweather": {
@@ -19,25 +19,25 @@
     ],
     "base": "stations",
     "main": {
-      "temp": 36.59,
-      "feels_like": 33.83,
-      "temp_min": 36.59,
-      "temp_max": 36.59,
-      "pressure": 1003,
-      "humidity": 11,
-      "sea_level": 1003,
+      "temp": 35.7,
+      "feels_like": 33.05,
+      "temp_min": 35.7,
+      "temp_max": 35.7,
+      "pressure": 1004,
+      "humidity": 12,
+      "sea_level": 1004,
       "grnd_level": 979
     },
     "visibility": 10000,
     "wind": {
-      "speed": 1.82,
-      "deg": 281,
-      "gust": 2.34
+      "speed": 2.82,
+      "deg": 288,
+      "gust": 4.81
     },
     "clouds": {
-      "all": 6
+      "all": 5
     },
-    "dt": 1777048809,
+    "dt": 1777052263,
     "sys": {
       "country": "IN",
       "sunrise": 1776989754,
@@ -59,16 +59,16 @@
           "aqi": 3
         },
         "components": {
-          "co": 495.92,
+          "co": 499.79,
           "no": 0,
-          "no2": 22.06,
-          "o3": 63.89,
-          "so2": 6.06,
-          "pm2_5": 46.36,
-          "pm10": 87,
-          "nh3": 39.92
+          "no2": 21.31,
+          "o3": 57.22,
+          "so2": 5.67,
+          "pm2_5": 45.61,
+          "pm10": 82.59,
+          "nh3": 41.45
         },
-        "dt": 1777048809
+        "dt": 1777052263
       }
     ]
   },
@@ -1551,8 +1551,36 @@
     }
   },
   "tomorrow": {
-    "code": 500001,
-    "type": "Unknown",
-    "message": "Temporary issue due to an unknown internal error. For more details please visit our status page at: https://status.tomorrow.io"
+    "data": {
+      "time": "2026-04-24T17:37:00Z",
+      "values": {
+        "altimeterSetting": 1006.09,
+        "cloudBase": 5.11,
+        "cloudCeiling": null,
+        "cloudCover": 2.34,
+        "dewPoint": 13.5,
+        "freezingRainIntensity": 0,
+        "humidity": 36,
+        "precipitationProbability": 0,
+        "pressureSeaLevel": 1005.25,
+        "pressureSurfaceLevel": 981.77,
+        "rainIntensity": 0,
+        "sleetIntensity": 0,
+        "snowIntensity": 0,
+        "temperature": 30.02,
+        "temperatureApparent": 29.3,
+        "uvHealthConcern": 0,
+        "uvIndex": 0,
+        "visibility": 16,
+        "weatherCode": 1000,
+        "windDirection": 58,
+        "windGust": 1.1,
+        "windSpeed": 0.5
+      }
+    },
+    "location": {
+      "lat": 28.6692,
+      "lon": 77.438
+    }
   }
 }

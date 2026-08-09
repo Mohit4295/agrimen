@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-08-09T13:55:09Z",
-  "lastUpdatedIST": "2026-08-09 19:25:09 IST",
-  "timestamp": 1786283709,
+  "lastUpdated": "2026-08-09T14:33:59Z",
+  "lastUpdatedIST": "2026-08-09 20:03:59 IST",
+  "timestamp": 1786286039,
   "refreshInterval": "5 minutes",
   "source": "GitHub Actions",
   "openweather": {
@@ -11,33 +11,33 @@
     },
     "weather": [
       {
-        "id": 803,
+        "id": 804,
         "main": "Clouds",
-        "description": "broken clouds",
+        "description": "overcast clouds",
         "icon": "04n"
       }
     ],
     "base": "stations",
     "main": {
-      "temp": 31.85,
-      "feels_like": 37.33,
-      "temp_min": 31.85,
-      "temp_max": 31.85,
+      "temp": 31.35,
+      "feels_like": 37.01,
+      "temp_min": 31.35,
+      "temp_max": 31.35,
       "pressure": 1000,
-      "humidity": 62,
+      "humidity": 65,
       "sea_level": 1000,
       "grnd_level": 976
     },
     "visibility": 10000,
     "wind": {
-      "speed": 2.72,
-      "deg": 88,
-      "gust": 4.86
+      "speed": 2.43,
+      "deg": 104,
+      "gust": 4.83
     },
     "clouds": {
-      "all": 79
+      "all": 87
     },
-    "dt": 1786283708,
+    "dt": 1786286038,
     "sys": {
       "country": "IN",
       "sunrise": 1786234556,
@@ -56,19 +56,19 @@
     "list": [
       {
         "main": {
-          "aqi": 3
+          "aqi": 4
         },
         "components": {
-          "co": 659.19,
-          "no": 0.01,
-          "no2": 19.13,
-          "o3": 72.13,
-          "so2": 2.33,
-          "pm2_5": 47.19,
-          "pm10": 54.07,
-          "nh3": 7.85
+          "co": 741.22,
+          "no": 0,
+          "no2": 23.55,
+          "o3": 55.81,
+          "so2": 3.04,
+          "pm2_5": 53.19,
+          "pm10": 63.04,
+          "nh3": 10.72
         },
-        "dt": 1786283708
+        "dt": 1786286038
       }
     ]
   },
@@ -1604,42 +1604,42 @@
       "id": 1271308,
       "name": "Ghaziabad",
       "coord": {
-        "lat": 28.6692,
-        "lon": 77.438
+        "lat": 28.6654,
+        "lon": 77.4392
       },
       "country": "IN",
       "population": 1199191,
       "timezone": 19800,
       "sunrise": 1786234556,
-      "sunset": 1786282547
+      "sunset": 1786282546
     }
   },
   "tomorrow": {
     "data": {
-      "time": "2026-08-09T13:55:00Z",
+      "time": "2026-08-09T14:33:00Z",
       "values": {
-        "altimeterSetting": 1000.79,
-        "cloudBase": null,
-        "cloudCeiling": 15.9,
-        "cloudCover": 75.24,
-        "dewPoint": 28.7,
+        "altimeterSetting": 1001.21,
+        "cloudBase": 15.22,
+        "cloudCeiling": 16,
+        "cloudCover": 96.88,
+        "dewPoint": 27.5,
         "freezingRainIntensity": 0,
-        "humidity": 87,
+        "humidity": 86,
         "precipitationProbability": 0,
-        "pressureSeaLevel": 998.46,
-        "pressureSurfaceLevel": 976.57,
+        "pressureSeaLevel": 998.99,
+        "pressureSurfaceLevel": 977.51,
         "rainIntensity": 0,
         "sleetIntensity": 0,
         "snowIntensity": 0,
-        "temperature": 30.58,
-        "temperatureApparent": 41.7,
+        "temperature": 30.13,
+        "temperatureApparent": 39.9,
         "uvHealthConcern": 0,
         "uvIndex": 0,
-        "visibility": 11,
+        "visibility": 8.6,
         "weatherCode": 1001,
-        "windDirection": 77,
-        "windGust": 1.1,
-        "windSpeed": 0.1
+        "windDirection": 84,
+        "windGust": 1.9,
+        "windSpeed": 0.8
       }
     },
     "location": {

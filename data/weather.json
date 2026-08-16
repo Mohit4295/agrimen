@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-08-16T02:35:47Z",
-  "lastUpdatedIST": "2026-08-16 08:05:47 IST",
-  "timestamp": 1786847747,
+  "lastUpdated": "2026-08-16T03:30:09Z",
+  "lastUpdatedIST": "2026-08-16 09:00:09 IST",
+  "timestamp": 1786851009,
   "refreshInterval": "5 minutes",
   "source": "GitHub Actions",
   "openweather": {
@@ -11,36 +11,33 @@
     },
     "weather": [
       {
-        "id": 500,
-        "main": "Rain",
-        "description": "light rain",
-        "icon": "10d"
+        "id": 803,
+        "main": "Clouds",
+        "description": "broken clouds",
+        "icon": "04d"
       }
     ],
     "base": "stations",
     "main": {
-      "temp": 29,
-      "feels_like": 32.73,
-      "temp_min": 29,
-      "temp_max": 29,
+      "temp": 30,
+      "feels_like": 33.88,
+      "temp_min": 30,
+      "temp_max": 30,
       "pressure": 1001,
-      "humidity": 70,
+      "humidity": 65,
       "sea_level": 1001,
       "grnd_level": 977
     },
     "visibility": 10000,
     "wind": {
-      "speed": 2.09,
-      "deg": 230,
-      "gust": 3.17
-    },
-    "rain": {
-      "1h": 0.23
+      "speed": 1.73,
+      "deg": 266,
+      "gust": 3.34
     },
     "clouds": {
-      "all": 40
+      "all": 56
     },
-    "dt": 1786847746,
+    "dt": 1786851009,
     "sys": {
       "type": 1,
       "id": 9161,
@@ -64,16 +61,16 @@
           "aqi": 2
         },
         "components": {
-          "co": 214.43,
-          "no": 1.79,
-          "no2": 6.49,
-          "o3": 29.73,
-          "so2": 1.05,
-          "pm2_5": 11.59,
-          "pm10": 27.34,
-          "nh3": 3.2
+          "co": 187.38,
+          "no": 1.46,
+          "no2": 4.49,
+          "o3": 41.88,
+          "so2": 0.91,
+          "pm2_5": 11.98,
+          "pm10": 28.69,
+          "nh3": 2.95
         },
-        "dt": 1786847747
+        "dt": 1786851009
       }
     ]
   },
@@ -83,58 +80,18 @@
     "cnt": 40,
     "list": [
       {
-        "dt": 1786849200,
-        "main": {
-          "temp": 29,
-          "feels_like": 32.73,
-          "temp_min": 29,
-          "temp_max": 30.14,
-          "pressure": 1001,
-          "sea_level": 1001,
-          "grnd_level": 977,
-          "humidity": 70,
-          "temp_kf": -1.14,
-          "dew_point": 22.97
-        },
-        "weather": [
-          {
-            "id": 500,
-            "main": "Rain",
-            "description": "light rain",
-            "icon": "10d"
-          }
-        ],
-        "clouds": {
-          "all": 40
-        },
-        "wind": {
-          "speed": 2.09,
-          "deg": 230,
-          "gust": 3.17
-        },
-        "visibility": 10000,
-        "pop": 0.71,
-        "rain": {
-          "3h": 0.59
-        },
-        "sys": {
-          "pod": "d"
-        },
-        "dt_txt": "2026-08-16 03:00:00"
-      },
-      {
         "dt": 1786860000,
         "main": {
-          "temp": 29.6,
-          "feels_like": 32.84,
-          "temp_min": 29.6,
-          "temp_max": 30.8,
+          "temp": 30.28,
+          "feels_like": 34.73,
+          "temp_min": 30.28,
+          "temp_max": 30.83,
           "pressure": 1001,
           "sea_level": 1001,
           "grnd_level": 976,
-          "humidity": 64,
-          "temp_kf": -1.2,
-          "dew_point": 22.07
+          "humidity": 66,
+          "temp_kf": -0.55,
+          "dew_point": 23.22
         },
         "weather": [
           {
@@ -162,16 +119,16 @@
       {
         "dt": 1786870800,
         "main": {
-          "temp": 33.64,
-          "feels_like": 37.61,
-          "temp_min": 33.64,
+          "temp": 33.97,
+          "feels_like": 38.67,
+          "temp_min": 33.97,
           "temp_max": 35.96,
           "pressure": 999,
           "sea_level": 999,
           "grnd_level": 974,
-          "humidity": 50,
-          "temp_kf": -2.32,
-          "dew_point": 21.78
+          "humidity": 51,
+          "temp_kf": -1.99,
+          "dew_point": 22.4
         },
         "weather": [
           {
@@ -1636,6 +1593,46 @@
           "pod": "n"
         },
         "dt_txt": "2026-08-21 00:00:00"
+      },
+      {
+        "dt": 1787281200,
+        "main": {
+          "temp": 30.37,
+          "feels_like": 35.7,
+          "temp_min": 30.37,
+          "temp_max": 30.37,
+          "pressure": 1002,
+          "sea_level": 1002,
+          "grnd_level": 978,
+          "humidity": 69,
+          "temp_kf": 0,
+          "dew_point": 24.13
+        },
+        "weather": [
+          {
+            "id": 500,
+            "main": "Rain",
+            "description": "light rain",
+            "icon": "10d"
+          }
+        ],
+        "clouds": {
+          "all": 100
+        },
+        "wind": {
+          "speed": 3.52,
+          "deg": 281,
+          "gust": 6.02
+        },
+        "visibility": 10000,
+        "pop": 0.99,
+        "rain": {
+          "3h": 1.53
+        },
+        "sys": {
+          "pod": "d"
+        },
+        "dt_txt": "2026-08-21 03:00:00"
       }
     ],
     "city": {
@@ -1654,7 +1651,7 @@
   },
   "tomorrow": {
     "data": {
-      "time": "2026-08-16T02:35:00Z",
+      "time": "2026-08-16T03:30:00Z",
       "values": {
         "altimeterSetting": 1002.21,
         "cloudBase": 1.26,
@@ -1662,22 +1659,22 @@
         "cloudCover": 100,
         "dewPoint": 26.6,
         "freezingRainIntensity": 0,
-        "humidity": 87,
+        "humidity": 84,
         "precipitationProbability": 0,
-        "pressureSeaLevel": 999.79,
+        "pressureSeaLevel": 999.93,
         "pressureSurfaceLevel": 978.49,
         "rainIntensity": 0,
         "sleetIntensity": 0,
         "snowIntensity": 0,
-        "temperature": 28.51,
-        "temperatureApparent": 34.8,
-        "uvHealthConcern": 0,
-        "uvIndex": 2,
+        "temperature": 28.93,
+        "temperatureApparent": 35.5,
+        "uvHealthConcern": 1,
+        "uvIndex": 3,
         "visibility": 8.3,
         "weatherCode": 1001,
         "windDirection": 288,
         "windGust": 7,
-        "windSpeed": 0.8
+        "windSpeed": 0.9
       }
     },
     "location": {

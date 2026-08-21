@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-08-21T20:33:07Z",
-  "lastUpdatedIST": "2026-08-22 02:03:07 IST",
-  "timestamp": 1787344387,
+  "lastUpdated": "2026-08-21T20:55:37Z",
+  "lastUpdatedIST": "2026-08-22 02:25:37 IST",
+  "timestamp": 1787345737,
   "refreshInterval": "5 minutes",
   "source": "GitHub Actions",
   "openweather": {
@@ -11,10 +11,10 @@
     },
     "weather": [
       {
-        "id": 803,
-        "main": "Clouds",
-        "description": "broken clouds",
-        "icon": "04n"
+        "id": 500,
+        "main": "Rain",
+        "description": "light rain",
+        "icon": "10n"
       }
     ],
     "base": "stations",
@@ -24,7 +24,7 @@
       "temp_min": 31,
       "temp_max": 31,
       "pressure": 1001,
-      "humidity": 77,
+      "humidity": 78,
       "sea_level": 1001,
       "grnd_level": 977
     },
@@ -34,10 +34,13 @@
       "deg": 151,
       "gust": 3.57
     },
+    "rain": {
+      "1h": 0.28
+    },
     "clouds": {
       "all": 69
     },
-    "dt": 1787344387,
+    "dt": 1787345736,
     "sys": {
       "type": 1,
       "id": 9161,
@@ -70,7 +73,7 @@
           "pm10": 36.44,
           "nh3": 3.94
         },
-        "dt": 1787344387
+        "dt": 1787345737
       }
     ]
   },
@@ -84,14 +87,14 @@
         "main": {
           "temp": 31,
           "feels_like": 38,
-          "temp_min": 30.57,
+          "temp_min": 30.56,
           "temp_max": 31,
           "pressure": 1001,
           "sea_level": 1001,
           "grnd_level": 977,
-          "humidity": 77,
-          "temp_kf": 0.43,
-          "dew_point": 26.49
+          "humidity": 78,
+          "temp_kf": 0.44,
+          "dew_point": 26.71
         },
         "weather": [
           {
@@ -122,16 +125,16 @@
       {
         "dt": 1787356800,
         "main": {
-          "temp": 30.6,
-          "feels_like": 37.6,
-          "temp_min": 29.79,
-          "temp_max": 30.6,
+          "temp": 30.59,
+          "feels_like": 37.59,
+          "temp_min": 29.76,
+          "temp_max": 30.59,
           "pressure": 1001,
           "sea_level": 1001,
           "grnd_level": 977,
-          "humidity": 75,
-          "temp_kf": 0.81,
-          "dew_point": 25.66
+          "humidity": 76,
+          "temp_kf": 0.83,
+          "dew_point": 25.87
         },
         "weather": [
           {
@@ -160,15 +163,15 @@
         "dt": 1787367600,
         "main": {
           "temp": 31.37,
-          "feels_like": 36.48,
+          "feels_like": 36.76,
           "temp_min": 31.37,
           "temp_max": 31.56,
           "pressure": 1002,
           "sea_level": 1002,
           "grnd_level": 978,
-          "humidity": 63,
+          "humidity": 64,
           "temp_kf": -0.19,
-          "dew_point": 23.48
+          "dew_point": 23.74
         },
         "weather": [
           {
@@ -1603,29 +1606,29 @@
   },
   "tomorrow": {
     "data": {
-      "time": "2026-08-21T20:33:00Z",
+      "time": "2026-08-21T20:55:00Z",
       "values": {
-        "altimeterSetting": 1002.27,
-        "cloudBase": 3.62,
-        "cloudCeiling": 5.1,
-        "cloudCover": 59.36,
-        "dewPoint": 28.6,
+        "altimeterSetting": 1002.29,
+        "cloudBase": 0.44,
+        "cloudCeiling": null,
+        "cloudCover": 65.39,
+        "dewPoint": 28.9,
         "freezingRainIntensity": 0,
         "humidity": 99,
-        "precipitationProbability": 50,
-        "pressureSeaLevel": 999.62,
-        "pressureSurfaceLevel": 978.02,
-        "rainIntensity": 0.22,
+        "precipitationProbability": 100,
+        "pressureSeaLevel": 999.02,
+        "pressureSurfaceLevel": 978.04,
+        "rainIntensity": 1.48,
         "sleetIntensity": 0,
         "snowIntensity": 0,
-        "temperature": 28.77,
-        "temperatureApparent": 38.5,
+        "temperature": 29.09,
+        "temperatureApparent": 39.8,
         "uvHealthConcern": 0,
         "uvIndex": 0,
-        "visibility": 7.9,
-        "weatherCode": 1101,
-        "windDirection": 212,
-        "windGust": 1.2,
+        "visibility": 4.3,
+        "weatherCode": 4200,
+        "windDirection": 205,
+        "windGust": 6.7,
         "windSpeed": 0
       }
     },

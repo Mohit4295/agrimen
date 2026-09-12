@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-09-12T19:53:07Z",
-  "lastUpdatedIST": "2026-09-13 01:23:07 IST",
-  "timestamp": 1789242787,
+  "lastUpdated": "2026-09-12T21:53:49Z",
+  "lastUpdatedIST": "2026-09-13 03:23:49 IST",
+  "timestamp": 1789250029,
   "refreshInterval": "5 minutes",
   "source": "GitHub Actions",
   "openweather": {
@@ -11,33 +11,36 @@
     },
     "weather": [
       {
-        "id": 801,
-        "main": "Clouds",
-        "description": "few clouds",
-        "icon": "02n"
+        "id": 500,
+        "main": "Rain",
+        "description": "light rain",
+        "icon": "10n"
       }
     ],
     "base": "stations",
     "main": {
       "temp": 28,
-      "feels_like": 32.57,
+      "feels_like": 32.73,
       "temp_min": 28,
       "temp_max": 28,
       "pressure": 1009,
-      "humidity": 83,
+      "humidity": 84,
       "sea_level": 1009,
       "grnd_level": 984
     },
     "visibility": 10000,
     "wind": {
-      "speed": 2.63,
-      "deg": 105,
-      "gust": 5.38
+      "speed": 2.81,
+      "deg": 101,
+      "gust": 6.34
+    },
+    "rain": {
+      "1h": 0.17
     },
     "clouds": {
-      "all": 17
+      "all": 12
     },
-    "dt": 1789242786,
+    "dt": 1789250029,
     "sys": {
       "type": 1,
       "id": 9161,
@@ -61,16 +64,16 @@
           "aqi": 3
         },
         "components": {
-          "co": 326.71,
+          "co": 302.67,
           "no": 0,
-          "no2": 4.78,
-          "o3": 64.98,
-          "so2": 3.45,
-          "pm2_5": 34.29,
-          "pm10": 39.5,
-          "nh3": 1.06
+          "no2": 4.03,
+          "o3": 58.5,
+          "so2": 4.54,
+          "pm2_5": 32.66,
+          "pm10": 37.91,
+          "nh3": 0.76
         },
-        "dt": 1789242786
+        "dt": 1789250029
       }
     ]
   },
@@ -80,55 +83,18 @@
     "cnt": 40,
     "list": [
       {
-        "dt": 1789246800,
-        "main": {
-          "temp": 28,
-          "feels_like": 32.41,
-          "temp_min": 27.71,
-          "temp_max": 28,
-          "pressure": 1009,
-          "sea_level": 1009,
-          "grnd_level": 984,
-          "humidity": 82,
-          "temp_kf": 0.29,
-          "dew_point": 24.64
-        },
-        "weather": [
-          {
-            "id": 801,
-            "main": "Clouds",
-            "description": "few clouds",
-            "icon": "02n"
-          }
-        ],
-        "clouds": {
-          "all": 12
-        },
-        "wind": {
-          "speed": 2.71,
-          "deg": 104,
-          "gust": 5.67
-        },
-        "visibility": 10000,
-        "pop": 0.45,
-        "sys": {
-          "pod": "n"
-        },
-        "dt_txt": "2026-09-12 21:00:00"
-      },
-      {
         "dt": 1789257600,
         "main": {
           "temp": 27.61,
-          "feels_like": 31.41,
-          "temp_min": 26.84,
+          "feels_like": 31.82,
+          "temp_min": 26.82,
           "temp_max": 27.61,
           "pressure": 1009,
           "sea_level": 1009,
           "grnd_level": 985,
-          "humidity": 82,
-          "temp_kf": 0.77,
-          "dew_point": 24.26
+          "humidity": 85,
+          "temp_kf": 0.79,
+          "dew_point": 24.86
         },
         "weather": [
           {
@@ -160,15 +126,15 @@
         "dt": 1789268400,
         "main": {
           "temp": 28.55,
-          "feels_like": 32.79,
+          "feels_like": 32.96,
           "temp_min": 28.55,
           "temp_max": 28.83,
           "pressure": 1010,
           "sea_level": 1010,
           "grnd_level": 987,
-          "humidity": 76,
+          "humidity": 77,
           "temp_kf": -0.28,
-          "dew_point": 23.9
+          "dew_point": 24.12
         },
         "weather": [
           {
@@ -1588,6 +1554,46 @@
           "pod": "n"
         },
         "dt_txt": "2026-09-17 18:00:00"
+      },
+      {
+        "dt": 1789678800,
+        "main": {
+          "temp": 28.86,
+          "feels_like": 30.8,
+          "temp_min": 28.86,
+          "temp_max": 28.86,
+          "pressure": 1005,
+          "sea_level": 1005,
+          "grnd_level": 981,
+          "humidity": 60,
+          "temp_kf": 0,
+          "dew_point": 20.37
+        },
+        "weather": [
+          {
+            "id": 500,
+            "main": "Rain",
+            "description": "light rain",
+            "icon": "10n"
+          }
+        ],
+        "clouds": {
+          "all": 0
+        },
+        "wind": {
+          "speed": 1.12,
+          "deg": 316,
+          "gust": 1.79
+        },
+        "visibility": 10000,
+        "pop": 0.29,
+        "rain": {
+          "3h": 0.3
+        },
+        "sys": {
+          "pod": "n"
+        },
+        "dt_txt": "2026-09-17 21:00:00"
       }
     ],
     "city": {
@@ -1606,30 +1612,30 @@
   },
   "tomorrow": {
     "data": {
-      "time": "2026-09-12T19:53:00Z",
+      "time": "2026-09-12T21:53:00Z",
       "values": {
-        "altimeterSetting": 1010.76,
-        "cloudBase": 1.13,
+        "altimeterSetting": 1010.08,
+        "cloudBase": null,
         "cloudCeiling": null,
-        "cloudCover": 0,
+        "cloudCover": 6.19,
         "dewPoint": 26.7,
         "freezingRainIntensity": 0,
-        "humidity": 96,
+        "humidity": 99,
         "precipitationProbability": 0,
-        "pressureSeaLevel": 1008.41,
-        "pressureSurfaceLevel": 986.34,
+        "pressureSeaLevel": 1007.87,
+        "pressureSurfaceLevel": 985.68,
         "rainIntensity": 0,
         "sleetIntensity": 0,
         "snowIntensity": 0,
-        "temperature": 27.52,
-        "temperatureApparent": 33.1,
+        "temperature": 26.94,
+        "temperatureApparent": 31.5,
         "uvHealthConcern": 0,
         "uvIndex": 0,
-        "visibility": 6.9,
+        "visibility": 6.6,
         "weatherCode": 1000,
-        "windDirection": 86,
-        "windGust": 4.2,
-        "windSpeed": 0.6
+        "windDirection": 84,
+        "windGust": 4.3,
+        "windSpeed": 0.4
       }
     },
     "location": {
